@@ -1,0 +1,115 @@
+<template>
+<!-- wxml -->
+  <view>
+    <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist5 }}" bindchange='typechange'/>
+  </view>
+  <view class="flex-wrp-row">
+    <text class="textt">真实姓名：</text><input placeholder="请输入您的真实姓名" type="text" class='item-right flex-wrp-row'/>
+  </view>
+  <view class="flex-wrp-row">
+    <text class="textt">真实姓名：</text><input placeholder="请输入您的真实姓名" type="text" class='item-right flex-wrp-row'/>
+  </view>
+
+  <view hidden="{{showt}}" id="t">
+    <view class="flex-wrp-row">
+      <text class="textt">教师模块</text>
+    </view>
+  </view>
+
+  <view hidden="{{shows}}" id="s">
+    <view class="flex-wrp-row">
+      <text class="textt">学生模块</text>
+    </view>
+  </view>
+
+  <view hidden="{{showp}}" id="p">
+    <view class="flex-wrp-row">
+      <text class="textt">家长模块</text>
+    </view>
+  </view>
+</template>
+
+<script>
+//js
+export default {
+  config: {//json
+    navigationBarTitleText: '注册'
+  },
+  data: {
+    openid:null,
+    showt:true,
+    shows:false,
+    showp:true,
+    userType:3,//0:超级管理员 1:管理员 2:教师 3:学生 4:家长
+    countryList: ['教师', '学生', '家长'],
+    checklist5: ['学生']
+  },
+  onLoad: function (res) {
+    console.log(res.openid)
+    this.setData({
+      openid:res.openid
+    })
+  },
+  typechange(e){
+    console.log(e);
+    if(e.detail.value[0] == '教师'){
+      var that = this;
+      this.data.userType = 2;
+      this.data.showt = false;
+      this.data.shows = true;
+      this.data.showp = true;
+      console.log(that)
+      console.log("教师"+this.data.userType);
+    }
+    if(e.detail.value[0] == '学生'){
+      this.data.userType = 3;
+      this.data.showt = true;
+      this.data.shows = false;
+      this.data.showp = true;
+      console.log(this.data.showt);
+      console.log(this.data.shows);
+      console.log(this.data.showp);
+      console.log("学生"+this.data.userType);
+    }
+    if(e.detail.value[0] == '家长'){
+      this.data.userType = 4;
+      this.data.showt = true;
+      this.data.shows = true;
+      this.data.showp = false;
+      console.log(this.data.showt);
+      console.log(this.data.shows);
+      console.log(this.data.showp);
+      console.log("家长"+this.data.userType);
+    }
+  }
+}
+</script>
+
+<style lang="less">
+//wxss
+.textt{
+  padding-top:8px;
+}
+/* 水平显示 */
+.flex-wrp-row {
+  display: flex;
+  flex-direction: row;
+  padding-left:7%;
+  padding-top:5px;
+}
+ 
+.item {
+  padding: 20rpx;
+  position: relative;
+}
+ 
+.item-left {
+   flex: 1; /* 重要 */
+   align-items:center;
+}
+ 
+.item-right {
+  position: relative;
+  align-items:center;
+}
+</style>

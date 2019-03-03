@@ -1,0 +1,44 @@
+/* 1像素解决方案 */
+/*
+ * 清除1px
+ */
+/*
+ * 清除浮动
+ */
+/*
+ * mobile
+ */
+/*
+ * 1px
+ */
+/*
+ * text
+ */
+/* 垂直居中 */
+/* 水平居中 */
+/* 水平垂直居中 */
+/* 超出部分出省略号 */
+/* 多行文本超出部分省略号 */
+.textt {
+  padding-top: 8px;
+}
+/* 水平显示 */
+.flex-wrp-row {
+  display: flex;
+  flex-direction: row;
+  padding-left: 7%;
+  padding-top: 5px;
+}
+.item {
+  padding: 20rpx;
+  position: relative;
+}
+.item-left {
+  flex: 1;
+  /* 重要 */
+  align-items: center;
+}
+.item-right {
+  position: relative;
+  align-items: center;
+}

@@ -1,39 +1,34 @@
 <template>
-  <view>
-    <page></page>
-  </view>
+  <page></page>
 </template>
 
 <script>
-  import system from './static/utils/system'
-  export default {
-    config: {
-      usingComponents: {
-      },
-      pages: [
-        'pages/home/index'
-      ],
-      window: {
-        backgroundTextStyle: 'dark',
-        backgroundColor: '#efefef',
-        navigationBarBackgroundColor: '#ffffff',
-        navigationBarTitleText: 'TouchUI',
-        navigationBarTextStyle: 'black'
-      },
-      networkTimeout: {
-        request: 10000
-      },
-      theme: {
-        'theme-color': '#39f'
-      }
+import system from './static/utils/system'
+export default {
+  config: {
+    usingComponents: {},
+    pages: ['pages/home/index', 'pages/home/register'],
+    window: {
+      backgroundTextStyle: 'dark',
+      backgroundColor: '#efefef',
+      navigationBarBackgroundColor: '#ffffff',
+      navigationBarTitleText: 'TouchUI',
+      navigationBarTextStyle: 'black'
     },
-    globalData: { },
-    onLaunch () { 
-      system.attachInfo()
+    networkTimeout: {
+      request: 10000
     },
-    onShow () { },
-    onHide () { }
-  }
+    theme: {
+      'theme-color': '#39f'
+    }
+  },
+  globalData: {},
+  onLaunch() {
+    system.attachInfo()
+  },
+  onShow() {},
+  onHide() {}
+}
 </script>
 
 <style lang="less">

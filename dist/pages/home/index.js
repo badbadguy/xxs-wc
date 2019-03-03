@@ -7,6 +7,7 @@ Page({
 
   onLoad: function () {
     var that = this;
+    var tempopenid;
     // 查看是否授权
     wx.getSetting({
       success: function (res) {
@@ -22,20 +23,20 @@ Page({
                     url: 'https://api.weixin.qq.com/sns/jscode2session?appid=wx53dac20eb7248329&secret=4f82e5b3b68c4a1d801d6cbf7430b895&js_code=' + res.code + '&grant_type=authorization_code',
                       success: res => {
                           // 获取到用户的 openid
-                          console.log("用户的openid:" + res.data.openid);
+                          tempopenid = res.data.openid;
                           wx.request({
                             url: 'http://47.106.213.157:9999/xxs/user/select',
                             data: {
-                              user_id: res.data.openid
+                              user_id: tempopenid
                             },
                             header: {
                               'content-type': 'application/json'
                             },
                             success: function (res) {
-                              console.log(res.data)
-                              console.log("根据openid查询到的用户数量：" + res.data.data.total)
                               if (res.data.data.total == 0){
-                                console.log("数据库中未存在该用户")
+                                wx.redirectTo({
+                                  url: '/pages/home/register?openid='+tempopenid,
+                                })
                               }else{
                                 console.log(res.data.data.list)
                               }

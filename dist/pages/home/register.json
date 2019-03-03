@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "ui-check-list": "../../packages/touchui-wx-components/ui-check-list/dist/index"
+  },
+  "navigationBarTitleText": "注册"
+}
