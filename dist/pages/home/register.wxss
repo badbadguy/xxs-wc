@@ -19,15 +19,19 @@
 /* 水平垂直居中 */
 /* 超出部分出省略号 */
 /* 多行文本超出部分省略号 */
-.textt {
+.row-flex {
   padding-top: 8px;
+  flex-direction: row;
+}
+.textt {
+  padding-top: 7px;
 }
 /* 水平显示 */
 .flex-wrp-row {
   display: flex;
   flex-direction: row;
   padding-left: 7%;
-  padding-top: 5px;
+  padding-top: 8px;
 }
 .item {
   padding: 20rpx;

@@ -1,5 +1,6 @@
 <template>
 <!-- wxml -->
+<view>
   <view>
     <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist5 }}" bindchange='typechange'/>
   </view>
@@ -10,23 +11,48 @@
     <text class="textt">真实姓名：</text><input placeholder="请输入您的真实姓名" type="text" class='item-right flex-wrp-row'/>
   </view>
 
-  <view hidden="{{showt}}" id="t">
-    <view class="flex-wrp-row">
-      <text class="textt">教师模块</text>
+  <view style="{{showt}}" id="t" bindtap="typechange">
+    <!-- 教师模块 -->
+    <view>
+      <view class="flex-wrp-row">
+        <text class="textt">电话：</text><input placeholder="请输入您的电话号码" type="text" class='item-right flex-wrp-row'/>
+      </view>
+      <view class="flex-wrp-row">
+        <text class="textt">住址：</text><input placeholder="请输入您的住址" type="text" class='item-right flex-wrp-row'/>
+      </view>
     </view>
+
+      <view class="flex-wrp-row">
+         <picker
+          mode="multiSelector"
+          bindchange="bindMultiPickerChange"
+          bindcolumnchange="bindMultiPickerColumnChange"
+          value="{{multiIndex}}"
+          range="{{multiArray}}"
+        >
+          <view class="picker">
+            当前选择：{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}
+          </view>
+        </picker>
+        <view style="{{addbutton}}"><button bindtap="addclassx">增加</button></view>
+      </view>
+
   </view>
 
-  <view hidden="{{shows}}" id="s">
-    <view class="flex-wrp-row">
-      <text class="textt">学生模块</text>
-    </view>
+  <view style="{{shows}}" id="s" bindtap="typechange">
+    <!-- 学生模块 -->
+    <text class="textt">家庭地址：</text><input placeholder="请输入您的真实姓名" type="text" class='item-right flex-wrp-row'/>
+    <text class="textt">所在班级：</text><input placeholder="请输入您的真实姓名" type="text" class='item-right flex-wrp-row'/>
+    <text class="textt">备注：</text><input placeholder="请输入您的真实姓名" type="text" class='item-right flex-wrp-row'/>
   </view>
 
-  <view hidden="{{showp}}" id="p">
-    <view class="flex-wrp-row">
-      <text class="textt">家长模块</text>
-    </view>
+  <view style="{{showp}}" id="p" bindtap="typechange">
+    <!-- 家长模块 -->
+    <text class="textt">电话：</text><input placeholder="请输入您的真实姓名" type="text" class='item-right flex-wrp-row'/>
+    <text class="textt">家长类别(0:妈妈 1:爸爸)：</text><input placeholder="请输入您的真实姓名" type="text" class='item-right flex-wrp-row'/>
+    <text class="textt">备注：</text><input placeholder="请输入您的真实姓名" type="text" class='item-right flex-wrp-row'/>
   </view>
+</view>
 </template>
 
 <script>
@@ -37,49 +63,131 @@ export default {
   },
   data: {
     openid:null,
-    showt:true,
-    shows:false,
-    showp:true,
+    showt:"display:none",
+    shows:"",
+    showp:"display:none",
+    addbutton:"display:none",
     userType:3,//0:超级管理员 1:管理员 2:教师 3:学生 4:家长
     countryList: ['教师', '学生', '家长'],
-    checklist5: ['学生']
+    checklist5: ['学生'],
+    multiArray: [['一年级', '二年级','三年级'], ['一班','二班','三班']],
+    objectMultiArray: [
+      [
+        {
+          id: 0,
+          name: '一年级'
+        },
+        {
+          id: 1,
+          name: '二年级'
+        },
+        {
+          id: 2,
+          name: '三年级'
+        }
+      ], [
+        {
+          id: 0,
+          name: '一班'
+        },
+        {
+          id: 1,
+          name: '二班'
+        },
+        {
+          id: 2,
+          name: '三班'
+        }
+      ]
+    ],
+    addclass:"",
+    tempclass:"",
+    addclsscn:"",
+    multiIndex: [0, 0],
+  },
+  addclassx: function(e){
+    var that = this;
+    this.setData({
+      addclass: that.data.addclass + that.data.tempclass + "~"
+    });
+    var i = 0;
+    for(;i<that.data.addclass.split("~").length-1;i++){
+      console.log(i)
+      this.setData({
+        addclsscn: that.data.addclsscn + that.data.addclass.split("~")[i].split(",")[0] + 1 + "年级" + that.data.addclass.split("~")[i].split(",")[1] + 1  + "班级"
+      });
+    }
+    console.log(that.data.addclsscn);
+  },
+  bindMultiPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      multiIndex: e.detail.value,
+      tempclass: e.detail.value,
+      addbutton: ""
+    })
+  },
+  bindMultiPickerColumnChange: function (e) {
+    console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+    var data = {
+      multiArray: this.data.multiArray,
+      multiIndex: this.data.multiIndex
+    };
+    data.multiIndex[e.detail.column] = e.detail.value;
+    switch (e.detail.column) {
+      case 0:
+        switch (data.multiIndex[0]) {
+          case 0:
+            data.multiArray[1] = ['一班', '二班', '三班'];
+            break;
+          case 1:
+            data.multiArray[1] = ['一班', '二班', '三班'];
+            break;
+          case 2:
+            data.multiArray[1] = ['一班', '二班', '三班'];
+            break;
+        }
+        data.multiIndex[1] = 0;
+        data.multiIndex[2] = 0;
+        break;
+
+        }
+
+
+    this.setData(data);
   },
   onLoad: function (res) {
-    console.log(res.openid)
     this.setData({
-      openid:res.openid
+      openid:res.openid,
+      show1:""
     })
   },
   typechange(e){
-    console.log(e);
+    if(e.type != "change")
+      return
     if(e.detail.value[0] == '教师'){
-      var that = this;
-      this.data.userType = 2;
-      this.data.showt = false;
-      this.data.shows = true;
-      this.data.showp = true;
-      console.log(that)
-      console.log("教师"+this.data.userType);
+      this.setData({
+        userType:2,
+        showt:"",
+        shows:"display:none",
+        showp:"display:none"
+      })      
     }
     if(e.detail.value[0] == '学生'){
-      this.data.userType = 3;
-      this.data.showt = true;
-      this.data.shows = false;
-      this.data.showp = true;
-      console.log(this.data.showt);
-      console.log(this.data.shows);
-      console.log(this.data.showp);
-      console.log("学生"+this.data.userType);
+      this.setData({
+        userType:3,
+        showt:"display:none",
+        shows:"",
+        showp:"display:none"
+      })
     }
     if(e.detail.value[0] == '家长'){
-      this.data.userType = 4;
-      this.data.showt = true;
-      this.data.shows = true;
-      this.data.showp = false;
-      console.log(this.data.showt);
-      console.log(this.data.shows);
-      console.log(this.data.showp);
-      console.log("家长"+this.data.userType);
+      this.setData({
+        userType:4,
+        showt:"display:none",
+        shows:"display:none",
+        showp:""
+      })
     }
   }
 }
@@ -87,15 +195,19 @@ export default {
 
 <style lang="less">
 //wxss
-.textt{
+.row-flex{
   padding-top:8px;
+  flex-direction: row;
+}
+.textt{
+  padding-top:7px;
 }
 /* 水平显示 */
 .flex-wrp-row {
   display: flex;
   flex-direction: row;
   padding-left:7%;
-  padding-top:5px;
+  padding-top:8px;
 }
  
 .item {

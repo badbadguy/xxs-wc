@@ -1,29 +1,49 @@
 <!-- wxml -->
 <view>
-  <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist5 }}" bindchange="typechange" _pid="{{_pid}}">
-  </ui-check-list>
-</view>
-<view class="flex-wrp-row">
-  <text class="textt">真实姓名：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
-</view>
-<view class="flex-wrp-row">
-  <text class="textt">真实姓名：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
-</view>
-
-<view hidden="{{showt}}" id="t">
-  <view class="flex-wrp-row">
-    <text class="textt">教师模块</text>
+  <view>
+    <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist5 }}" bindchange="typechange" _pid="{{_pid}}">
+    </ui-check-list>
   </view>
-</view>
-
-<view hidden="{{shows}}" id="s">
   <view class="flex-wrp-row">
-    <text class="textt">学生模块</text>
+    <text class="textt">真实姓名：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
   </view>
-</view>
-
-<view hidden="{{showp}}" id="p">
   <view class="flex-wrp-row">
-    <text class="textt">家长模块</text>
+    <text class="textt">真实姓名：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
+  </view>
+
+  <view style="{{showt}}" id="t" bindtap="typechange">
+    <!-- 教师模块 -->
+    <view>
+      <view class="flex-wrp-row">
+        <text class="textt">电话：</text><input placeholder="请输入您的电话号码" type="text" class="item-right flex-wrp-row"></input>
+      </view>
+      <view class="flex-wrp-row">
+        <text class="textt">住址：</text><input placeholder="请输入您的住址" type="text" class="item-right flex-wrp-row"></input>
+      </view>
+    </view>
+
+    <view class="flex-wrp-row">
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+        <view class="picker">
+          当前选择：{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}
+        </view>
+      </picker>
+      <view style="{{addbutton}}"><button bindtap="addclassx">增加</button></view>
+    </view>
+
+  </view>
+
+  <view style="{{shows}}" id="s" bindtap="typechange">
+    <!-- 学生模块 -->
+    <text class="textt">家庭地址：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
+    <text class="textt">所在班级：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
+    <text class="textt">备注：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
+  </view>
+
+  <view style="{{showp}}" id="p" bindtap="typechange">
+    <!-- 家长模块 -->
+    <text class="textt">电话：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
+    <text class="textt">家长类别(0:妈妈 1:爸爸)：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
+    <text class="textt">备注：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
   </view>
 </view>

@@ -4,10 +4,43 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isHide: false
   },
+  goLogined: function(res){
+    var tempopenid;
+    wx.login({
+      success: res => {
+        wx.request({
+          // 根据code获取openid
+          url: 'https://api.weixin.qq.com/sns/jscode2session?appid=wx53dac20eb7248329&secret=4f82e5b3b68c4a1d801d6cbf7430b895&js_code=' + res.code + '&grant_type=authorization_code',
+          success: res => {
+            // 获取到用户的 openid
+            tempopenid = res.data.openid;
+            wx.request({
+              url: 'http://47.106.213.157:9999/xxs/user/select',
+              data: {
+                user_id: tempopenid
+              },
+              header: {
+                'content-type': 'application/json'
+              },
+              success: function (res) {
+                if (res.data.data.total == 0) {
+                  wx.redirectTo({
+                    url: '/pages/home/register?openid=' + tempopenid,
+                  })
+                } else {
+                  console.log(res.data.data.list)
+                }
+              }
+            })
+          }
+        });
+      }
+    });
+  }
+  ,
 
   onLoad: function () {
     var that = this;
-    var tempopenid;
     // 查看是否授权
     wx.getSetting({
       success: function (res) {
@@ -16,36 +49,7 @@ Page({
             success: function (res) {
               // 用户已经授权过,不需要显示授权页面,所以不需要改变 isHide 的值
               // 调用微信的wx.login接口获取code
-              wx.login({
-                success: res => {
-                  wx.request({
-                      // 根据code获取openid
-                    url: 'https://api.weixin.qq.com/sns/jscode2session?appid=wx53dac20eb7248329&secret=4f82e5b3b68c4a1d801d6cbf7430b895&js_code=' + res.code + '&grant_type=authorization_code',
-                      success: res => {
-                          // 获取到用户的 openid
-                          tempopenid = res.data.openid;
-                          wx.request({
-                            url: 'http://47.106.213.157:9999/xxs/user/select',
-                            data: {
-                              user_id: tempopenid
-                            },
-                            header: {
-                              'content-type': 'application/json'
-                            },
-                            success: function (res) {
-                              if (res.data.data.total == 0){
-                                wx.redirectTo({
-                                  url: '/pages/home/register?openid='+tempopenid,
-                                })
-                              }else{
-                                console.log(res.data.data.list)
-                              }
-                            }
-                          })
-                      }
-                  });
-                }
-              });
+              that.goLogined(res);
             }
           });
         } else {
@@ -63,12 +67,14 @@ Page({
     if (e.detail.userInfo) {
       //用户按了允许授权按钮
       var that = this;
-      // 获取到用户的信息了，打印到控制台上看下
-      console.log("用户的信息如下：");
-      console.log(e.detail.userInfo);
       //授权成功后,通过改变 isHide 的值，让实现页面显示出来，把授权页面隐藏起来
       that.setData({
         isHide: false
+      });
+      wx.getUserInfo({
+        success: function (res) {
+          that.goLogined(res);
+        }
       });
     } else {
       //用户按了拒绝按钮
