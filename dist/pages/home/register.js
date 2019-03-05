@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -7,6 +7,10 @@ Object.defineProperty(exports, "__esModule", {
 var list = [];
 exports.default = Page({
   data: {
+    showtest: false,
+    datatest: [],
+    titletest: "请选择",
+
     openid: null,
     showt: "display:none",
     shows: "",
@@ -15,31 +19,85 @@ exports.default = Page({
     userType: 3, //0:超级管理员 1:管理员 2:教师 3:学生 4:家长
     countryList: ['教师', '学生', '家长'],
     checklist5: ['学生'],
-    multiArray: [['一年级', '二年级', '三年级'], ['一班', '二班', '三班']],
-    objectMultiArray: [[{
-      id: 0,
-      name: '一年级'
-    }, {
-      id: 1,
-      name: '二年级'
-    }, {
-      id: 2,
-      name: '三年级'
-    }], [{
-      id: 0,
-      name: '一班'
-    }, {
-      id: 1,
-      name: '二班'
-    }, {
-      id: 2,
-      name: '三班'
-    }]],
+    multiArray: [],
+    objectMultiArray: [],
     addclass: "",
     tempclass: "",
     addclsscn: "",
     multiIndex: [0, 0]
   },
+
+  onReady: function onReady() {
+    console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+    this.setData({
+      datatest: [{
+        name: '美食',
+        value: 'food',
+        children: [{
+          name: '火锅',
+          value: 'chafing dish',
+          children: [{ name: '川味火锅', value: 'SiChuan chafing dish' }, { name: '老北京火锅', value: 'Beijing chafing dish' }, { name: '牛肉火锅', value: 'Beef chafing dish' }]
+        }, {
+          name: '西餐',
+          value: 'western food',
+          children: [{ name: '意大利菜', value: 'Italy food' }, { name: '法国菜', value: 'France food' }, { name: '汉堡', value: 'Hamburg' }]
+        }]
+      }, {
+        name: '旅游',
+        value: 'tour',
+        children: [{
+          name: '周边游',
+          value: 'tour around',
+          children: [{ name: '景点', value: 'Scenic spot' }, { name: '公园', value: 'Park' }, { name: '名胜古迹', value: 'Historical sites' }]
+        }, {
+          name: '海外游',
+          value: 'tour aboard',
+          children: [{ name: '美国游', value: 'American tour' }, { name: '欧洲游', value: 'Europe tour' }, { name: '东南亚游', value: 'Southease Asia tour' }]
+        }]
+      }, {
+        name: '旅游',
+        value: 'tour',
+        children: [{
+          name: '周边游',
+          value: 'tour around',
+          children: [{ name: '景点', value: 'Scenic spot' }, { name: '公园', value: 'Park' }, { name: '名胜古迹', value: 'Historical sites' }]
+        }, {
+          name: '海外游',
+          value: 'tour aboard',
+          children: [{ name: '美国游', value: 'American tour' }, { name: '欧洲游', value: 'Europe tour' }, { name: '东南亚游', value: 'Southease Asia tour' }]
+        }]
+      }, {
+        name: '旅游',
+        value: 'tour',
+        children: [{
+          name: '周边游',
+          value: 'tour around',
+          children: [{ name: '景点', value: 'Scenic spot' }, { name: '公园', value: 'Park' }, { name: '名胜古迹', value: 'Historical sites' }]
+        }, {
+          name: '海外游',
+          value: 'tour aboard',
+          children: [{ name: '美国游', value: 'American tour' }, { name: '欧洲游', value: 'Europe tour' }, { name: '东南亚游', value: 'Southease Asia tour' }]
+        }]
+      }]
+    });
+  },
+  handleselectedtest: function handleselected1(e) {
+    var data = e.detail;
+    this.data.titletest = "";
+    for (var i = 0; i < data.length; i++) {
+      this.data.titletest += data[i].name + ' ';
+    }
+    this.setData({
+      showtest: false,
+      titletest: this.data.titletest
+    });
+  },
+  showPoptest: function showPop1() {
+    this.setData({
+      showtest: true
+    });
+  },
+
   delclassx: function delclassx(e) {
     this.setData({
       addclass: "",
@@ -128,6 +186,58 @@ exports.default = Page({
     this.setData(data);
   },
   onLoad: function onLoad(res) {
+    var that = this;
+    var tempx = [];
+    var tempxx = [];
+    wx.request({
+      url: 'http://localhost:9999/class/checkclass',
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function success(res) {
+        console.log(res);
+        var tempn = "";
+        var tempb = "";
+        for (var i = 0; i >= res.data.resultList.length; i++) {
+          switch (parseInt(res.data.resultList[i].name)) {
+            case 0:
+              tempn = "一";break;
+            case 1:
+              tempn = "二";break;
+            case 2:
+              tempn = "三";break;
+            case 3:
+              tempn = "四";break;
+            case 4:
+              tempn = "五";break;
+            case 5:
+              tempn = "六";break;
+          }
+          switch (parseInt(res.data.data[i].name)) {
+            case 0:
+              tempb = "一";break;
+            case 1:
+              tempb = "二";break;
+            case 2:
+              tempb = "三";break;
+            case 3:
+              tempb = "四";break;
+            case 4:
+              tempb = "五";break;
+            case 5:
+              tempb = "六";break;
+          }
+          that.setData({
+            multiArray: []
+          });
+        }
+        that.setData({
+          objectMultiArray: [res.data.resultList, res.data.data],
+          multiArray: []
+        });
+      }
+    });
     this.setData({
       openid: res.openid,
       show1: ""

@@ -1,0 +1,40 @@
+<view>
+  <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}" _pid="{{_pid}}">
+    <view class="ui-row" style="height:46px;">
+      <view bindtap="navigateBack" class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+        <view class="ui-col-content align-center valign-middle">
+          <span type="arrow-left" size="16" color="#333" class="ui-icon icon-arrow-left" style="color: #333;font-size: 16px;"></span>
+        </view>
+      </view>
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="">
+        <view class="ui-col-content align-center valign-middle">
+          <view>信息录入</view>
+        </view>
+      </view>
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+        <view class="ui-col-content align-center valign-middle">
+
+        </view>
+      </view>
+    </view>
+  </ui-nav-bar>
+  <view style="height:{{NAV_HEIGHT}}"></view>
+
+
+  <view class="sample_title">班级：</view>
+  <view class="ui-row ui-row-border-top ui-row-border-bottom" style="height:40px;">
+    <view class="ui-col ui-col-3 ui-col-align-right align-right valign-middle" style="flex: 0 0 25%;padding-right: 10px;">
+      <view class="ui-col-content align-right valign-middle">
+        所在班级
+      </view>
+    </view>
+    <view bindtap="showPop1" class="ui-col ui-col-9 valign-middle" style="flex: 0 0 75%;">
+      <view class="ui-col-content valign-middle">
+        {{title1}}
+      </view>
+    </view>
+  </view>
+  <ui-popup show="{{show1}}" position="bottom" width="100%" height="300" _pid="{{_pid}}">
+    <ui-cascader data="{{data1}}" bindselected="handleselected1" _pid="{{_pid}}"></ui-cascader>
+  </ui-popup>
+</view>

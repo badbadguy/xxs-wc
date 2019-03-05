@@ -1,0 +1,1 @@
+<view class="ui-count-up" style="color:{{color}};{{selfNumberStyle}}">{{showNum}}</view>

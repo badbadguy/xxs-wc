@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/test/cascaderTest",
     "pages/home/register"
   ],
   "window": {

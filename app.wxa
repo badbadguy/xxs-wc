@@ -7,7 +7,7 @@ import system from './static/utils/system'
 export default {
   config: {
     usingComponents: {},
-    pages: ['pages/home/register'],//'pages/home/index'
+    pages: ['pages/test/cascaderTest', 'pages/home/register'], //'pages/home/index'
     window: {
       backgroundTextStyle: 'dark',
       backgroundColor: '#efefef',
