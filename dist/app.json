@@ -6,7 +6,7 @@
     "backgroundTextStyle": "dark",
     "backgroundColor": "#efefef",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "TouchUI",
+    "navigationBarTitleText": "小学生作业系统",
     "navigationBarTextStyle": "black"
   },
   "networkTimeout": {

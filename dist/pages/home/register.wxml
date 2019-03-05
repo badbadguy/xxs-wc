@@ -28,9 +28,10 @@
           当前选择：{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}
         </view>
       </picker>
-      <view style="{{addbutton}}"><button bindtap="addclassx">增加</button></view>
     </view>
-
+    <text>已选择班级：{{addclsscn}}</text>
+    <view style="{{addbutton}}"><button bindtap="addclassx">增加</button></view>
+    <view style="{{addbutton}}"><button bindtap="delclassx">清空</button></view>
   </view>
 
   <view style="{{shows}}" id="s" bindtap="typechange">
@@ -38,25 +39,6 @@
     <text class="textt">家庭地址：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
     <text class="textt">所在班级：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
     <text class="textt">备注：</text><input placeholder="请输入您的真实姓名" type="text" class="item-right flex-wrp-row"></input>
-
-
-    <view class="showPicker" bindtap="showPicker">MyPicker</view>
-    <cover-view class="{{ showPicker ? " .shade-container"="" :="" "hide-container"="" }}"="" wx:if="{{ firstShow }}">
-      <cover-view class="left-shade" bindtap="hidePicker"></cover-view>
-      <cover-view class="right-choose">
-        <cover-view class="button-container">
-          <cover-view class="cancal" bindtap="cancal">取消</cover-view>
-          <cover-view class="sure" bindtap="sure">确定</cover-view>
-        </cover-view>
-        <cover-view class="picker-container">
-          <cover-view class="picker-item {{ item.flag ? " picker-item-choose"="" :="" ""="" }}"="" wx:for="{{ chooseList }}" wx:key="index" wx:for-item="item" bindtap="chooseItem" data-value="{{ item.value }}">
-            {{ item.name }}
-          </cover-view>
-        </cover-view>
-      </cover-view>
-    </cover-view>
-
-
   </view>
 
   <view style="{{showp}}" id="p" bindtap="typechange">

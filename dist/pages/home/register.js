@@ -1,141 +1,12 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //js
 var list = [];
 exports.default = Page({
-  properties: {
-    chooseList: {
-      type: Array
-    },
-    multiple: {
-      type: Boolean
-    }
-  }, methods: {
-    // 点击picker元素事件	
-    chooseItem: function chooseItem(e) {
-      if (this.properties.multiple) {
-        // 多选事件
-        var val = e.target.dataset.value;
-        var arr = this.data.chooseList;
-        var flag = '';
-        var index = null;
-        for (var i = 0, len = arr.length; i < len; i++) {
-          if (arr[i].value == val) {
-            index = i;
-            flag = 'chooseList[' + i + '].flag';
-          }
-        }
-        if (!this.data.chooseList[index].flag) {
-          this.setData(_defineProperty({}, flag, true));
-        } else {
-          this.setData(_defineProperty({}, flag, false));
-        }
-      } else {
-        // 单选事件
-        var _val = e.target.dataset.value;
-        var _arr = this.data.chooseList;
-        var _flag = '';
-        var _index = null;
-        for (var _i = 0, _len = _arr.length; _i < _len; _i++) {
-          _index = _i;
-          _flag = 'chooseList[' + _i + '].flag';
-          if (_arr[_i].value == _val) {
-            this.setData(_defineProperty({}, _flag, true));
-          } else {
-            this.setData(_defineProperty({}, _flag, false));
-          }
-        }
-      }
-    },
-
-    // 展示picker
-    showPicker: function showPicker() {
-      if (!this.data.firstShow) {
-        this.setData({
-          firstShow: true
-        });
-      }
-      this.setData({
-        showPicker: true
-      });
-      // 加载时重新渲染已选择元素
-      var arr = this.data.chooseList;
-      var array = this.data.list;
-      var flag = '';
-      var index = null;
-      for (var i = 0, len = arr.length; i < len; i++) {
-        index = i;
-        flag = 'chooseList[' + i + '].flag';
-        if (!array.includes(arr[i].value)) {
-          this.setData(_defineProperty({}, flag, false));
-        } else {
-          this.setData(_defineProperty({}, flag, true));
-        }
-      }
-    },
-
-    // 隐藏picker
-    hidePicker: function hidePicker() {
-      this.setData({
-        showPicker: false
-      });
-    },
-
-    // 取消按钮事件
-    cancal: function cancal() {
-      this.hidePicker();
-    },
-
-    // 确定按钮事件
-    sure: function sure() {
-      list = [];
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = this.data.chooseList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var item = _step.value;
-
-          if (item.flag) {
-            list.push(item.value);
-          }
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
-      this.setData({
-        list: list
-      });
-      this.hidePicker();
-      this.triggerEvent('chooseEvent', {
-        chooseArray: this.data.list
-      });
-    }
-  },
   data: {
-    showPicker: false,
-    firstShow: false,
-    list: [],
-
     openid: null,
     showt: "display:none",
     shows: "",
@@ -169,18 +40,57 @@ exports.default = Page({
     addclsscn: "",
     multiIndex: [0, 0]
   },
+  delclassx: function delclassx(e) {
+    this.setData({
+      addclass: "",
+      addclsscn: ""
+    });
+  },
   addclassx: function addclassx(e) {
     var that = this;
     this.setData({
       addclass: that.data.addclass + that.data.tempclass + "~"
     });
     var i = 0;
+    var tempaddclass = "";
     for (; i < that.data.addclass.split("~").length - 1; i++) {
-      console.log(i);
-      this.setData({
-        addclsscn: that.data.addclsscn + that.data.addclass.split("~")[i].split(",")[0] + 1 + "年级" + that.data.addclass.split("~")[i].split(",")[1] + 1 + "班级"
-      });
+      var tempgrape = that.data.addclass.split("~")[i].split(",")[0];
+      var tempgrapec = "";
+      switch (parseInt(tempgrape)) {
+        case 0:
+          tempgrapec = "一";break;
+        case 1:
+          tempgrapec = "二";break;
+        case 2:
+          tempgrapec = "三";break;
+        case 3:
+          tempgrapec = "四";break;
+        case 4:
+          tempgrapec = "五";break;
+        case 5:
+          tempgrapec = "六";break;
+      };
+      var tempclass = that.data.addclass.split("~")[i].split(",")[1];
+      var tempclassc = "";
+      switch (parseInt(tempclass)) {
+        case 0:
+          tempclassc = "一";break;
+        case 1:
+          tempclassc = "二";break;
+        case 2:
+          tempclassc = "三";break;
+        case 3:
+          tempclassc = "四";break;
+        case 4:
+          tempclassc = "五";break;
+        case 5:
+          tempclassc = "六";break;
+      };
+      tempaddclass += tempgrapec + "年级" + tempclassc + "班  ";
     }
+    this.setData({
+      addclsscn: tempaddclass
+    });
     console.log(that.data.addclsscn);
   },
   bindMultiPickerChange: function bindMultiPickerChange(e) {
@@ -214,9 +124,7 @@ exports.default = Page({
         data.multiIndex[1] = 0;
         data.multiIndex[2] = 0;
         break;
-
     }
-
     this.setData(data);
   },
   onLoad: function onLoad(res) {
