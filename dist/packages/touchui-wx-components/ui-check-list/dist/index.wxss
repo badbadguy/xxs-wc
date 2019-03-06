@@ -102,8 +102,8 @@
   border-color: #eff2f7;
 }
 .ui-checkbox-inner.is-checked {
-  background-color: #39f;
-  border-color: #39f;
+  background-color: #3399ff;
+  border-color: #3399ff;
 }
 .ui-checkbox-inner.is-checked .ui-checkbox__check {
   border-color: #fff;
@@ -122,7 +122,7 @@
   background-color: transparent;
 }
 .ui-checkbox-inner.ui-checkbox-inner__plain.is-checked .ui-checkbox__check {
-  border-color: #39f;
+  border-color: #3399ff;
 }
 .ui-checkbox__check {
   box-sizing: content-box;

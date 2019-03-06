@@ -1,40 +1,88 @@
 <view>
-  <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}" _pid="{{_pid}}">
-    <view class="ui-row" style="height:46px;">
-      <view bindtap="navigateBack" class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
-        <view class="ui-col-content align-center valign-middle">
-          <span type="arrow-left" size="16" color="#333" class="ui-icon icon-arrow-left" style="color: #333;font-size: 16px;"></span>
+  <view>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}" _pid="{{_pid}}">
+      <view class="ui-row" style="height:46px;">
+        <view class="ui-col ui-col-align-center align-center valign-middle" style="">
+          <view class="ui-col-content align-center valign-middle">
+            <view><text>信息录入</text></view>
+          </view>
         </view>
       </view>
-      <view class="ui-col ui-col-align-center align-center valign-middle" style="">
-        <view class="ui-col-content align-center valign-middle">
-          <view>信息录入</view>
-        </view>
-      </view>
-      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
-        <view class="ui-col-content align-center valign-middle">
+    </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
 
-        </view>
-      </view>
+    <!-- 公用模块 -->
+    <view>
+      <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist }}" bindchange="typechange" _pid="{{_pid}}">
+      </ui-check-list>
     </view>
-  </ui-nav-bar>
-  <view style="height:{{NAV_HEIGHT}}"></view>
-
-
-  <view class="sample_title">班级：</view>
-  <view class="ui-row ui-row-border-top ui-row-border-bottom" style="height:40px;">
-    <view class="ui-col ui-col-3 ui-col-align-right align-right valign-middle" style="flex: 0 0 25%;padding-right: 10px;">
-      <view class="ui-col-content align-right valign-middle">
-        所在班级
-      </view>
+    <view class="flex-wrp-row">
+      <text class="textt">真实姓名：</text><input placeholder="请输入您的真实姓名" id="name" type="text" class="item-right flex-wrp-row" bindblur="getText"></input>
     </view>
-    <view bindtap="showPop1" class="ui-col ui-col-9 valign-middle" style="flex: 0 0 75%;">
-      <view class="ui-col-content valign-middle">
-        {{title1}}
+    <view class="flex-wrp-row"><text class="textt">家庭地址：</text></view>
+    <view style="padding-left:7%;padding-top:8px;padding-right:7%;">
+      <!--绑定输入事件-->
+      <input style="border:1px solid black;" bindinput="getsuggest" value="{{backfill}}"></input>
+    </view>
+    <!--关键词输入提示列表渲染-->
+    <view wx:for="{{suggestion}}" wx:key="index">
+      <!--绑定回填事件-->
+      <view>
+        <!--根据需求渲染相应数据-->
+        <!--渲染地址title-->
+        <view style="text-align:center;" bindtap="backfill" id="{{index}}">{{item.title}}</view>
+        <!--渲染详细地址-->
+        <view style="font-size:12px;color:#666;text-align:center;">{{item.addr}}</view>
       </view>
     </view>
   </view>
-  <ui-popup show="{{show1}}" position="bottom" width="100%" height="300" _pid="{{_pid}}">
-    <ui-cascader data="{{data1}}" bindselected="handleselected1" _pid="{{_pid}}"></ui-cascader>
-  </ui-popup>
+
+
+  <!-- 教师模块 -->
+  <view style="{{showt}}" id="t">
+    <view>
+      <view class="flex-wrp-row">
+        <text class="textt">电话：</text><input placeholder="请输入您的电话号码" id="tphone" type="number" class="item-right flex-wrp-row" bindblur="getText"></input>
+      </view>
+      <view class="flex-wrp-row">
+        <text class="textt">备注：</text><input placeholder="如果需要的话，请输入备注" id="tremark" type="text" class="item-right flex-wrp-row" bindblur="getText"></input>
+      </view>
+    </view>
+  </view>
+
+  <!-- 学生模块 -->
+  <view style="{{shows}}" id="s">
+    <view class="flex-wrp-row"><text class="textt">班级：</text></view>
+    <view class="ui-row ui-row-border-top ui-row-border-bottom" style="height:40px;">
+      <view class="ui-col ui-col-3 ui-col-align-right align-right valign-middle" style="flex: 0 0 25%;padding-right: 10px;">
+        <view class="ui-col-content align-right valign-middle">
+          所在班级
+        </view>
+      </view>
+      <view bindtap="showPop1" class="ui-col ui-col-9 valign-middle" style="flex: 0 0 75%;">
+        <view class="ui-col-content valign-middle">
+          {{title1}}
+        </view>
+      </view>
+    </view>
+    <ui-popup show="{{show1}}" position="bottom" width="100%" height="300" _pid="{{_pid}}">
+      <ui-cascader data="{{data1}}" bindselected="handleselected1" _pid="{{_pid}}"></ui-cascader>
+    </ui-popup>
+    <view class="flex-wrp-row">
+      <text class="textt">备注：</text><input placeholder="如果需要的话，请输入备注" id="sremark" type="text" class="item-right flex-wrp-row" bindblur="getText"></input>
+    </view>
+  </view>
+
+  <!-- 家长模块 -->
+  <view style="{{showp}}" id="p">
+    <view class="flex-wrp-row">
+      <text class="textt">电话：</text><input placeholder="请输入您的电话号码" id="pphone" type="number" class="item-right flex-wrp-row"></input>
+    </view>
+    <view class="flex-wrp-row">
+      <ui-check-list max="1" label-position="right" options="{{ countryList2 }}" type="circle" value="{{ checklist2 }}" bindchange="parentchange" _pid="{{_pid}}"></ui-check-list>
+    </view>
+    <view class="flex-wrp-row">
+      <text class="textt">备注：</text><input placeholder="如果需要的话，请输入备注" id="premark" type="text" class="item-right flex-wrp-row" bindblur="getText"></input>
+    </view>
+  </view>
 </view>

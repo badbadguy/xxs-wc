@@ -26,7 +26,7 @@
   border-bottom: 1px solid #F5F5F5;
 }
 .ui-cascader .cascader-name-item-wrap-clicked {
-  color: #39f;
+  color: #3399ff;
   /* border-bottom: 2px solid @theme-color; */
 }
 .ui-cascader .cascader-content-wrap {
@@ -52,5 +52,5 @@
   /* border-bottom: 1px solid #F5F5F5; */
 }
 .ui-cascader .cascader-block .cascader-block-item .cascader-item-clicked {
-  color: #39f;
+  color: #3399ff;
 }

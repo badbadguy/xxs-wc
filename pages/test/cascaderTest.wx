@@ -1,47 +1,96 @@
 <template>
+<view>
   <view>
-  <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}" _pid="{{_pid}}">
-    <view class="ui-row" style="height:46px;">
-      <view bindtap="navigateBack" class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
-        <view class="ui-col-content align-center valign-middle">
-          <span type="arrow-left" size="16" color="#333" class="ui-icon icon-arrow-left" style="color: #333;font-size: 16px;"></span>
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}" _pid="{{_pid}}">
+      <view class="ui-row" style="height:46px;">
+        <view class="ui-col ui-col-align-center align-center valign-middle" style="">
+          <view class="ui-col-content align-center valign-middle">
+            <view><text>信息录入</text></view>
+          </view>
         </view>
       </view>
-      <view class="ui-col ui-col-align-center align-center valign-middle" style="">
-        <view class="ui-col-content align-center valign-middle">
-          <view>信息录入</view>
-        </view>
-      </view>
-      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
-        <view class="ui-col-content align-center valign-middle">
+    </ui-nav-bar>
+    <view style="height:{{NAV_HEIGHT}}"></view>
 
-        </view>
-      </view>
+    <!-- 公用模块 -->
+    <view>
+      <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist }}" bindchange='typechange'/>
     </view>
-  </ui-nav-bar>
-  <view style="height:{{NAV_HEIGHT}}"></view>
-
-
-  <view class="sample_title">班级：</view>
-  <view class="ui-row ui-row-border-top ui-row-border-bottom" style="height:40px;">
-    <view class="ui-col ui-col-3 ui-col-align-right align-right valign-middle" style="flex: 0 0 25%;padding-right: 10px;">
-      <view class="ui-col-content align-right valign-middle">
-        所在班级
-      </view>
+    <view class="flex-wrp-row">
+      <text class="textt">真实姓名：</text><input placeholder="请输入您的真实姓名" id="name" type="text" class='item-right flex-wrp-row' bindblur="getText"/>
     </view>
-    <view bindtap="showPop1" class="ui-col ui-col-9 valign-middle" style="flex: 0 0 75%;">
-      <view class="ui-col-content valign-middle">
-        {{title1}}
-      </view>
+    <view class="flex-wrp-row"><text class="textt">家庭地址：</text></view>
+    <view style="padding-left:7%;padding-top:8px;padding-right:7%;">
+      <!--绑定输入事件-->
+      <input style="border:1px solid black;" bindinput="getsuggest" value="{{backfill}}" />
+    </view>
+    <!--关键词输入提示列表渲染-->
+    <view wx:for="{{suggestion}}" wx:key="index">
+        <!--绑定回填事件-->
+        <view>
+          <!--根据需求渲染相应数据-->
+          <!--渲染地址title-->
+          <view style="text-align:center;" bindtap="backfill" id="{{index}}">{{item.title}}</view>
+          <!--渲染详细地址-->
+          <view style="font-size:12px;color:#666;text-align:center;">{{item.addr}}</view>
+        </view>
     </view>
   </view>
-  <ui-popup show="{{show1}}" position="bottom" width="100%" height="300" _pid="{{_pid}}">
-    <ui-cascader data="{{data1}}" bindselected="handleselected1" _pid="{{_pid}}"></ui-cascader>
-  </ui-popup>
+  
+  
+  <!-- 教师模块 -->
+  <view style="{{showt}}" id="t">
+    <view>
+      <view class="flex-wrp-row">
+        <text class="textt">电话：</text><input placeholder="请输入您的电话号码" id="tphone" type="number" class='item-right flex-wrp-row'  bindblur="getText"/>
+      </view>
+      <view class="flex-wrp-row">
+      <text class="textt">备注：</text><input placeholder="如果需要的话，请输入备注" id="tremark" type="text" class='item-right flex-wrp-row'  bindblur="getText"/>
+    </view>
+    </view>
+  </view>
+
+  <!-- 学生模块 -->
+  <view style="{{shows}}" id="s">
+    <view class="flex-wrp-row"><text class="textt">班级：</text></view>
+    <view class="ui-row ui-row-border-top ui-row-border-bottom" style="height:40px;">
+      <view class="ui-col ui-col-3 ui-col-align-right align-right valign-middle" style="flex: 0 0 25%;padding-right: 10px;">
+        <view class="ui-col-content align-right valign-middle">
+          所在班级
+        </view>
+      </view>
+      <view bindtap="showPop1" class="ui-col ui-col-9 valign-middle" style="flex: 0 0 75%;">
+        <view class="ui-col-content valign-middle">
+          {{title1}}
+        </view>
+      </view>
+    </view>
+    <ui-popup show="{{show1}}" position="bottom" width="100%" height="300" _pid="{{_pid}}">
+      <ui-cascader data="{{data1}}" bindselected="handleselected1" _pid="{{_pid}}"></ui-cascader>
+    </ui-popup>
+    <view class="flex-wrp-row">
+      <text class="textt">备注：</text><input placeholder="如果需要的话，请输入备注" id="sremark" type="text" class='item-right flex-wrp-row' bindblur="getText"/>
+    </view>
+  </view>
+
+  <!-- 家长模块 -->
+  <view style="{{showp}}" id="p">
+    <view class="flex-wrp-row">
+      <text class="textt">电话：</text><input placeholder="请输入您的电话号码" id="pphone" type="number" class='item-right flex-wrp-row'/>
+    </view>
+    <view class="flex-wrp-row">
+      <ui-check-list max="1" label-position="right" options="{{ countryList2 }}" type="circle" value="{{ checklist2 }}" bindchange="parentchange"></ui-check-list>
+    </view>
+    <view class="flex-wrp-row">
+      <text class="textt">备注：</text><input placeholder="如果需要的话，请输入备注" id="premark" type="text" class='item-right flex-wrp-row'  bindblur="getText"/>
+    </view>
+  </view>
 </view>
 </template>
 
 <script>
+var QQMapWX = require('../../packages/amap/qqmap-wx-jssdk.js');
+var qqmapsdk;
 export default {
   config: {
     "usingComponents": {
@@ -56,75 +105,235 @@ export default {
     height: wx.DEFAULT_CONTENT_HEIGHT,
     show1: false,
     title1: '请选择',
-    data1: []
+    data1: [{name:'加载失败'}],
+    openid:null,
+    showt:"display:none",
+    shows:"",
+    showp:"display:none",
+    userType:3,//0:超级管理员 1:管理员 2:教师 3:学生 4:家长
+    countryList: ['教师', '学生', '家长'],
+    checklist: ['学生'],
+    parentType:0,//0:妈妈 1:爸爸
+    countryList2: ['父亲', '母亲'],
+    checklist2: ['母亲'],
+    name:"",
+    tphone:"",
+    tremark:"",
+    sremark:"",
+    chooseClass:"",
+    chooseGrade:"",
+    pphone:"",
+    premark:"",
+    tips: {},
+    selectAddress:""
+  },
+  onLoad: function(){
+    var that = this;
+    qqmapsdk =new QQMapWX({
+      key:'A5PBZ-7SYW4-RIHUP-XFZA2-MURDE-66BOO'
+    })
+  },
+  //数据回填方法
+  backfill: function (e) {
+    var that = this;
+    var id = e.currentTarget.id;
+    for (var i = 0; i < that.data.suggestion.length;i++){
+      if(i == id){
+        that.setData({
+          backfill: that.data.suggestion[i].addr,
+          suggestion:[]
+        });
+      }  
+    }
+  },
+  //触发关键词输入提示事件
+  getsuggest: function(e) {
+    var that = this;
+    //调用关键词提示接口
+    qqmapsdk.getSuggestion({
+      //获取输入框值并设置keyword参数
+      keyword: e.detail.value, //用户输入的关键词，可设置固定值,如keyword:'KFC'
+      //region:'北京', //设置城市名，限制关键词所示的地域范围，非必填参数
+      success: function(res) {//搜索成功后的回调
+        var sug = [];
+        for (var i = 0; i < res.data.length; i++) {
+          sug.push({ // 获取返回结果，放到sug数组中
+            title: res.data[i].title,
+            id: res.data[i].id,
+            addr: res.data[i].address,
+            city: res.data[i].city,
+            district: res.data[i].district,
+            latitude: res.data[i].location.lat,
+            longitude: res.data[i].location.lng
+          });
+        }
+        that.setData({ //设置suggestion属性，将关键词搜索结果以列表形式展示
+          suggestion: sug
+        });
+      },
+      fail: function(error) {
+        console.error(error);
+      },
+      complete: function(res) {
+        console.log(res);
+      }
+    });
+  },
+  getText:function getText(e){
+    var that = this;
+    switch (e.currentTarget.id) {
+      case "name":
+        that.setData({
+          name:e.detail.value
+        })
+        break;
+      case "tphone":
+        that.setData({
+          tphone:e.detail.value
+        })
+        break;
+      case "tremark":
+        that.setData({
+          tremark:e.detail.value
+        })
+        break;
+      case "sremark":
+        that.setData({
+          sremark:e.detail.value
+        })
+        break;
+      case "pphone":
+        that.setData({
+          pphone:e.detail.value
+        })
+        break;
+      case "premark":
+        that.setData({
+          premark:e.detail.value
+        })
+        break;
+      default:
+        break;
+    }
+  },
+  parentchange:function parentchange(e){
+    var that = this;
+    switch (e.detail.value[0]) {
+      case '母亲':
+        that.setData({
+          parentType:0
+        });
+        break;
+      case '父亲':
+        that.setData({
+          parentType:1
+        });
+        break;
+      default:
+        break;
+    }
+  },
+  typechange:function typechange(e){
+    var that = this;
+    switch (e.detail.value[0]) {
+      case '教师':
+        that.setData({
+          showt:"",
+          shows:"display:none",
+          showp:"display:none",
+          userType:2
+        });
+        break;
+      case '学生':
+        that.setData({
+          showt:"display:none",
+          shows:"",
+          showp:"display:none",
+          userType:3
+        });
+        break;
+      case '家长':
+        that.setData({
+          showt:"display:none",
+          shows:"display:none",
+          showp:"",
+          userType:4
+        });
+        break;
+      default:
+        break;
+    }
   },
   showPop1: function showPop1() {
-    this.setData({
+    var that = this;
+    that.setData({
       show1: true
     });
   },
-  navigateBack: function navigateBack() {
-    console.log("navigateBack");
-    wx.navigateBack();
-  },
   handleselected1: function handleselected1(e) {
+    var that = this;
     var data = e.detail;
-    this.data.title1 = "";
+    that.data.title1 = "";
     for (var i = 0; i < data.length; i++) {
-      this.data.title1 += data[i].name + ' ';
+      that.data.title1 += data[i].name + ' ';
     }
-    this.setData({
+    console.log(e.detail);
+    var tempnum1 = parseInt(e.detail[0].value);
+    that.setData({
       show1: false,
-      title1: this.data.title1
+      title1: that.data.title1,
+      // chooseGrade: that.data.data1[e.detail[0].value].value,
+      // chooseClass: that.data.data1[e.detail[0].value].children[e.detail[1].value]
     });
   },
   onReady: function onReady() {
-    this.setData({
-      data1: [{
-        name: '一年级',
-        value: '1',
-        children: [{
-          name: '一班',
-          value: '1'
-        }, {
-          name: '二班',
-          value: '2'
-        }]
-      }, {
-        name: '二年级',
-        value: '2',
-        children: [{
-          name: '一班',
-          value: '1'
-        }, {
-          name: '二班',
-          value: '2'
-        }]
-      }, {
-        name: '三年级',
-        value: '3',
-        children: [{
-          name: '一班',
-          value: '1'
-        }, {
-          name: '二班',
-          value: '2'
-        }]
-      }, {
-        name: '四年级',
-        value: '4',
-        children: [{
-          name: '一班',
-          value: '1'
-        }, {
-          name: '二班',
-          value: '2'
-        }]
-      }]
-    });
+    var that = this;
+    wx.request({
+      url:'http://localhost:9999/class/checkclass2',
+      data:{},
+      header: {
+                'content-type': 'application/json'
+      },
+      success: function (res) {
+        that.setData({
+          data1:res.data
+        })
+      },
+      fail: function (res) {
+        console.log("fail");
+        console.log(res.errMsg);
+      }
+    })
   }
 }
 </script>
 
 <style lang="less">
+.textt{
+  padding-top:7px;
+}
+/* 水平显示 */
+.flex-wrp-row {
+  display: flex;
+  flex-direction: row;
+  padding-left:7%;
+  padding-top:8px;
+}
+.section{
+  height: 30px;
+  width: 100%;
+}
+.section input{
+  width:90%;
+  margin:5px auto;
+  border:1px solid #c3c3c3;
+  height:30px;
+  border-radius: 3px;
+  padding: 0 5px;
+}
+.text_box{
+  margin: 10px 25px;
+  border-bottom:1px solid #c3c3c3;
+  padding-bottom:10px
+}
 </style>
