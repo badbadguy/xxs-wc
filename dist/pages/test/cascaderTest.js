@@ -181,10 +181,10 @@ exports.default = Page({
     var that = this;
     var data = e.detail;
     that.data.title1 = "";
+    console.log(data);
     for (var i = 0; i < data.length; i++) {
       that.data.title1 += data[i].name + ' ';
     }
-    console.log(e.detail);
     var tempnum1 = parseInt(e.detail[0].value);
     that.setData({
       show1: false,

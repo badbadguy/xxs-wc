@@ -134,7 +134,7 @@ export default {
     })
   },
   //数据回填方法
-  backfill: function (e) {
+  backfill: function(e) {
     var that = this;
     var id = e.currentTarget.id;
     for (var i = 0; i < that.data.suggestion.length;i++){
@@ -179,7 +179,7 @@ export default {
       }
     });
   },
-  getText:function getText(e){
+  getText:function(e){
     var that = this;
     switch (e.currentTarget.id) {
       case "name":
@@ -216,7 +216,7 @@ export default {
         break;
     }
   },
-  parentchange:function parentchange(e){
+  parentchange:function(e){
     var that = this;
     switch (e.detail.value[0]) {
       case '母亲':
@@ -233,7 +233,7 @@ export default {
         break;
     }
   },
-  typechange:function typechange(e){
+  typechange:function(e){
     var that = this;
     switch (e.detail.value[0]) {
       case '教师':
@@ -264,20 +264,20 @@ export default {
         break;
     }
   },
-  showPop1: function showPop1() {
+  showPop1: function() {
     var that = this;
     that.setData({
       show1: true
     });
   },
-  handleselected1: function handleselected1(e) {
+  handleselected1: function(e) {
     var that = this;
     var data = e.detail;
     that.data.title1 = "";
+    console.log(data);
     for (var i = 0; i < data.length; i++) {
       that.data.title1 += data[i].name + ' ';
     }
-    console.log(e.detail);
     var tempnum1 = parseInt(e.detail[0].value);
     that.setData({
       show1: false,
@@ -286,7 +286,7 @@ export default {
       // chooseClass: that.data.data1[e.detail[0].value].children[e.detail[1].value]
     });
   },
-  onReady: function onReady() {
+  onReady: function() {
     var that = this;
     wx.request({
       url:'http://localhost:9999/class/checkclass2',
@@ -294,7 +294,7 @@ export default {
       header: {
                 'content-type': 'application/json'
       },
-      success: function (res) {
+      success: function(res) {
         that.setData({
           data1:res.data
         })
