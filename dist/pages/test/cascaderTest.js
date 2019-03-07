@@ -33,10 +33,43 @@ exports.default = Page({
     tips: {},
     selectAddress: ""
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad(res) {
     var that = this;
     qqmapsdk = new QQMapWX({
       key: 'A5PBZ-7SYW4-RIHUP-XFZA2-MURDE-66BOO'
+    });
+    that.setData({
+      openid: res.openid
+    });
+  },
+  setaddress: function setaddress(e) {
+    var that = this;
+    that.setData({
+      selectAddress: e.detail.value
+    });
+  },
+  submit: function submit(e) {
+    var that = this;
+    console.log(that.data);
+    wx.request({
+      url: 'http://192.168.0.116:9999/user/add',
+      data: {
+        user_id: that.data.openid,
+        user_nickname: that.data.name
+
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function success(res) {
+        that.setData({
+          data1: res.data
+        });
+      },
+      fail: function fail(res) {
+        console.log("fail");
+        console.log(res.errMsg);
+      }
     });
   },
   //数据回填方法
@@ -46,6 +79,7 @@ exports.default = Page({
     for (var i = 0; i < that.data.suggestion.length; i++) {
       if (i == id) {
         that.setData({
+          selectAddress: e.detail.value,
           backfill: that.data.suggestion[i].addr,
           suggestion: []
         });
@@ -181,22 +215,72 @@ exports.default = Page({
     var that = this;
     var data = e.detail;
     that.data.title1 = "";
-    console.log(data);
     for (var i = 0; i < data.length; i++) {
       that.data.title1 += data[i].name + ' ';
     }
-    var tempnum1 = parseInt(e.detail[0].value);
+    var tempgrade = "";
+    var tempclass = "";
+    switch (data[0].name) {
+      case "一年级":
+        tempgrade = 1;
+        break;
+      case "二年级":
+        tempgrade = 2;
+        break;
+      case "三年级":
+        tempgrade = 3;
+        break;
+      case "四年级":
+        tempgrade = 4;
+        break;
+      case "五年级":
+        tempgrade = 5;
+        break;
+      case "六年级":
+        tempgrade = 6;
+        break;
+      default:
+        break;
+    }
+    switch (data[1].name) {
+      case "一班":
+        tempclass = 1;
+        break;
+      case "二班":
+        tempclass = 2;
+        break;
+      case "三班":
+        tempclass = 3;
+        break;
+      case "四班":
+        tempclass = 4;
+        break;
+      case "五班":
+        tempclass = 5;
+        break;
+      case "六班":
+        tempclass = 6;
+        break;
+      case "七班":
+        tempclass = 7;
+        break;
+      case "八班":
+        tempclass = 8;
+        break;
+      default:
+        break;
+    }
     that.setData({
       show1: false,
-      title1: that.data.title1
-      // chooseGrade: that.data.data1[e.detail[0].value].value,
-      // chooseClass: that.data.data1[e.detail[0].value].children[e.detail[1].value]
+      title1: that.data.title1,
+      chooseGrade: tempgrade,
+      chooseClass: tempclass
     });
   },
   onReady: function onReady() {
     var that = this;
     wx.request({
-      url: 'http://localhost:9999/class/checkclass2',
+      url: 'http://192.168.0.116:9999/class/checkclass2',
       data: {},
       header: {
         'content-type': 'application/json'
