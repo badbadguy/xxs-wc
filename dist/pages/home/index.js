@@ -15,7 +15,7 @@ Page({
             // 获取到用户的 openid
             tempopenid = res.data.openid;
             wx.request({
-              url: 'http://47.106.213.157:9999/xxs/user/select',
+              url: 'http://localhost:9999/user/select',
               data: {
                 user_id: tempopenid
               },
@@ -24,8 +24,12 @@ Page({
               },
               success: function (res) {
                 if (res.data.data.total == 0) {
-                  wx.redirectTo({
-                    url: '/pages/home/register?openid=' + tempopenid,
+                  wx.getUserInfo({
+                    success:function(e){
+                      wx.redirectTo({
+                        url: '/pages/test/cascaderTest?openid=' + tempopenid + '&nickName=' + e.userInfo.nickName + '&avatarUrl=' + e.userInfo.avatarUrl
+                      })
+                    }
                   })
                 } else {
                   console.log(res.data.data.list)

@@ -8,6 +8,7 @@ export default {
   config: {
     usingComponents: {},
     pages: [
+      'pages/home/index',
       'pages/test/cascaderTest',
       'pages/home/register',
       

@@ -141,7 +141,9 @@ export default {
       key:'A5PBZ-7SYW4-RIHUP-XFZA2-MURDE-66BOO'
     });
     that.setData({
-      openid:res.openid
+      openid:res.openid,
+      nickName:res.nickName,
+      avatarUrl:res.avatarUrl
     })
   },
   setaddress: function(e) {
@@ -152,13 +154,22 @@ export default {
   },
   submit: function(e){
     var that = this;
-    console.log(that.data);
     wx.request({
-      url:'http://192.168.0.116:9999/user/add',
+      url:'http://localhost:9999/user/add',
       data:{
         user_id:that.data.openid,
-        user_nickname:that.data.name,
-        
+        user_nickname:that.data.nickName,
+        user_image:that.data.avatarUrl,
+        user_type:that.data.userType,
+        parent_phone:that.data.pphone,
+        parent_sex:that.data.parentType,
+        parent_remark:that.data.premark,
+        address:that.data.selectAddress,
+        student_class:that.data.chooseClass,
+        student_grade:that.data.chooseGrade,
+        student_remark:that.data.sremark,
+        teacher_phone:that.data.tphone,
+        teacher_remark:that.data.tremark
       },
       header: {
         'content-type': 'application/json'
@@ -181,7 +192,7 @@ export default {
     for (var i = 0; i < that.data.suggestion.length;i++){
       if(i == id){
         that.setData({
-          selectAddress:e.detail.value,
+          selectAddress:that.data.suggestion[i].addr,
           backfill: that.data.suggestion[i].addr,
           suggestion:[]
         });
@@ -381,7 +392,7 @@ export default {
   onReady: function() {
     var that = this;
     wx.request({
-      url:'http://192.168.0.116:9999/class/checkclass2',
+      url:'http://localhost:9999/class/checkclass2',
       data:{},
       header: {
                 'content-type': 'application/json'
