@@ -2,8 +2,42 @@
   "pages": [
     "pages/home/index",
     "pages/test/cascaderTest",
-    "pages/home/register"
+    "pages/home/register",
+    "pages/in/mine/mine",
+    "pages/in/homepage/homepage",
+    "pages/in/userinfo/parentInfo",
+    "pages/in/userinfo/teacherInfo",
+    "pages/in/userinfo/studentInfo",
+    "pages/in/history/parentHistory",
+    "pages/in/history/teacherHistory",
+    "pages/in/history/studentHistory",
+    "pages/in/service/service"
   ],
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "imgs/index/首页.png",
+        "iconPath": "imgs/index/首页.png",
+        "pagePath": "pages/in/homepage/homepage",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "imgs/index/服务.png",
+        "iconPath": "imgs/index/服务.png",
+        "pagePath": "pages/in/service/service",
+        "text": "服务"
+      },
+      {
+        "selectedIconPath": "imgs/index/我的.png",
+        "iconPath": "imgs/index/我的.png",
+        "pagePath": "pages/in/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
   "window": {
     "backgroundTextStyle": "dark",
     "backgroundColor": "#efefef",

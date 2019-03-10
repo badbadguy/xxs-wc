@@ -14,6 +14,7 @@ Page({
           success: res => {
             // 获取到用户的 openid
             tempopenid = res.data.openid;
+            getApp().globalData.openid = tempopenid;
             wx.request({
               url: 'http://localhost:9999/user/select',
               data: {
@@ -32,7 +33,9 @@ Page({
                     }
                   })
                 } else {
-                  console.log(res.data.data.list)
+                  wx.switchTab({
+                    url: '/pages/in/homepage/homepage'
+                  })
                 }
               }
             })

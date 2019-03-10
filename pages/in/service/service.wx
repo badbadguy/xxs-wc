@@ -1,0 +1,26 @@
+<template>
+  <view>服务页</view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '小学生作业系统'
+  },
+  data: {},
+  onLoad: function() {
+    var that = this;
+    that.setData({
+      openid:getApp().globalData.openid
+    })
+    if(that.data.openid == null){
+      wx.redirectTo({
+        url:'/pages/home/index'
+      })
+    }
+  }
+}
+</script>
+
+<style lang="less">
+</style>

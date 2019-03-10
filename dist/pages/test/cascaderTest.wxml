@@ -84,7 +84,7 @@
   <!-- 家长模块 -->
   <view style="{{showp}}" id="p">
     <view class="flex-wrp-row">
-      <text class="textt">电话：</text><input placeholder="请输入您的电话号码" id="pphone" type="number" class="item-right flex-wrp-row"></input>
+      <text class="textt">电话：</text><input placeholder="请输入您的电话号码" id="pphone" type="number" class="item-right flex-wrp-row" bindblur="getText"></input>
     </view>
     <view class="flex-wrp-row">
       <ui-check-list max="1" label-position="right" options="{{ countryList2 }}" type="circle" value="{{ checklist2 }}" bindchange="parentchange" _pid="{{_pid}}"></ui-check-list>

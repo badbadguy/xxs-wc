@@ -17,5 +17,5 @@
 </view>
  
 <view wx:else>
-    <view>我的首页内容</view>
+    <view>请稍后</view>
 </view>

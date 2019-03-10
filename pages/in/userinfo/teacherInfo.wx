@@ -1,0 +1,109 @@
+<template>
+  <view class='content'>
+    <view class='nav'>
+      <view class='top'>
+        <view style="padding-top=5px;padding-left=5px;">
+          <image style="border-radius:50%;" src="{{user_image}}"></image>
+        </view>
+      </view>
+      <view class='nickname'>
+          <text>{{user_nickname}}</text>
+      </view>
+    </view>
+    <view class='item'>
+      <text class='left'>姓名：</text><text class='right'>{{user_name}}</text>
+    </view>
+    <view class='item'>
+      <text class='left'>绑定手机号：</text><text class='right'>{{teacher_phone}}</text>
+    </view>
+    <view class='item'>
+      <text class='left'>地址：</text><text class='right'>{{teacher_address}}</text>
+    </view>
+    <view class='item'>
+      <text class='left'>创建用户时间：</text><text class='right'>{{creattime}}</text>
+    </view>
+    <view class='item'>
+      <text class='left'>用户信息上次修改时间：</text><text class='right'>{{updatetime}}</text>
+    </view>
+    <view class='item'>
+      <text class='left'>用户最后登录时间：</text><text class='right'>{{lastLogintime}}</text>
+    </view>
+    <view class='item' bindtap='setemail'>
+      <text class='left'> 邮箱：</text><text class='right' wx:if="{{myinfo.email==''|| myinfo.email==null}}">未绑定</text><text class='right' wx:else>{{myinfo.email}}</text>
+    </view>
+    <view class='item' bindtap='resetpwd'>
+      <text class='left'> 密码：</text><text class='right'>重置</text>
+    </view>
+    <view class='item' bindtap='exit'>
+      <text class='left'>退出：</text><text class='right'>>>></text>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '账号信息'
+  },
+  data: {},
+  onLoad: function() {
+    var that = this;
+    wx.request({
+      url:'http://localhost:9999/user/selectAll',
+      data:{
+        user_id : getApp().globalData.openid
+       },
+       header: {
+          'content-type': 'application/json'
+        },
+       success: function(res){
+          var tempdata = res.data.returnMap;
+          console.log(tempdata);
+          that.setData({
+            teacher_address:tempdata.teacher_address,
+            teacher_phone:tempdata.teacher_phone,
+            teacher_remark:tempdata.teacher_remark,
+            user_image:tempdata.user_image,
+            user_name:tempdata.user_name,
+            user_nickname:tempdata.user_nickname
+          })
+       }
+    })
+  }
+}
+</script>
+
+<style lang="less">
+/* pages/myinfo/myinfo.wxss */
+.nav{
+    background-color: #1b82d1;
+}
+.top{
+  width: 250rpx;
+  height: 250rpx;
+  margin: 0 auto;
+}
+.nickname{
+  margin-bottom: 10rpx;
+  text-align: center;
+}
+.item{
+  height: 70rpx;
+  background-color: #fff;
+  margin: 20rpx;
+  display: flex;
+  border-radius: 20rpx;
+}
+.left{
+  display: flex;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+.right{
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+  color: #ccc;
+  margin-right: 20rpx;
+}
+</style>

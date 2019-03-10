@@ -52,19 +52,64 @@ exports.default = Page({
   },
   submit: function submit(e) {
     var that = this;
+    if (that.data.name == null || that.data.name == "") {
+      wx.showAlert({
+        title: '填写须知',
+        content: '真实姓名不能为空！'
+      });
+      return;
+    } else if (that.data.selectAddress == null || that.data.selectAddress == "") {
+      wx.showAlert({
+        title: '填写须知',
+        content: '家庭住址不能为空！'
+      });
+      return;
+    }
+    switch (that.data.userType) {
+      case 2:
+        if (that.data.tphone == null || that.data.tphone == "") {
+          wx.showAlert({
+            title: '填写须知',
+            content: '电话不能为空！'
+          });
+          return;
+        }
+        break;
+      case 3:
+        if (that.data.chooseClass == null || that.data.chooseClass == "" || that.data.chooseGrade == null || that.data.chooseGrade == "") {
+          wx.showAlert({
+            title: '填写须知',
+            content: '班级不能为空！'
+          });
+          return;
+        }
+        break;
+      case 4:
+        if (that.data.pphone == null || that.data.pphone == "") {
+          wx.showAlert({
+            title: '填写须知',
+            content: '电话不能为空！'
+          });
+          return;
+        }
+        break;
+      default:
+        break;
+    }
     wx.request({
       url: 'http://localhost:9999/user/add',
       data: {
         user_id: that.data.openid,
         user_nickname: that.data.nickName,
+        user_name: that.data.name,
         user_image: that.data.avatarUrl,
         user_type: that.data.userType,
         parent_phone: that.data.pphone,
         parent_sex: that.data.parentType,
         parent_remark: that.data.premark,
         address: that.data.selectAddress,
-        student_class: that.data.chooseClass,
-        student_grade: that.data.chooseGrade,
+        choose_class: that.data.chooseClass,
+        choose_grade: that.data.chooseGrade,
         student_remark: that.data.sremark,
         teacher_phone: that.data.tphone,
         teacher_remark: that.data.tremark
@@ -73,8 +118,8 @@ exports.default = Page({
         'content-type': 'application/json'
       },
       success: function success(res) {
-        that.setData({
-          data1: res.data
+        wx.switchTab({
+          url: '/pages/in/homepage/homepage'
         });
       },
       fail: function fail(res) {
@@ -122,12 +167,6 @@ exports.default = Page({
         that.setData({ //设置suggestion属性，将关键词搜索结果以列表形式展示
           suggestion: sug
         });
-      },
-      fail: function fail(error) {
-        console.error(error);
-      },
-      complete: function complete(res) {
-        console.log(res);
       }
     });
   },
@@ -302,8 +341,9 @@ exports.default = Page({
         });
       },
       fail: function fail(res) {
-        console.log("fail");
-        console.log(res.errMsg);
+        that.setData({
+          data1: [{ name: '服务器奔溃' }]
+        });
       }
     });
   }
