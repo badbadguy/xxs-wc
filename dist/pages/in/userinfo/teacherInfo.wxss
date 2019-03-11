@@ -29,6 +29,7 @@
   margin: 0 auto;
 }
 .nickname {
+  font-size: 25px;
   margin-bottom: 10rpx;
   text-align: center;
 }
@@ -48,6 +49,18 @@
   display: flex;
   justify-content: flex-end;
   flex-grow: 1;
-  color: #ccc;
+  color: #999999;
   margin-right: 20rpx;
+}
+.button-right {
+  width: 166px;
+  height: 36px;
+  float: right;
+  margin-right: 20px;
+}
+.button-left {
+  width: 166px;
+  height: 36px;
+  float: left;
+  margin-left: 20px;
 }
