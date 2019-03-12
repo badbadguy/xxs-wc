@@ -21,7 +21,8 @@ export default {
       'pages/in/history/studentInfo',
       'pages/in/history/parentHistory',
       'pages/in/history/teacherHistory',
-      'pages/in/history/studentHistory'
+      'pages/in/history/studentHistory',
+      'pages/test/speechRecognition'
     ], //'pages/home/index','pages/test/mapTest'
     tabBar: {
       color: '#a9b7b7',
@@ -66,7 +67,10 @@ export default {
       }
     }
   },
-  globalData: {},
+  globalData: {
+    openid: '',
+    headurl: 'http://localhost:9999/'
+  },
   onLaunch() {
     system.attachInfo()
   },

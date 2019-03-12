@@ -16,7 +16,7 @@ Page({
             tempopenid = res.data.openid;
             getApp().globalData.openid = tempopenid;
             wx.request({
-              url: 'http://localhost:9999/user/select',
+              url: getApp().globalData.headurl + 'user/select',
               data: {
                 user_id: tempopenid
               },
@@ -28,13 +28,21 @@ Page({
                   wx.getUserInfo({
                     success:function(e){
                       wx.redirectTo({
-                        url: '/pages/test/cascaderTest?openid=' + tempopenid + '&nickName=' + e.userInfo.nickName + '&avatarUrl=' + e.userInfo.avatarUrl
+                        url: '/pages/test/cascaderTest'
                       })
                     }
                   })
                 } else {
-                  wx.switchTab({
-                    url: '/pages/in/homepage/homepage'
+                  wx.request({
+                    url: getApp().globalData.headurl + 'user/updateLastLoginTime',
+                    data: {
+                      user_id: tempopenid
+                    },
+                    success:function(){
+                      wx.switchTab({
+                        url: '/pages/in/homepage/homepage'
+                      })
+                    }
                   })
                 }
               }

@@ -18,7 +18,7 @@ exports.default = Page({
       });
     } else {
       wx.request({
-        url: 'http://localhost:9999/user/select',
+        url: getApp().globalData.headurl + 'user/select',
         data: {
           user_id: that.data.openid
         },

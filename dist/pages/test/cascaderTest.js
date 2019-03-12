@@ -97,7 +97,7 @@ exports.default = Page({
         break;
     }
     wx.request({
-      url: 'http://localhost:9999/user/add',
+      url: getApp().globalData.headurl + 'user/add',
       data: {
         user_id: that.data.openid,
         user_nickname: that.data.nickName,
@@ -330,7 +330,7 @@ exports.default = Page({
   onReady: function onReady() {
     var that = this;
     wx.request({
-      url: 'http://localhost:9999/class/checkclass2',
+      url: getApp().globalData.headurl + 'class/checkclass2',
       data: {},
       header: {
         'content-type': 'application/json'

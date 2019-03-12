@@ -11,6 +11,7 @@
     "pages/in/history/parentHistory",
     "pages/in/history/teacherHistory",
     "pages/in/history/studentHistory",
+    "pages/test/speechRecognition",
     "pages/in/service/service"
   ],
   "tabBar": {
@@ -21,7 +22,7 @@
       {
         "selectedIconPath": "imgs/index/首页1.png",
         "iconPath": "imgs/index/首页.png",
-        "pagePath": "pages/in/homepage/homepage",
+        "pagePath": "pages/test/speechRecognition",
         "text": "首页"
       },
       {

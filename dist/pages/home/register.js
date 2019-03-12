@@ -190,7 +190,7 @@ exports.default = Page({
     var tempx = [];
     var tempxx = [];
     wx.request({
-      url: 'http://192.168.0.116:9999/class/checkclass',
+      url: getApp().globalData.headurl + 'class/checkclass',
       data: {},
       header: {
         'content-type': 'application/json'

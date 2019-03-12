@@ -52,7 +52,7 @@ exports.default = Page({
     switch (e.target.id) {
       case "names":
         wx.request({
-          url: 'http://localhost:9999/user/update',
+          url: getApp().globalData.headurl + 'user/update',
           header: {
             'content-type': 'application/json'
           },
@@ -70,7 +70,7 @@ exports.default = Page({
         break;
       case "phones":
         wx.request({
-          url: 'http://localhost:9999/user/updatet',
+          url: getApp().globalData.headurl + 'user/updatet',
           header: {
             'content-type': 'application/json'
           },
@@ -93,7 +93,7 @@ exports.default = Page({
         break;
       case "addresss":
         wx.request({
-          url: 'http://localhost:9999/user/updatet',
+          url: getApp().globalData.headurl + 'user/updatet',
           header: {
             'content-type': 'application/json'
           },
@@ -157,7 +157,7 @@ exports.default = Page({
   onLoad: function onLoad() {
     var that = this;
     wx.request({
-      url: 'http://localhost:9999/user/selectAll',
+      url: getApp().globalData.headurl + 'user/selectAll',
       data: {
         user_id: getApp().globalData.openid
       },
