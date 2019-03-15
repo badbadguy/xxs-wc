@@ -1,19 +1,20 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Page({
   data: {},
-  onLoad: function onLoad() {
-    var that = this;
-    that.setData({
-      openid: getApp().globalData.openid
-    });
-    if (that.data.openid == null) {
-      wx.redirectTo({
-        url: '/pages/home/index'
-      });
+  gotowhere: function gotowhere(res) {
+    switch (res.currentTarget.id) {
+      case "translate":
+        wx.navigateTo({
+          url: '/pages/in/service/translate/translate'
+        });
+        break;
+
+      default:
+        break;
     }
   }
 });

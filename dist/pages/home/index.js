@@ -10,10 +10,13 @@ Page({
       success: res => {
         wx.request({
           // 根据code获取openid
-          url: 'https://api.weixin.qq.com/sns/jscode2session?appid=wx53dac20eb7248329&secret=4f82e5b3b68c4a1d801d6cbf7430b895&js_code=' + res.code + '&grant_type=authorization_code',
+          url: getApp().globalData.headurl + 'user/getOpenid',
+          data:{
+            code:res.code
+          },
           success: res => {
             // 获取到用户的 openid
-            tempopenid = res.data.openid;
+            tempopenid = res.data;
             getApp().globalData.openid = tempopenid;
             wx.request({
               url: getApp().globalData.headurl + 'user/select',

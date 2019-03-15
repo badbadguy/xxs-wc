@@ -4,6 +4,7 @@
 
 <script>
 import system from './static/utils/system'
+import utils from './utils/util'
 export default {
   config: {
     usingComponents: {},
@@ -22,27 +23,29 @@ export default {
       'pages/in/history/parentHistory',
       'pages/in/history/teacherHistory',
       'pages/in/history/studentHistory',
-      'pages/test/speechRecognition'
+      'pages/test/speechRecognition',
+      'pages/in/service/translate/translate',
+      'pages/in/service/exercises/exercises'
     ], //'pages/home/index','pages/test/mapTest'
     tabBar: {
       color: '#a9b7b7',
       selectedColor: '#11cd6e',
       borderStyle: 'white',
       list: [{
-          selectedIconPath: 'imgs/index/首页1.png',
-          iconPath: 'imgs/index/首页.png',
+          selectedIconPath: 'imgs/index/indexon.png',
+          iconPath: 'imgs/index/index.png',
           pagePath: 'pages/in/homepage/homepage',
           text: '首页'
         },
         {
-          selectedIconPath: 'imgs/index/服务1.png',
-          iconPath: 'imgs/index/服务.png',
+          selectedIconPath: 'imgs/index/serviceon.png',
+          iconPath: 'imgs/index/service.png',
           pagePath: 'pages/in/service/service',
           text: '服务'
         },
         {
-          selectedIconPath: 'imgs/index/我的1.png',
-          iconPath: 'imgs/index/我的.png',
+          selectedIconPath: 'imgs/index/mineon.png',
+          iconPath: 'imgs/index/mine.png',
           pagePath: 'pages/in/mine/mine',
           text: '我的'
         }
@@ -55,6 +58,12 @@ export default {
       navigationBarTitleText: '小学生作业系统',
       navigationBarTextStyle: 'black'
     },
+    plugins: {
+      WechatSI: {
+        version: '0.2.2',
+        provider: 'wx069ba97219f66d99'
+      }
+    },
     networkTimeout: {
       request: 10000
     },
@@ -63,19 +72,60 @@ export default {
     },
     permission: {
       'scope.userLocation': {
-        desc: '你的位置信息将用于小程序位置接口的效果展示'
+        desc: '你的位置信息将用于小程序获取地址'
       }
     }
   },
   globalData: {
     openid: '',
-    headurl: 'http://localhost:9999/'
+    headurl: 'http://192.168.0.116:9999/',
+    history: []
   },
   onLaunch() {
     system.attachInfo()
+    wx.getStorage({
+      key: 'history',
+      success: res => {
+        this.globalData.history = res.data
+      },
+      fail: res => {
+        console.log('get storage failed')
+        console.log(res)
+        this.globalData.history = []
+      }
+    })
+  },
+  // 权限询问
+  getRecordAuth: function() {
+    wx.getSetting({
+      success(res) {
+        console.log('succ')
+        console.log(res)
+        if (!res.authSetting['scope.record']) {
+          wx.authorize({
+            scope: 'scope.record',
+            success() {
+              // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+              console.log('succ auth')
+            },
+            fail() {
+              console.log('fail auth')
+            }
+          })
+        } else {
+          console.log('record has been authed')
+        }
+      },
+      fail(res) {
+        console.log('fail')
+        console.log(res)
+      }
+    })
   },
   onShow() {},
-  onHide() {}
+  onHide() {
+    wx.stopBackgroundAudio()
+  }
 }
 </script>
 

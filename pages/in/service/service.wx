@@ -1,26 +1,62 @@
 <template>
-  <view>服务页</view>
+<view class="box">
+  <ui-row border-top border-bottom class="row-height">
+    <ui-col vertical-align="middle" align="center" border-right bindtap="gotowhere" id="translate">
+      <image src="../../../imgs/service/translate.png" class="imgin"/>
+      <text class="text-down">语音翻译</text>
+    </ui-col>
+    <ui-col vertical-align="middle" align="center" bindtap="gotowhere" id="2">
+      <image src="../../../imgs/service/unknown.png" class="imgin"/>
+    </ui-col>
+  </ui-row>
+  <ui-row border-top border-bottom class="row-height">
+    <ui-col vertical-align="middle" align="center" border-right bindtap="gotowhere" id="3">
+      <image src="../../../imgs/service/unknown.png" class="imgin"/>
+    </ui-col>
+    <ui-col vertical-align="middle" align="center" bindtap="gotowhere" id="4">
+      <image src="../../../imgs/service/unknown.png" class="imgin"/>
+    </ui-col>
+  </ui-row>
+</view>
 </template>
 
 <script>
 export default {
   config: {
-    navigationBarTitleText: '小学生作业系统'
+    usingComponents: {
+      "ui-nav-bar":
+        "../../../packages/touchui-wx-components/ui-nav-bar/dist/index"
+    },
+    navigationBarTitleText: "小学生作业系统"
   },
   data: {},
-  onLoad: function() {
-    var that = this;
-    that.setData({
-      openid:getApp().globalData.openid
-    })
-    if(that.data.openid == null){
-      wx.redirectTo({
-        url:'/pages/home/index'
-      })
+  gotowhere: function(res) {
+    switch (res.currentTarget.id) {
+      case "translate":
+        wx.navigateTo({
+          url:'/pages/in/service/translate/translate'
+        })
+        break;
+    
+      default:
+        break;
     }
   }
-}
+};
 </script>
 
 <style lang="less">
+.text-down{
+  color: #1296db;
+}
+.row-height{
+  height: 120px;
+}
+.imgin {
+  width: 60px;
+  height: 60px;
+}
+.box {
+  padding: 10px;
+}
 </style>

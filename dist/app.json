@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/home/index",
     "pages/test/cascaderTest",
     "pages/home/register",
     "pages/in/mine/mine",
@@ -12,6 +11,8 @@
     "pages/in/history/teacherHistory",
     "pages/in/history/studentHistory",
     "pages/test/speechRecognition",
+    "pages/in/service/translate/translate",
+    "pages/in/service/exercises/exercises",
     "pages/in/service/service"
   ],
   "tabBar": {
@@ -20,20 +21,20 @@
     "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "imgs/index/首页1.png",
-        "iconPath": "imgs/index/首页.png",
-        "pagePath": "pages/test/speechRecognition",
+        "selectedIconPath": "imgs/index/indexon.png",
+        "iconPath": "imgs/index/index.png",
+        "pagePath": "pages/in/homepage/homepage",
         "text": "首页"
       },
       {
-        "selectedIconPath": "imgs/index/服务1.png",
-        "iconPath": "imgs/index/服务.png",
+        "selectedIconPath": "imgs/index/serviceon.png",
+        "iconPath": "imgs/index/service.png",
         "pagePath": "pages/in/service/service",
         "text": "服务"
       },
       {
-        "selectedIconPath": "imgs/index/我的1.png",
-        "iconPath": "imgs/index/我的.png",
+        "selectedIconPath": "imgs/index/mineon.png",
+        "iconPath": "imgs/index/mine.png",
         "pagePath": "pages/in/mine/mine",
         "text": "我的"
       }
@@ -46,6 +47,12 @@
     "navigationBarTitleText": "小学生作业系统",
     "navigationBarTextStyle": "black"
   },
+  "plugins": {
+    "WechatSI": {
+      "version": "0.2.2",
+      "provider": "wx069ba97219f66d99"
+    }
+  },
   "networkTimeout": {
     "request": 10000
   },
@@ -54,7 +61,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+      "desc": "你的位置信息将用于小程序获取地址"
     }
   }
 }

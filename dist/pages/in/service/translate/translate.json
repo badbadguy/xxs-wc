@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "bottom-button": "../../../../packages/bottom-button/index",
+    "result-bubble": "../../../../packages/result-bubble/index"
+  },
+  "navigationBarTitleText": "翻译"
+}
