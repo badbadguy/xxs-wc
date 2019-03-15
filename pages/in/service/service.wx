@@ -7,6 +7,7 @@
     </ui-col>
     <ui-col vertical-align="middle" align="center" bindtap="gotowhere" id="2">
       <image src="../../../imgs/service/unknown.png" class="imgin"/>
+      <text class="text-down">布置作业</text>
     </ui-col>
   </ui-row>
   <ui-row border-top border-bottom class="row-height">
@@ -37,7 +38,11 @@ export default {
           url:'/pages/in/service/translate/translate'
         })
         break;
-    
+      case "2":
+        wx.navigateTo({
+          url:'/pages/in/service/exercises/exercises'
+        })
+        break;
       default:
         break;
     }

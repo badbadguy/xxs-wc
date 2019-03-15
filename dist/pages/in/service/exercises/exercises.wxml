@@ -1,1 +1,123 @@
-<view></view>
+<view>
+  <view class="ui-row-list ui-row-list-border-indent" style="">
+    <view class="ui-row" style="height:50px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
+        <view class="ui-col-content align-center valign-middle">
+          <span type="comment" size="20" color="#545454" class="ui-icon icon-comment" style="color: #545454;font-size: 20px;"></span>
+        </view>
+      </view>
+      <view class="text ui-col" style="">
+        <view class="ui-col-content">
+          飞行模式
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 25px;">
+        <view class="ui-col-content valign-middle">
+          <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+        </view>
+      </view>
+    </view>
+    <view class="ui-row" style="height:50px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
+        <view class="ui-col-content align-center valign-middle">
+          <span type="comment" size="20" color="#545454" class="ui-icon icon-comment" style="color: #545454;font-size: 20px;"></span>
+        </view>
+      </view>
+      <view class="text ui-col" style="">
+        <view class="ui-col-content">
+          Wi-Fi
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 25px;">
+        <view class="ui-col-content valign-middle">
+          <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+        </view>
+      </view>
+    </view>
+    <view class="ui-row" style="height:50px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
+        <view class="ui-col-content align-center valign-middle">
+          <span type="comment" size="20" color="#545454" class="ui-icon icon-comment" style="color: #545454;font-size: 20px;"></span>
+        </view>
+      </view>
+      <view class="text ui-col" style="">
+        <view class="ui-col-content">
+          蓝牙
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 25px;">
+        <view class="ui-col-content valign-middle">
+          <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+        </view>
+      </view>
+    </view>
+    <view class="ui-row" style="height:50px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
+        <view class="ui-col-content align-center valign-middle">
+          <span type="comment" size="20" color="#545454" class="ui-icon icon-comment" style="color: #545454;font-size: 20px;"></span>
+        </view>
+      </view>
+      <view class="text ui-col" style="">
+        <view class="ui-col-content">
+          蜂窝移动网络
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 25px;">
+        <view class="ui-col-content valign-middle">
+          <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+        </view>
+      </view>
+    </view>
+    <view class="ui-row" style="height:50px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
+        <view class="ui-col-content align-center valign-middle">
+          <span type="comment" size="20" color="#545454" class="ui-icon icon-comment" style="color: #545454;font-size: 20px;"></span>
+        </view>
+      </view>
+      <view class="text ui-col" style="">
+        <view class="ui-col-content">
+          个人热点
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 25px;">
+        <view class="ui-col-content valign-middle">
+          <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+        </view>
+      </view>
+    </view>
+    <view class="ui-row" style="height:50px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
+        <view class="ui-col-content align-center valign-middle">
+          <span type="comment" size="20" color="#545454" class="ui-icon icon-comment" style="color: #545454;font-size: 20px;"></span>
+        </view>
+      </view>
+      <view class="text ui-col" style="">
+        <view class="ui-col-content">
+          VPN
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 25px;">
+        <view class="ui-col-content valign-middle">
+          <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+        </view>
+      </view>
+    </view>
+    <view class="ui-row" style="height:50px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
+        <view class="ui-col-content align-center valign-middle">
+          <span type="comment" size="20" color="#545454" class="ui-icon icon-comment" style="color: #545454;font-size: 20px;"></span>
+        </view>
+      </view>
+      <view class="text ui-col" style="">
+        <view class="ui-col-content">
+          运营商
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 25px;">
+        <view class="ui-col-content valign-middle">
+          <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

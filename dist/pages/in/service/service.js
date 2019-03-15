@@ -12,7 +12,11 @@ exports.default = Page({
           url: '/pages/in/service/translate/translate'
         });
         break;
-
+      case "2":
+        wx.navigateTo({
+          url: '/pages/in/service/exercises/exercises'
+        });
+        break;
       default:
         break;
     }
