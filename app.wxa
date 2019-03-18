@@ -25,7 +25,10 @@ export default {
       'pages/in/history/studentHistory',
       'pages/test/speechRecognition',
       'pages/in/service/translate/translate',
-      'pages/in/service/exercises/exercises'
+      'pages/in/service/exercises/exercises',
+      'pages/in/service/exercises/chinese',
+      'pages/in/service/exercises/math',
+      'pages/in/service/exercises/english'
     ], //'pages/home/index','pages/test/mapTest'
     tabBar: {
       color: '#a9b7b7',

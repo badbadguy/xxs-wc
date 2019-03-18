@@ -6,7 +6,7 @@
       <text class="text-down">语音翻译</text>
     </ui-col>
     <ui-col vertical-align="middle" align="center" bindtap="gotowhere" id="2">
-      <image src="../../../imgs/service/unknown.png" class="imgin"/>
+      <image src="../../../imgs/service/homework.png" class="imgin"/>
       <text class="text-down">布置作业</text>
     </ui-col>
   </ui-row>

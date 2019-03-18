@@ -1,83 +1,45 @@
 <template>
   <view>
-    <ui-row-list border-indent>
-      <ui-row height="50">
-          <ui-col width="40" vertical-align="middle" align="center">
-              <ui-icon type="comment" size="20" color="#545454"></ui-icon>
-          </ui-col>
-          <ui-col class="text">
-              飞行模式
-          </ui-col>
-          <ui-col width="25" vertical-align="middle">
-              <ui-icon type="arrow-right"></ui-icon>
-          </ui-col>
-      </ui-row>
-      <ui-row height="50">
-          <ui-col width="40" vertical-align="middle" align="center">
-              <ui-icon type="comment" size="20" color="#545454"></ui-icon>
-          </ui-col>
-          <ui-col class="text">
-              Wi-Fi
-          </ui-col>
-          <ui-col width="25" vertical-align="middle">
-              <ui-icon type="arrow-right"></ui-icon>
-          </ui-col>
-      </ui-row>
-      <ui-row height="50">
-          <ui-col width="40" vertical-align="middle" align="center">
-              <ui-icon type="comment" size="20" color="#545454"></ui-icon>
-          </ui-col>
-          <ui-col class="text">
-              蓝牙
-          </ui-col>
-          <ui-col width="25" vertical-align="middle">
-              <ui-icon type="arrow-right"></ui-icon>
-          </ui-col>
-      </ui-row>
-      <ui-row height="50">
-          <ui-col width="40" vertical-align="middle" align="center">
-              <ui-icon type="comment" size="20" color="#545454"></ui-icon>
-          </ui-col>
-          <ui-col class="text">
-              蜂窝移动网络
-          </ui-col>
-          <ui-col width="25" vertical-align="middle">
-              <ui-icon type="arrow-right"></ui-icon>
-          </ui-col>
-      </ui-row>
-      <ui-row height="50">
-          <ui-col width="40" vertical-align="middle" align="center">
-              <ui-icon type="comment" size="20" color="#545454"></ui-icon>
-          </ui-col>
-          <ui-col class="text">
-              个人热点
-          </ui-col>
-          <ui-col width="25" vertical-align="middle">
-              <ui-icon type="arrow-right"></ui-icon>
-          </ui-col>
-      </ui-row>
-      <ui-row height="50">
-          <ui-col width="40" vertical-align="middle" align="center">
-              <ui-icon type="comment" size="20" color="#545454"></ui-icon>
-          </ui-col>
-          <ui-col class="text">
-              VPN
-          </ui-col>
-          <ui-col width="25" vertical-align="middle">
-              <ui-icon type="arrow-right"></ui-icon>
-          </ui-col>
-      </ui-row>
-      <ui-row height="50">
-          <ui-col width="40" vertical-align="middle" align="center">
-              <ui-icon type="comment" size="20" color="#545454"></ui-icon>
-          </ui-col>
-          <ui-col class="text">
-              运营商
-          </ui-col>
-          <ui-col width="25" vertical-align="middle">
-              <ui-icon type="arrow-right"></ui-icon>
-          </ui-col>
-      </ui-row>
+    <ui-row-list border-indent bordered>
+        <ui-row height="100">
+            <ui-col width="40" vertical-align="middle" align="center">
+                <image src="../../../../imgs/service/work.png" class="imgin"/>
+            </ui-col>
+            <ui-col class="text" bindtap="onclick" id="1">
+                <text class="text">
+                    语文
+                </text>
+            </ui-col>
+            <ui-col width="25" vertical-align="middle">
+                <ui-icon type="arrow-right"></ui-icon>
+            </ui-col>
+        </ui-row>
+        <ui-row height="100">
+            <ui-col width="40" vertical-align="middle" align="center">
+                <image src="../../../../imgs/service/work.png" class="imgin"/>
+            </ui-col>
+            <ui-col class="text" bindtap="onclick" id="2">
+                <text class="text">
+                    数学
+                </text>
+            </ui-col>
+            <ui-col width="25" vertical-align="middle">
+                <ui-icon type="arrow-right"></ui-icon>
+            </ui-col>
+        </ui-row>
+        <ui-row height="100">
+            <ui-col width="40" vertical-align="middle" align="center">
+                <image src="../../../../imgs/service/work.png" class="imgin"/>
+            </ui-col>
+            <ui-col class="text" bindtap="onclick" id="3">
+                <text class="text">
+                    英语
+                </text>
+            </ui-col>
+            <ui-col width="25" vertical-align="middle">
+                <ui-icon type="arrow-right"></ui-icon>
+            </ui-col>
+        </ui-row>
     </ui-row-list>
   </view>
 </template>
@@ -87,9 +49,58 @@ export default {
   config: {
     navigationBarTitleText: "布置作业"
   },
-  data: {}
+  data: {
+      menuitems:[]
+  },
+  onLoad: function(res){
+      var that = this;
+      wx.request({
+          url:getApp().globalData.headurl + 'subject/select',
+          data:{},
+          header: {
+          'content-type': 'application/json'
+        },
+        success: function(res){
+            console.log(res.data.resultList);
+            that.setData({
+                menuitems:res.data.resultList
+            });
+        }
+      })
+  },
+  onclick: function(res) {
+      var that = this;
+      switch (res.currentTarget.id) {
+          case "1":
+              wx.navigateTo({
+                  url:'/pages/in/service/exercises/chinese'
+                  });
+              break;
+          case "2":
+              wx.navigateTo({
+                  url:'/pages/in/service/exercises/math'
+                  });
+              break;
+          case "3":
+              wx.navigateTo({
+                  url:'/pages/in/service/exercises/english'
+                  });
+              break;
+          default:
+              break;
+      }
+  }
 };
 </script>
 
 <style lang="less">
+.text {
+  line-height: 32px;
+  font-size: 20px;
+  padding-left: 20px;
+}
+.imgin{
+    width: 40px;
+    height: 40px;
+}
 </style>

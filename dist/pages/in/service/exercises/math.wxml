@@ -1,0 +1,28 @@
+<view class="page__bd">
+  <view>
+    <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist }}" bindchange="typechange" _pid="{{_pid}}">
+    </ui-check-list>
+  </view>
+  <view class="weui-article">
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <view wx:for="{{checkbox}}" class="con">
+        <input name="courseName{{index}}" class="input-address" maxlength="50" placeholder="课程名称(必填)："></input>
+        <input name="techerName{{index}}" class="input-address" maxlength="10" placeholder="老师名称（必填）："></input>
+        <radio-group name="radio{{index}}">
+          <label>
+            <radio value="A" color="#3399ff">A</radio>
+          </label>
+          <label>
+            <radio value="B" color="#3399ff">B</radio>
+          </label>
+          <label>
+            <radio value="C" color="#3399ff">C</radio>
+          </label>
+        </radio-group>
+      </view>
+      <button class="weui-btn" type="primary" formType="submit">提交</button>
+    </form>
+    <button bindtap=" ">增加课程</button>
+    <button bindtap="delBind">删除课程</button>
+  </view>
+</view>

@@ -14,6 +14,9 @@
     "pages/test/speechRecognition",
     "pages/in/service/translate/translate",
     "pages/in/service/exercises/exercises",
+    "pages/in/service/exercises/chinese",
+    "pages/in/service/exercises/math",
+    "pages/in/service/exercises/english",
     "pages/in/service/service"
   ],
   "tabBar": {
