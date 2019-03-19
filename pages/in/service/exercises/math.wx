@@ -1,25 +1,72 @@
 <template>
-  <view class="page__bd">
-    <view>
-      <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist }}" bindchange='typechange'/>
-    </view>
-    <view class="weui-article">
-      <form bindsubmit="formSubmit" bindreset="formReset">
-        <view wx:for="{{checkbox}}" class="con">
-          <input name="courseName{{index}}" class="input-address" maxlength="50" placeholder="课程名称(必填)："/>
-          <input name="techerName{{index}}" class="input-address" maxlength="10" placeholder="老师名称（必填）："/>
-          <radio-group name="radio{{index}}">
-            <label><radio value="A" />A</label>
-            <label><radio value="B" />B</label>
-            <label><radio value="C" />C</label>
-          </radio-group>
+<view>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}" _pid="{{_pid}}">
+        <view class="ui-row" style="height:46px;">
+          <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+            <view class="ui-col-content align-center valign-middle"></view>
+          </view>
+          <view class="ui-col ui-col-align-center align-center valign-middle" style="">
+            <view class="ui-col-content align-center valign-middle">
+              <view><text>增加数学题目</text></view>
+            </view>
+          </view>
+          <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+            <view class="ui-col-content align-center valign-middle">
+              <button class="weui-btn" type="primary" formType="submit">提交</button>
+            </view>
+          </view>
         </view>
-        <button class="weui-btn" type="primary" formType="submit">提交</button>
-      </form>
-      <button bindtap=" ">增加课程</button>
-      <button bindtap="delBind">删除课程</button>
+      </ui-nav-bar>
+      <view class="page__bd">
+        <view>
+          <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist }}" bindchange='typechange'/>
+        </view>
+        <view class="weui-article">
+          <view wx:for="{{checkbox}}" class="con">
+            <view class="con-in">
+              题目：<input name="question_title{{index}}" class="input-address" maxlength="50" placeholder="题目" value="{{tempValue}}"/>
+            </view>
+            <view style="{{show2}}">
+              <view class="con-in">
+                选择A：<input name="question_answer1{{index}}" class="input-address" maxlength="10" placeholder="选择A：" value="{{tempValue}}"/>
+              </view>
+              <view class="con-in">
+                选择B：<input name="question_answer2{{index}}" class="input-address" maxlength="10" placeholder="选择B：" value="{{tempValue}}"/>
+              </view>
+              <view class="con-in">
+                选择C：<input name="question_answer3{{index}}" class="input-address" maxlength="10" placeholder="选择C：" value="{{tempValue}}"/>
+              </view>
+              <view class="con-in">
+                选择D：<input name="question_answer4{{index}}" class="input-address" maxlength="10" placeholder="选择D：" value="{{tempValue}}"/>
+              </view>
+            </view>
+            <view class="con-in">
+              <text>正确答案：</text>
+              <view style="{{show2}}">
+                <radio-group name="question_answerr{{index}}" value="{{tempValue}}">
+                  <label class="con-ra"><radio value="1" />A</label>
+                  <label class="con-ra"><radio value="2" />B</label>
+                  <label class="con-ra"><radio value="3" />C</label>
+                  <label class="con-ra"><radio value="4" />D</label>
+                </radio-group>
+              </view>
+              <view style="{{show3}}">
+                  <input name="question_answerr{{index}}" class="input-address" maxlength="10" placeholder="正确答案：" value="{{tempValue}}"/>
+              </view>
+            </view>
+            <view class="con-in">
+              错误提示：<input name="question_remark{{index}}" class="input-address" maxlength="10" placeholder="错误提示：" value="{{tempValue}}"/>
+            </view>
+          </view>
+        </view>
+      </view>
+    </form>
+      <view style="{{show1}}">
+        <button bindtap="insert">增加题目嵌套</button>
+        <button bindtap="delBind">删除题目嵌套</button>
+      </view>
     </view>
-  </view>
 </template>
 
 <script>
@@ -28,44 +75,57 @@ export default {
     navigationBarTitleText: '数学作业'
   },
   data: {
-    checkbox: [],
+    checkbox: [0],
     countryList: ['心算', '选择题', '应用题'],
     checklist: ['心算'],
+    show1:"display:none",
+    show2:"display:none",
+    show3:"",
+    question_type:2,
+    tempValue:""
   },
   typechange:function(e){
     var that = this;
     switch (e.detail.value[0]) {
+      case '应用题':
+        that.setData({
+          show1:"",
+          show2:"",
+          show3:"display:none",
+          question_type:3,
+          tempValue:""
+        });
+        break;
       case '心算':
         that.setData({
-          showt:"",
-          shows:"display:none",
-          showp:"display:none",
-          userType:2
+          show1:"display:none",
+          show2:"display:none",
+          show3:"",
+          question_type:2,
+          tempValue:""
         });
         break;
       case '选择题':
         that.setData({
-          showt:"display:none",
-          shows:"",
-          showp:"display:none",
-          userType:3
-        });
-        break;
-      case '应用题':
-        that.setData({
-          showt:"display:none",
-          shows:"display:none",
-          showp:"",
-          userType:4
+          show1:"display:none",
+          show2:"",
+          show3:"display:none",
+          question_type:0,
+          tempValue:""
         });
         break;
       default:
         break;
     }
   },
+  onLoad: function(res){
+    var that = this;
+    that.setData({
+      subject_id:res.id
+    })
+  },
   insert: function () {
     var cb = this.data.checkbox;
-    console.log(cb);
     cb.push(this.data.checkbox.length);
     this.setData({
       checkbox: cb
@@ -73,14 +133,47 @@ export default {
   },
   delBind: function () {
     var cb = this.data.checkbox;
-    console.log(cb);
+    if(this.data.checkbox.length<=1)
+      return;
     cb.pop(this.data.checkbox.length);
     this.setData({
       checkbox: cb
     });
+  },
+  formSubmit: function(res){
+    var that = this;
+    wx.request({
+        url:getApp().globalData.headurl + 'question/addMath',
+        data:{
+          tempjson:res.detail.value,
+          question_type:that.data.question_type,
+          subject_id:that.data.subject_id
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+    })
+  },
+  formReset: function(){
+    this.setData({
+      checkbox:[0],
+      tempValue:""
+    })
   }
 }
 </script>
 
 <style lang="less">
+.con{
+  padding: 10px 35px 20px 35px;
+}
+.con-in{
+  padding-top: 10px;
+}
+.con-ra{
+  padding-left: 41px;
+}
+.page__bd{
+  padding-top: 65px;
+}
 </style>

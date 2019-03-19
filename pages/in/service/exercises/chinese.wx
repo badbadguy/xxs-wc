@@ -1,15 +1,166 @@
 <template>
-  <view></view>
+  <view>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}" _pid="{{_pid}}">
+        <view class="ui-row" style="height:46px;">
+          <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+            <view class="ui-col-content align-center valign-middle"></view>
+          </view>
+          <view class="ui-col ui-col-align-center align-center valign-middle" style="">
+            <view class="ui-col-content align-center valign-middle">
+              <view><text>增加语文题目</text></view>
+            </view>
+          </view>
+          <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+            <view class="ui-col-content align-center valign-middle">
+              <button class="weui-btn" type="primary" formType="submit">提交</button>
+            </view>
+          </view>
+        </view>
+      </ui-nav-bar>
+      <view style="height:65px;"></view>
+      <view>
+        <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist }}" bindchange='typechange'/>
+      </view>
+      <view class="con">
+        <view class="con-in">
+          题目：<input name="question_title" class="input-address" maxlength="50" placeholder="题目" value="{{tempValue}}"/>
+        </view>
+        <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images.length < 3}}">添加图片</button>
+        <view class="question-images">
+          <block wx:for="{{images}}" wx:key="*this" wx:for-item="item">
+            <view class="q-image-wrap">
+              <!-- 图片缩略图  -->
+              <!-- <image class="q-image" src='{{item}}' mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image> -->
+              <image src="{{item}}" >{{item}}</image>
+              <!-- 移除图片的按钮  -->
+              <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
+            </view>
+          </block>
+        </view>
+        <view style="{{show1}}">
+          <view class="con-in">
+            选择A：<input name="question_answer1{{index}}" class="input-address" maxlength="10" placeholder="选择A：" value="{{tempValue}}"/>
+          </view>
+          <view class="con-in">
+            选择B：<input name="question_answer2{{index}}" class="input-address" maxlength="10" placeholder="选择B：" value="{{tempValue}}"/>
+          </view>
+          <view class="con-in">
+            选择C：<input name="question_answer3{{index}}" class="input-address" maxlength="10" placeholder="选择C：" value="{{tempValue}}"/>
+          </view>
+          <view class="con-in">
+            选择D：<input name="question_answer4{{index}}" class="input-address" maxlength="10" placeholder="选择D：" value="{{tempValue}}"/>
+          </view>
+        </view>
+        <view class="con-in">
+          <text>正确答案：</text>
+          <view style="{{show1}}">
+            <radio-group name="question_answerr{{index}}" value="{{tempValue}}">
+              <label class="con-ra"><radio value="1" />A</label>
+              <label class="con-ra"><radio value="2" />B</label>
+              <label class="con-ra"><radio value="3" />C</label>
+              <label class="con-ra"><radio value="4" />D</label>
+            </radio-group>
+          </view>
+          <view style="{{show2}}">
+            <input name="question_answerr{{index}}" class="input-address" maxlength="10" placeholder="正确答案：" value="{{tempValue}}"/>
+          </view>
+        </view>
+        <view class="con-in">
+          错误提示：<input name="question_remark{{index}}" class="input-address" maxlength="10" placeholder="错误提示：" value="{{tempValue}}"/>
+        </view>
+      </view>
+    </form>
+  </view>
 </template>
 
 <script>
+import { $digest } from '../../../../utils/common.util.js'
 export default {
   config: {
     navigationBarTitleText: '语文作业'
   },
-  data: {}
+  data: {
+    show1:"",
+    show2:"display:none",
+    countryList: ['选择题', '填空题', '语音题'],
+    checklist: ['选择题'],
+    question_type:0,
+    images: []
+  },
+  removeImage: function(e) {
+    const idx = e.target.dataset.idx
+    this.data.images.splice(idx, 1)
+  },
+  chooseImage: function(e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],  //可选择原图或压缩后的图片
+      sourceType: ['album', 'camera'],      //可选择性开放访问相册、相机
+      success: res => {
+        wx.uploadFile({
+          url:getApp().globalData.headurl + 'test',
+          filePath: res.tempFilePaths[0],
+          name: 'file',
+        });
+        const images = that.data.images.concat(res.tempFilePaths)
+        // 限制最多只能留下3张照片
+        that.setData({
+          images:images.length <= 3 ? images : images.slice(0, 3)
+        })
+      }
+    })
+  },
+  handleImagePreview: function(e) {
+    const idx = e.target.dataset.idx
+    const images = this.data.images
+    wx.previewImage({
+      current: images[idx],  //当前预览的图片
+      urls: images,  //所有要预览的图片
+    })
+  },
+  typechange:function(e){
+    var that = this;
+    switch (e.detail.value[0]) {
+      case '语音题':
+        that.setData({
+          show1:"display:none",
+          show2:"",
+          question_type:1
+        });
+        break;
+      case '选择题':
+        that.setData({
+          show1:"",
+          show2:"display:none",
+          question_type:0
+        });
+        break;
+      case '填空题':
+        that.setData({
+          show1:"display:none",
+          show2:"",
+          question_type:2
+        });
+        break;
+      default:
+        break;
+    }
+  },
+  formSubmit: function(res) {
+    console.log(res);    
+  }
 }
 </script>
 
 <style lang="less">
+.con{
+  padding: 10px 35px 20px 35px;
+}
+.con-in{
+  padding-top: 10px;
+}
+.con-ra{
+  padding-left: 41px;
+}
 </style>

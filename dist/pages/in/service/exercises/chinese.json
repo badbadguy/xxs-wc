@@ -1,4 +1,7 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "ui-nav-bar": "../../../../packages/touchui-wx-components/ui-nav-bar/dist/index",
+    "ui-check-list": "../../../../packages/touchui-wx-components/ui-check-list/dist/index"
+  },
   "navigationBarTitleText": "语文作业"
 }
