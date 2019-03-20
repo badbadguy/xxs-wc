@@ -27,6 +27,15 @@
             <view class="con-in">
               题目：<input name="question_title{{index}}" class="input-address" maxlength="50" placeholder="题目" value="{{tempValue}}"/>
             </view>
+            <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images[index] == null || images[index] == ''}}" id="{{index}}">添加图片</button>
+            <view class="question-images"wx:if="{{images[index]}}">
+              <view class="image-in">
+                <!-- 图片缩略图  -->
+                <image mode="aspectFit" src="{{images[index]}}" bindtap="imageClick"/>
+                <!-- 移除图片的按钮  -->
+                <view class="image-rm" data-idx="{{index}}" bindtap="removeImage">删除</view>
+              </view>
+            </view>
             <view style="{{show2}}">
               <view class="con-in">
                 选择A：<input name="question_answer1{{index}}" class="input-address" maxlength="10" placeholder="选择A：" value="{{tempValue}}"/>
@@ -82,7 +91,42 @@ export default {
     show2:"display:none",
     show3:"",
     question_type:2,
-    tempValue:""
+    tempValue:"",
+    images:[]
+  },
+  removeImage: function(e) {
+    const idx = e.target.dataset.idx
+    console.log(e);
+    console.log(idx);
+    this.setData({
+      images:[]
+    })
+  },
+  imageClick: function(e) {
+    var that = this;
+    var arr = Array();
+    arr.push(that.data.images);
+    console.log(arr);
+    wx.previewImage({
+      current: that.data.images,
+      urls: arr
+    })
+  },
+  chooseImage: function(e) {
+    var that = this;
+    var index = e.target.id;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],  //可选择原图或压缩后的图片
+      sourceType: ['album', 'camera'],      //可选择性开放访问相册、相机
+      success: res => {
+        var temp = "images["+index+"]";
+        that.setData({
+          [temp]:res.tempFilePaths
+        });
+        console.log(that.data.images.length);
+      }
+    });
   },
   typechange:function(e){
     var that = this;
@@ -140,19 +184,42 @@ export default {
       checkbox: cb
     });
   },
+  uploadTo: function(i){
+    var that = this;
+    var tempurl = that.data.images[i].;
+    console.log(tempurl);
+    if(tempurl != null || tempurl !=""){
+      wx.uploadFile({
+        url:getApp().globalData.headurl + 'test',
+        filePath: tempurl,
+        name: 'file',
+        success:function(e){
+          console.log(e);
+        }
+      });
+    }
+    if(i+1<that.data.images.length){
+      i++
+      that.uploadTo(i);
+    }
+  },
   formSubmit: function(res){
     var that = this;
-    wx.request({
-        url:getApp().globalData.headurl + 'question/addMath',
-        data:{
-          tempjson:res.detail.value,
-          question_type:that.data.question_type,
-          subject_id:that.data.subject_id
-        },
-        header: {
-          'content-type': 'application/json'
-        },
-    })
+    if(that.data.images != null || that.data.images != ""){
+      var i = 0;
+      that.uploadTo(i);
+    }
+    // wx.request({
+    //     url:getApp().globalData.headurl + 'question/addMath',
+    //     data:{
+    //       tempjson:res.detail.value,
+    //       question_type:that.data.question_type,
+    //       subject_id:that.data.subject_id
+    //     },
+    //     header: {
+    //       'content-type': 'application/json'
+    //     },
+    // })
   },
   formReset: function(){
     this.setData({
@@ -175,5 +242,17 @@ export default {
 }
 .page__bd{
   padding-top: 65px;
+}
+.image-in{
+  height: 100px;
+}
+.image-rm{
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+.question-images{
+  height:150px;
 }
 </style>

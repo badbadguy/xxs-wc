@@ -26,17 +26,14 @@
         <view class="con-in">
           题目：<input name="question_title" class="input-address" maxlength="50" placeholder="题目" value="{{tempValue}}"/>
         </view>
-        <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images.length < 3}}">添加图片</button>
-        <view class="question-images">
-          <block wx:for="{{images}}" wx:key="*this" wx:for-item="item">
-            <view class="q-image-wrap">
-              <!-- 图片缩略图  -->
-              <!-- <image class="q-image" src='{{item}}' mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image> -->
-              <image src="{{item}}" >{{item}}</image>
-              <!-- 移除图片的按钮  -->
-              <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
-            </view>
-          </block>
+        <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images == null || images == ''}}">添加图片</button>
+        <view class="question-images"wx:if="{{images}}">
+          <view class="image-in">
+            <!-- 图片缩略图  -->
+            <image mode="aspectFit" src="{{images}}" />
+            <!-- 移除图片的按钮  -->
+            <view class="image-rm" data-idx="{{index}}" bindtap="removeImage">删除</view>
+          </view>
         </view>
         <view style="{{show1}}">
           <view class="con-in">
@@ -86,37 +83,32 @@ export default {
     countryList: ['选择题', '填空题', '语音题'],
     checklist: ['选择题'],
     question_type:0,
-    images: []
+    images: "",
   },
   removeImage: function(e) {
     const idx = e.target.dataset.idx
-    this.data.images.splice(idx, 1)
+    this.setData({
+      images:""
+    })
   },
   chooseImage: function(e) {
     var that = this;
     wx.chooseImage({
+      count: 1,
       sizeType: ['original', 'compressed'],  //可选择原图或压缩后的图片
       sourceType: ['album', 'camera'],      //可选择性开放访问相册、相机
       success: res => {
-        wx.uploadFile({
-          url:getApp().globalData.headurl + 'test',
-          filePath: res.tempFilePaths[0],
-          name: 'file',
-        });
+        // wx.uploadFile({
+        //   url:getApp().globalData.headurl + 'test',
+        //   filePath: res.tempFilePaths[0],
+        //   name: 'file',
+        // });
         const images = that.data.images.concat(res.tempFilePaths)
         // 限制最多只能留下3张照片
         that.setData({
-          images:images.length <= 3 ? images : images.slice(0, 3)
+          images:res.tempFilePaths[0]
         })
       }
-    })
-  },
-  handleImagePreview: function(e) {
-    const idx = e.target.dataset.idx
-    const images = this.data.images
-    wx.previewImage({
-      current: images[idx],  //当前预览的图片
-      urls: images,  //所有要预览的图片
     })
   },
   typechange:function(e){
@@ -162,5 +154,17 @@ export default {
 }
 .con-ra{
   padding-left: 41px;
+}
+.image-in{
+  height: 100px;
+}
+.image-rm{
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+.question-images{
+  height:150px;
 }
 </style>

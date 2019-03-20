@@ -3,6 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 exports.default = Page({
   data: {
     checkbox: [0],
@@ -12,7 +15,40 @@ exports.default = Page({
     show2: "display:none",
     show3: "",
     question_type: 2,
-    tempValue: ""
+    tempValue: "",
+    images: []
+  },
+  removeImage: function removeImage(e) {
+    var idx = e.target.dataset.idx;
+    console.log(e);
+    console.log(idx);
+    this.setData({
+      images: []
+    });
+  },
+  imageClick: function imageClick(e) {
+    var that = this;
+    var arr = Array();
+    arr.push(that.data.images);
+    console.log(arr);
+    wx.previewImage({
+      current: that.data.images,
+      urls: arr
+    });
+  },
+  chooseImage: function chooseImage(e) {
+    var that = this;
+    var index = e.target.id;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'], //可选择原图或压缩后的图片
+      sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
+      success: function success(res) {
+        var temp = "images[" + index + "]";
+        that.setData(_defineProperty({}, temp, res.tempFilePaths));
+        console.log(that.data.images.length);
+      }
+    });
   },
   typechange: function typechange(e) {
     var that = this;
@@ -69,19 +105,40 @@ exports.default = Page({
       checkbox: cb
     });
   },
-  formSubmit: function formSubmit(res) {
+  uploadTo: function uploadTo(i) {
     var that = this;
-    wx.request({
-      url: getApp().globalData.headurl + 'question/addMath',
-      data: {
-        tempjson: res.detail.value,
-        question_type: that.data.question_type,
-        subject_id: that.data.subject_id
-      },
-      header: {
-        'content-type': 'application/json'
+    var tempurl = that.data.images[i];
+    console.log(tempurl);
+    wx.uploadFile({
+      url: getApp().globalData.headurl + 'test',
+      filePath: tempurl,
+      name: 'file',
+      success: function success(e) {
+        console.log(e);
       }
     });
+    if (i + 1 < that.data.images.length) {
+      i++;
+      that.uploadTo(i);
+    }
+  },
+  formSubmit: function formSubmit(res) {
+    var that = this;
+    if (that.data.images != null || that.data.images != "") {
+      var i = 0;
+      that.uploadTo(i);
+    }
+    // wx.request({
+    //     url:getApp().globalData.headurl + 'question/addMath',
+    //     data:{
+    //       tempjson:res.detail.value,
+    //       question_type:that.data.question_type,
+    //       subject_id:that.data.subject_id
+    //     },
+    //     header: {
+    //       'content-type': 'application/json'
+    //     },
+    // })
   },
   formReset: function formReset() {
     this.setData({

@@ -26,17 +26,14 @@
       <view class="con-in">
         题目：<input name="question_title" class="input-address" maxlength="50" placeholder="题目" value="{{tempValue}}"></input>
       </view>
-      <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images.length < 3}}">添加图片</button>
-      <view class="question-images">
-        <block wx:for="{{images}}" wx:key="*this" wx:for-item="item">
-          <view class="q-image-wrap">
-            <!-- 图片缩略图  -->
-            <!-- <image class="q-image" src='{{item}}' mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image> -->
-            <image src="{{item}}" />{{item}}
-            <!-- 移除图片的按钮  -->
-            <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
-          </view>
-        </block>
+      <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images == null || images == ''}}">添加图片</button>
+      <view class="question-images" wx:if="{{images}}">
+        <view class="image-in">
+          <!-- 图片缩略图  -->
+          <image mode="aspectFit" src="{{images}}" />
+          <!-- 移除图片的按钮  -->
+          <view class="image-rm" data-idx="{{index}}" bindtap="removeImage">删除</view>
+        </view>
       </view>
       <view style="{{show1}}">
         <view class="con-in">

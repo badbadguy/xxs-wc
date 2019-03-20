@@ -13,37 +13,32 @@ exports.default = Page({
     countryList: ['选择题', '填空题', '语音题'],
     checklist: ['选择题'],
     question_type: 0,
-    images: []
+    images: ""
   },
   removeImage: function removeImage(e) {
     var idx = e.target.dataset.idx;
-    this.data.images.splice(idx, 1);
+    this.setData({
+      images: ""
+    });
   },
   chooseImage: function chooseImage(e) {
     var that = this;
     wx.chooseImage({
+      count: 1,
       sizeType: ['original', 'compressed'], //可选择原图或压缩后的图片
       sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
       success: function success(res) {
-        wx.uploadFile({
-          url: getApp().globalData.headurl + 'test',
-          filePath: res.tempFilePaths[0],
-          name: 'file'
-        });
+        // wx.uploadFile({
+        //   url:getApp().globalData.headurl + 'test',
+        //   filePath: res.tempFilePaths[0],
+        //   name: 'file',
+        // });
         var images = that.data.images.concat(res.tempFilePaths);
         // 限制最多只能留下3张照片
         that.setData({
-          images: images.length <= 3 ? images : images.slice(0, 3)
+          images: res.tempFilePaths[0]
         });
       }
-    });
-  },
-  handleImagePreview: function handleImagePreview(e) {
-    var idx = e.target.dataset.idx;
-    var images = this.data.images;
-    wx.previewImage({
-      current: images[idx], //当前预览的图片
-      urls: images //所有要预览的图片
     });
   },
   typechange: function typechange(e) {

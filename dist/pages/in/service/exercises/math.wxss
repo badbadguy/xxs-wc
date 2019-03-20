@@ -31,3 +31,15 @@
 .page__bd {
   padding-top: 65px;
 }
+.image-in {
+  height: 100px;
+}
+.image-rm {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.question-images {
+  height: 150px;
+}

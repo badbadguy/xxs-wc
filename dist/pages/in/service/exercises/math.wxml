@@ -27,6 +27,15 @@
           <view class="con-in">
             题目：<input name="question_title{{index}}" class="input-address" maxlength="50" placeholder="题目" value="{{tempValue}}"></input>
           </view>
+          <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images[index] == null || images[index] == ''}}" id="{{index}}">添加图片</button>
+          <view class="question-images" wx:if="{{images[index]}}">
+            <view class="image-in">
+              <!-- 图片缩略图  -->
+              <image mode="aspectFit" src="{{images[index]}}" bindtap="imageClick" />
+              <!-- 移除图片的按钮  -->
+              <view class="image-rm" data-idx="{{index}}" bindtap="removeImage">删除</view>
+            </view>
+          </view>
           <view style="{{show2}}">
             <view class="con-in">
               选择A：<input name="question_answer1{{index}}" class="input-address" maxlength="10" placeholder="选择A：" value="{{tempValue}}"></input>
