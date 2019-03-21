@@ -2,18 +2,18 @@
   "_args": [
     [
       {
-        "raw": "regenerator-runtime",
+        "raw": "regenerator-runtime@^0.13.0",
         "scope": null,
         "escapedName": "regenerator-runtime",
         "name": "regenerator-runtime",
-        "rawSpec": "",
-        "spec": "latest",
-        "type": "tag"
+        "rawSpec": "^0.13.0",
+        "spec": ">=0.13.0 <0.14.0",
+        "type": "range"
       },
-      "D:\\xxs-wc\\xxs-wc"
+      "D:\\xxs-wc\\r\\node_modules\\regenerator"
     ]
   ],
-  "_from": "regenerator-runtime@latest",
+  "_from": "regenerator-runtime@>=0.13.0 <0.14.0",
   "_hasShrinkwrap": false,
   "_id": "regenerator-runtime@0.13.2",
   "_inCache": true,
@@ -30,22 +30,23 @@
   "_npmVersion": "6.8.0",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "regenerator-runtime",
+    "raw": "regenerator-runtime@^0.13.0",
     "scope": null,
     "escapedName": "regenerator-runtime",
     "name": "regenerator-runtime",
-    "rawSpec": "",
-    "spec": "latest",
-    "type": "tag"
+    "rawSpec": "^0.13.0",
+    "spec": ">=0.13.0 <0.14.0",
+    "type": "range"
   },
   "_requiredBy": [
-    "#USER"
+    "/@babel/runtime",
+    "/regenerator"
   ],
   "_resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.2.tgz",
   "_shasum": "32e59c9a6fb9b1a4aff09b4930ca2d4477343447",
   "_shrinkwrap": null,
-  "_spec": "regenerator-runtime",
-  "_where": "D:\\xxs-wc\\xxs-wc",
+  "_spec": "regenerator-runtime@^0.13.0",
+  "_where": "D:\\xxs-wc\\r\\node_modules\\regenerator",
   "author": {
     "name": "Ben Newman",
     "email": "bn@cs.stanford.edu"

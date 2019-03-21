@@ -16,21 +16,36 @@ exports.default = Page({
     show3: "",
     question_type: 2,
     tempValue: "",
-    images: []
+    images: [],
+    imagesurl: []
+  },
+  try11: function try11(e) {
+    var that = this;
+    var i = 0;
+    that.uploadTo(i);
+    wx.showConfirm({
+      title: '提示',
+      content: '确认上传吗',
+      cancelColor: 'red',
+      confirmColor: '#3399ff',
+      confirmText: '确定',
+      cancelText: '返回',
+      success: function success(res) {
+        if (res.confirm) {
+          that.formSubmit(e);
+        }
+      }
+    });
   },
   removeImage: function removeImage(e) {
     var idx = e.target.dataset.idx;
-    console.log(e);
-    console.log(idx);
-    this.setData({
-      images: []
-    });
+    var temp = "images[" + idx + "]";
+    this.setData(_defineProperty({}, temp, null));
   },
   imageClick: function imageClick(e) {
     var that = this;
     var arr = Array();
     arr.push(that.data.images);
-    console.log(arr);
     wx.previewImage({
       current: that.data.images,
       urls: arr
@@ -45,8 +60,7 @@ exports.default = Page({
       sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
       success: function success(res) {
         var temp = "images[" + index + "]";
-        that.setData(_defineProperty({}, temp, res.tempFilePaths));
-        console.log(that.data.images.length);
+        that.setData(_defineProperty({}, temp, res.tempFilePaths[0]));
       }
     });
   },
@@ -108,32 +122,38 @@ exports.default = Page({
   uploadTo: function uploadTo(i) {
     var that = this;
     var tempurl = that.data.images[i];
-    console.log(tempurl);
-    wx.uploadFile({
-      url: getApp().globalData.headurl + 'test',
-      filePath: tempurl,
-      name: 'file',
-      success: function success(e) {
-        console.log(e);
-      }
-    });
-    if (i + 1 < that.data.images.length) {
+    var tempimagesurl = "imagesurl[" + i + "]";
+    if (tempurl != null) {
+      console.log("what" + i);
+      wx.uploadFile({
+        url: getApp().globalData.headurl + 'question/picture',
+        filePath: tempurl,
+        name: 'file',
+        success: function success(e) {
+          that.setData(_defineProperty({}, tempimagesurl, e.data));
+        }
+      });
+      console.log(tempurl != null);
+    }
+    if (i + 2 < that.data.images.length) {
       i++;
       that.uploadTo(i);
     }
   },
   formSubmit: function formSubmit(res) {
     var that = this;
-    if (that.data.images != null || that.data.images != "") {
-      var i = 0;
-      that.uploadTo(i);
-    }
+    console.log(res);
+    // if(that.data.images != null || that.data.images != ""){
+    //   var i = 0;
+    //   that.uploadTo(i);
+    // };
     // wx.request({
     //     url:getApp().globalData.headurl + 'question/addMath',
     //     data:{
     //       tempjson:res.detail.value,
     //       question_type:that.data.question_type,
-    //       subject_id:that.data.subject_id
+    //       subject_id:that.data.subject_id,
+    //       imagesurl:JSON.stringify(that.data.imagesurl)
     //     },
     //     header: {
     //       'content-type': 'application/json'

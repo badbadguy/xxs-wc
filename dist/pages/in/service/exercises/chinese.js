@@ -34,7 +34,6 @@ exports.default = Page({
         //   name: 'file',
         // });
         var images = that.data.images.concat(res.tempFilePaths);
-        // 限制最多只能留下3张照片
         that.setData({
           images: res.tempFilePaths[0]
         });
