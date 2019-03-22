@@ -1,6 +1,6 @@
 <template>
   <view>
-    <form bindsubmit="formSubmit" bindreset="formReset">
+    <form bindsubmit="try11" bindreset="formReset">
       <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}" _pid="{{_pid}}">
         <view class="ui-row" style="height:46px;">
           <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
@@ -37,22 +37,22 @@
         </view>
         <view style="{{show1}}">
           <view class="con-in">
-            选择A：<input name="question_answer1{{index}}" class="input-address" maxlength="10" placeholder="选择A：" value="{{tempValue}}"/>
+            选择A：<input name="question_answer1" class="input-address" maxlength="10" placeholder="选择A：" value="{{tempValue}}"/>
           </view>
           <view class="con-in">
-            选择B：<input name="question_answer2{{index}}" class="input-address" maxlength="10" placeholder="选择B：" value="{{tempValue}}"/>
+            选择B：<input name="question_answer2" class="input-address" maxlength="10" placeholder="选择B：" value="{{tempValue}}"/>
           </view>
           <view class="con-in">
-            选择C：<input name="question_answer3{{index}}" class="input-address" maxlength="10" placeholder="选择C：" value="{{tempValue}}"/>
+            选择C：<input name="question_answer3" class="input-address" maxlength="10" placeholder="选择C：" value="{{tempValue}}"/>
           </view>
           <view class="con-in">
-            选择D：<input name="question_answer4{{index}}" class="input-address" maxlength="10" placeholder="选择D：" value="{{tempValue}}"/>
+            选择D：<input name="question_answer4" class="input-address" maxlength="10" placeholder="选择D：" value="{{tempValue}}"/>
           </view>
         </view>
         <view class="con-in">
           <text>正确答案：</text>
           <view style="{{show1}}">
-            <radio-group name="question_answerr{{index}}" value="{{tempValue}}">
+            <radio-group name="question_answerr">
               <label class="con-ra"><radio value="1" />A</label>
               <label class="con-ra"><radio value="2" />B</label>
               <label class="con-ra"><radio value="3" />C</label>
@@ -60,11 +60,11 @@
             </radio-group>
           </view>
           <view style="{{show2}}">
-            <input name="question_answerr{{index}}" class="input-address" maxlength="10" placeholder="正确答案：" value="{{tempValue}}"/>
+            <input name="question_answers" class="input-address" maxlength="10" placeholder="正确答案：" value="{{tempValue}}"/>
           </view>
         </view>
         <view class="con-in">
-          错误提示：<input name="question_remark{{index}}" class="input-address" maxlength="10" placeholder="错误提示：" value="{{tempValue}}"/>
+          错误提示：<input name="question_remark" class="input-address" maxlength="10" placeholder="错误提示：" value="{{tempValue}}"/>
         </view>
       </view>
     </form>
@@ -85,6 +85,12 @@ export default {
     question_type:0,
     images: "",
   },
+  onLoad: function(res){
+    var that = this;
+    that.setData({
+      subject_id:res.id
+    })
+  },
   removeImage: function(e) {
     const idx = e.target.dataset.idx
     this.setData({
@@ -98,11 +104,6 @@ export default {
       sizeType: ['original', 'compressed'],  //可选择原图或压缩后的图片
       sourceType: ['album', 'camera'],      //可选择性开放访问相册、相机
       success: res => {
-        // wx.uploadFile({
-        //   url:getApp().globalData.headurl + 'test',
-        //   filePath: res.tempFilePaths[0],
-        //   name: 'file',
-        // });
         const images = that.data.images.concat(res.tempFilePaths)
         that.setData({
           images:res.tempFilePaths[0]
@@ -139,7 +140,49 @@ export default {
     }
   },
   formSubmit: function(res) {
-    console.log(res);    
+    console.log(res);
+    var that = this;
+    wx.request({
+        url:getApp().globalData.headurl + 'question/addCommon',
+        data:{
+          tempjson:res.detail.value,
+          question_type:that.data.question_type,
+          subject_id:that.data.subject_id,
+          question_image:that.data.images
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+    })
+  },
+  try11: function(e) {
+    var that = this;
+    var i=0;
+    if(that.data.images != ""){
+      wx.uploadFile({
+        url:getApp().globalData.headurl + 'question/picture',
+        filePath: that.data.images,
+        name: 'file',
+        success:function(e){
+          that.setData({
+            tempimagesurl:e.data
+          });
+        }
+      });
+    }
+    wx.showConfirm({
+      title: '提示',
+      content: '确认上传吗',
+      cancelColor: 'red',
+      confirmColor: '#3399ff',
+      confirmText: '确定',
+      cancelText: '返回',
+      success: function success(res) {
+        if(res.confirm){
+          that.formSubmit(e);
+        }
+      }
+    });
   }
 }
 </script>

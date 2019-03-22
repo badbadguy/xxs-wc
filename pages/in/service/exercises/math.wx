@@ -54,7 +54,7 @@
             <view class="con-in">
               <text>正确答案：</text>
               <view style="{{show2}}">
-                <radio-group name="question_answerr{{index}}" value="{{tempValue}}">
+                <radio-group name="question_answerr{{index}}">
                   <label class="con-ra"><radio value="1" />A</label>
                   <label class="con-ra"><radio value="2" />B</label>
                   <label class="con-ra"><radio value="3" />C</label>
@@ -62,7 +62,7 @@
                 </radio-group>
               </view>
               <view style="{{show3}}">
-                  <input name="question_answerr{{index}}" class="input-address" maxlength="10" placeholder="正确答案：" value="{{tempValue}}"/>
+                  <input name="question_answers{{index}}" class="input-address" maxlength="10" placeholder="正确答案：" value="{{tempValue}}"/>
               </view>
             </view>
             <view class="con-in">
@@ -99,7 +99,8 @@ export default {
   try11: function(e) {
     var that = this;
     var i=0;
-    that.uploadTo(i);
+    if(that.data.images.length>0)
+      that.uploadTo(i);
     wx.showConfirm({
       title: '提示',
       content: '确认上传吗',
@@ -219,30 +220,25 @@ export default {
       });
       console.log(tempurl != null);
     }
-    if(i+2<that.data.images.length){
+    if(i+1<that.data.images.length){
       i++;
       that.uploadTo(i);
     }
   },
   formSubmit: function(res){
     var that = this;
-    console.log(res);
-    // if(that.data.images != null || that.data.images != ""){
-    //   var i = 0;
-    //   that.uploadTo(i);
-    // };
-    // wx.request({
-    //     url:getApp().globalData.headurl + 'question/addMath',
-    //     data:{
-    //       tempjson:res.detail.value,
-    //       question_type:that.data.question_type,
-    //       subject_id:that.data.subject_id,
-    //       imagesurl:JSON.stringify(that.data.imagesurl)
-    //     },
-    //     header: {
-    //       'content-type': 'application/json'
-    //     },
-    // })
+    wx.request({
+        url:getApp().globalData.headurl + 'question/addMath',
+        data:{
+          tempjson:res.detail.value,
+          question_type:that.data.question_type,
+          subject_id:that.data.subject_id,
+          imagesurl:JSON.stringify(that.data.imagesurl)
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+    })
   },
   formReset: function(){
     this.setData({

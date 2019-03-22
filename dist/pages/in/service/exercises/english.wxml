@@ -1,1 +1,79 @@
-<view></view>
+<view>
+  <form bindsubmit="try11" bindreset="formReset">
+    <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}" _pid="{{_pid}}">
+      <view class="ui-row" style="height:46px;">
+        <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+          <view class="ui-col-content align-center valign-middle"></view>
+        </view>
+        <view class="ui-col ui-col-align-center align-center valign-middle" style="">
+          <view class="ui-col-content align-center valign-middle">
+            <view><text>增加语文题目</text></view>
+          </view>
+        </view>
+        <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+          <view class="ui-col-content align-center valign-middle">
+            <button class="weui-btn" type="primary" formType="submit">提交</button>
+          </view>
+        </view>
+      </view>
+    </ui-nav-bar>
+    <view style="height:65px;"></view>
+    <view>
+      <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist }}" bindchange="typechange" _pid="{{_pid}}">
+      </ui-check-list>
+    </view>
+    <view class="con">
+      <view class="con-in">
+        题目：<input name="question_title" class="input-address" maxlength="50" placeholder="题目" value="{{tempValue}}"></input>
+      </view>
+      <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images == null || images == ''}}">添加图片</button>
+      <view class="question-images" wx:if="{{images}}">
+        <view class="image-in">
+          <!-- 图片缩略图  -->
+          <image mode="aspectFit" src="{{images}}" />
+          <!-- 移除图片的按钮  -->
+          <view class="image-rm" data-idx="{{index}}" bindtap="removeImage">删除</view>
+        </view>
+      </view>
+      <view style="{{show1}}">
+        <view class="con-in">
+          选择A：<input name="question_answer1" class="input-address" maxlength="10" placeholder="选择A：" value="{{tempValue}}"></input>
+        </view>
+        <view class="con-in">
+          选择B：<input name="question_answer2" class="input-address" maxlength="10" placeholder="选择B：" value="{{tempValue}}"></input>
+        </view>
+        <view class="con-in">
+          选择C：<input name="question_answer3" class="input-address" maxlength="10" placeholder="选择C：" value="{{tempValue}}"></input>
+        </view>
+        <view class="con-in">
+          选择D：<input name="question_answer4" class="input-address" maxlength="10" placeholder="选择D：" value="{{tempValue}}"></input>
+        </view>
+      </view>
+      <view class="con-in">
+        <text>正确答案：</text>
+        <view style="{{show1}}">
+          <radio-group name="question_answerr">
+            <label class="con-ra">
+              <radio value="1" color="#3399ff">A</radio>
+            </label>
+            <label class="con-ra">
+              <radio value="2" color="#3399ff">B</radio>
+            </label>
+            <label class="con-ra">
+              <radio value="3" color="#3399ff">C</radio>
+            </label>
+            <label class="con-ra">
+              <radio value="4" color="#3399ff">D</radio>
+            </label>
+          </radio-group>
+        </view>
+        <view style="{{show2}}">
+          <input name="question_answers" class="input-address" maxlength="10" placeholder="正确答案：" value="{{tempValue}}"></input>
+        </view>
+      </view>
+      <view class="con-in">
+        错误提示：<input name="question_remark" class="input-address" maxlength="10" placeholder="错误提示：" value="{{tempValue}}"></input>
+      </view>
+    </view>
+  </form>
+</view>

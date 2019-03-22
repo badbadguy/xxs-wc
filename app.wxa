@@ -28,7 +28,9 @@ export default {
       'pages/in/service/exercises/exercises',
       'pages/in/service/exercises/chinese',
       'pages/in/service/exercises/math',
-      'pages/in/service/exercises/english'
+      'pages/in/service/exercises/english',
+      'pages/in/service/decorate/decorate',
+      'pages/in/service/showexer/showexer'
     ], //'pages/home/index','pages/test/mapTest'
     tabBar: {
       color: '#a9b7b7',

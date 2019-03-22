@@ -15,6 +15,12 @@ exports.default = Page({
     question_type: 0,
     images: ""
   },
+  onLoad: function onLoad(res) {
+    var that = this;
+    that.setData({
+      subject_id: res.id
+    });
+  },
   removeImage: function removeImage(e) {
     var idx = e.target.dataset.idx;
     this.setData({
@@ -28,11 +34,6 @@ exports.default = Page({
       sizeType: ['original', 'compressed'], //可选择原图或压缩后的图片
       sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
       success: function success(res) {
-        // wx.uploadFile({
-        //   url:getApp().globalData.headurl + 'test',
-        //   filePath: res.tempFilePaths[0],
-        //   name: 'file',
-        // });
         var images = that.data.images.concat(res.tempFilePaths);
         that.setData({
           images: res.tempFilePaths[0]
@@ -70,5 +71,47 @@ exports.default = Page({
   },
   formSubmit: function formSubmit(res) {
     console.log(res);
+    var that = this;
+    wx.request({
+      url: getApp().globalData.headurl + 'question/addCommon',
+      data: {
+        tempjson: res.detail.value,
+        question_type: that.data.question_type,
+        subject_id: that.data.subject_id,
+        question_image: that.data.images
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    });
+  },
+  try11: function try11(e) {
+    var that = this;
+    var i = 0;
+    if (that.data.images != "") {
+      wx.uploadFile({
+        url: getApp().globalData.headurl + 'question/picture',
+        filePath: that.data.images,
+        name: 'file',
+        success: function success(e) {
+          that.setData({
+            tempimagesurl: e.data
+          });
+        }
+      });
+    }
+    wx.showConfirm({
+      title: '提示',
+      content: '确认上传吗',
+      cancelColor: 'red',
+      confirmColor: '#3399ff',
+      confirmText: '确定',
+      cancelText: '返回',
+      success: function success(res) {
+        if (res.confirm) {
+          that.formSubmit(e);
+        }
+      }
+    });
   }
 });

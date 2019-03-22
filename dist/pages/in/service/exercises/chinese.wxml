@@ -1,5 +1,5 @@
 <view>
-  <form bindsubmit="formSubmit" bindreset="formReset">
+  <form bindsubmit="try11" bindreset="formReset">
     <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}" _pid="{{_pid}}">
       <view class="ui-row" style="height:46px;">
         <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
@@ -37,22 +37,22 @@
       </view>
       <view style="{{show1}}">
         <view class="con-in">
-          选择A：<input name="question_answer1{{index}}" class="input-address" maxlength="10" placeholder="选择A：" value="{{tempValue}}"></input>
+          选择A：<input name="question_answer1" class="input-address" maxlength="10" placeholder="选择A：" value="{{tempValue}}"></input>
         </view>
         <view class="con-in">
-          选择B：<input name="question_answer2{{index}}" class="input-address" maxlength="10" placeholder="选择B：" value="{{tempValue}}"></input>
+          选择B：<input name="question_answer2" class="input-address" maxlength="10" placeholder="选择B：" value="{{tempValue}}"></input>
         </view>
         <view class="con-in">
-          选择C：<input name="question_answer3{{index}}" class="input-address" maxlength="10" placeholder="选择C：" value="{{tempValue}}"></input>
+          选择C：<input name="question_answer3" class="input-address" maxlength="10" placeholder="选择C：" value="{{tempValue}}"></input>
         </view>
         <view class="con-in">
-          选择D：<input name="question_answer4{{index}}" class="input-address" maxlength="10" placeholder="选择D：" value="{{tempValue}}"></input>
+          选择D：<input name="question_answer4" class="input-address" maxlength="10" placeholder="选择D：" value="{{tempValue}}"></input>
         </view>
       </view>
       <view class="con-in">
         <text>正确答案：</text>
         <view style="{{show1}}">
-          <radio-group name="question_answerr{{index}}" value="{{tempValue}}">
+          <radio-group name="question_answerr">
             <label class="con-ra">
               <radio value="1" color="#3399ff">A</radio>
             </label>
@@ -68,11 +68,11 @@
           </radio-group>
         </view>
         <view style="{{show2}}">
-          <input name="question_answerr{{index}}" class="input-address" maxlength="10" placeholder="正确答案：" value="{{tempValue}}"></input>
+          <input name="question_answers" class="input-address" maxlength="10" placeholder="正确答案：" value="{{tempValue}}"></input>
         </view>
       </view>
       <view class="con-in">
-        错误提示：<input name="question_remark{{index}}" class="input-address" maxlength="10" placeholder="错误提示：" value="{{tempValue}}"></input>
+        错误提示：<input name="question_remark" class="input-address" maxlength="10" placeholder="错误提示：" value="{{tempValue}}"></input>
       </view>
     </view>
   </form>

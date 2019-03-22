@@ -7,15 +7,17 @@
     </ui-col>
     <ui-col vertical-align="middle" align="center" bindtap="gotowhere" id="2">
       <image src="../../../imgs/service/homework.png" class="imgin"/>
-      <text class="text-down">布置作业</text>
+      <text class="text-down">增加作业库</text>
     </ui-col>
   </ui-row>
   <ui-row border-top border-bottom class="row-height">
     <ui-col vertical-align="middle" align="center" border-right bindtap="gotowhere" id="3">
-      <image src="../../../imgs/service/unknown.png" class="imgin"/>
+      <image src="../../../imgs/service/output.png" class="imgin"/>
+      <text class="text-down">布置作业</text>
     </ui-col>
     <ui-col vertical-align="middle" align="center" bindtap="gotowhere" id="4">
-      <image src="../../../imgs/service/unknown.png" class="imgin"/>
+      <image src="../../../imgs/service/checkout.png" class="imgin"/>
+      <text class="text-down">查看作业库</text>
     </ui-col>
   </ui-row>
 </view>
@@ -41,6 +43,16 @@ export default {
       case "2":
         wx.navigateTo({
           url:'/pages/in/service/exercises/exercises'
+        })
+        break;
+      case "3":
+        wx.navigateTo({
+          url:'/pages/in/service/decorate/decorate'
+        })
+        break;
+      case "4":
+        wx.navigateTo({
+          url:'/pages/in/service/showexer/showexer'
         })
         break;
       default:

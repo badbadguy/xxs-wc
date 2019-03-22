@@ -47,7 +47,7 @@
 <script>
 export default {
   config: {
-    navigationBarTitleText: "布置作业"
+    navigationBarTitleText: "增加作业库"
   },
   data: {
   },

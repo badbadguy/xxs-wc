@@ -22,7 +22,7 @@ exports.default = Page({
   try11: function try11(e) {
     var that = this;
     var i = 0;
-    that.uploadTo(i);
+    if (that.data.images.length > 0) that.uploadTo(i);
     wx.showConfirm({
       title: '提示',
       content: '确认上传吗',
@@ -135,30 +135,25 @@ exports.default = Page({
       });
       console.log(tempurl != null);
     }
-    if (i + 2 < that.data.images.length) {
+    if (i + 1 < that.data.images.length) {
       i++;
       that.uploadTo(i);
     }
   },
   formSubmit: function formSubmit(res) {
     var that = this;
-    console.log(res);
-    // if(that.data.images != null || that.data.images != ""){
-    //   var i = 0;
-    //   that.uploadTo(i);
-    // };
-    // wx.request({
-    //     url:getApp().globalData.headurl + 'question/addMath',
-    //     data:{
-    //       tempjson:res.detail.value,
-    //       question_type:that.data.question_type,
-    //       subject_id:that.data.subject_id,
-    //       imagesurl:JSON.stringify(that.data.imagesurl)
-    //     },
-    //     header: {
-    //       'content-type': 'application/json'
-    //     },
-    // })
+    wx.request({
+      url: getApp().globalData.headurl + 'question/addMath',
+      data: {
+        tempjson: res.detail.value,
+        question_type: that.data.question_type,
+        subject_id: that.data.subject_id,
+        imagesurl: JSON.stringify(that.data.imagesurl)
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    });
   },
   formReset: function formReset() {
     this.setData({

@@ -17,6 +17,16 @@ exports.default = Page({
           url: '/pages/in/service/exercises/exercises'
         });
         break;
+      case "3":
+        wx.navigateTo({
+          url: '/pages/in/service/decorate/decorate'
+        });
+        break;
+      case "4":
+        wx.navigateTo({
+          url: '/pages/in/service/showexer/showexer'
+        });
+        break;
       default:
         break;
     }

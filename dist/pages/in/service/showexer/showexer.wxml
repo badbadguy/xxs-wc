@@ -1,0 +1,69 @@
+<ui-tabs index="{{ current1 }}" bindchange="handleChange1" _pid="{{_pid}}">
+  <ui-tab _pid="{{_pid}}">选项卡一</ui-tab>
+  <ui-tab _pid="{{_pid}}">选项卡二</ui-tab>
+</ui-tabs>
+<swiper class="content" current="{{ current1 }}" bindchange="handleContentChange1">
+  <swiper-item>
+    <view>
+      <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}" _pid="{{_pid}}">
+        <view class="ui-row" style="height:46px;">
+          <view bindtap="navigateBack" class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+            <view class="ui-col-content align-center valign-middle">
+              <span type="arrow-left" size="16" color="#333" class="ui-icon icon-arrow-left" style="color: #333;font-size: 16px;"></span>
+            </view>
+          </view>
+          <view class="ui-col ui-col-align-center align-center valign-middle" style="">
+            <view class="ui-col-content align-center valign-middle">
+              <view>手风琴</view>
+            </view>
+          </view>
+          <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+            <view class="ui-col-content align-center valign-middle">
+            </view>
+          </view>
+        </view>
+      </ui-nav-bar>
+      <view style="height:{{NAV_HEIGHT}}"></view>
+      <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50" _pid="{{_pid}}">
+        <view slot="header">
+          <view class="title ui-row ui-row-border-bottom" style="height:50px;">
+            <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
+              <view class="ui-col-content align-left valign-middle">
+                {{ item.title }}
+              </view>
+            </view>
+            <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+              <view class="ui-col-content align-center valign-middle">
+                {{ item.number }}项
+              </view>
+            </view>
+            <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+              <view class="ui-col-content align-center valign-middle">
+                <view class="state {{ item.state }}" wx:if="{{ item.state==='abnormal' }}">{{ item.stateNum }}项异常</view>
+                <view class="state {{ item.state }}" wx:else="">全部正常</view>
+              </view>
+            </view>
+            <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 30px;">
+              <view class="ui-col-content align-center valign-middle"></view>
+            </view>
+          </view>
+        </view>
+        <view slot="content">
+          <view wx:for="{{ item.content }}" wx:for-item="item2" class="content ui-row" style="height:40px;">
+            <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
+              <view class="ui-col-content align-left valign-middle">{{ item2.title }}</view>
+            </view>
+            <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 50px;">
+              <view class="ui-col-content align-center valign-middle">
+                <span name="{{ item.state==='abnormal' ? 'error':'success' }}" size="16" color="{{ item.state==='abnormal' ? '#F5AC29':'#2AA744' }}" class="ui-icon" style="color: {{ item.state==='abnormal' ? '#F5AC29':'#2AA744' }};font-size: 16px;"></span>
+              </view>
+            </view>
+          </view>
+        </view>
+      </ui-accordion>
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view>内容 2</view>
+  </swiper-item>
+</swiper>

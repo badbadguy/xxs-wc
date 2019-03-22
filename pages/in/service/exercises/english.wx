@@ -1,15 +1,212 @@
 <template>
-  <view></view>
+  <view>
+    <form bindsubmit="try11" bindreset="formReset">
+      <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}" _pid="{{_pid}}">
+        <view class="ui-row" style="height:46px;">
+          <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+            <view class="ui-col-content align-center valign-middle"></view>
+          </view>
+          <view class="ui-col ui-col-align-center align-center valign-middle" style="">
+            <view class="ui-col-content align-center valign-middle">
+              <view><text>增加语文题目</text></view>
+            </view>
+          </view>
+          <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
+            <view class="ui-col-content align-center valign-middle">
+              <button class="weui-btn" type="primary" formType="submit">提交</button>
+            </view>
+          </view>
+        </view>
+      </ui-nav-bar>
+      <view style="height:65px;"></view>
+      <view>
+        <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist }}" bindchange='typechange'/>
+      </view>
+      <view class="con">
+        <view class="con-in">
+          题目：<input name="question_title" class="input-address" maxlength="50" placeholder="题目" value="{{tempValue}}"/>
+        </view>
+        <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images == null || images == ''}}">添加图片</button>
+        <view class="question-images"wx:if="{{images}}">
+          <view class="image-in">
+            <!-- 图片缩略图  -->
+            <image mode="aspectFit" src="{{images}}" />
+            <!-- 移除图片的按钮  -->
+            <view class="image-rm" data-idx="{{index}}" bindtap="removeImage">删除</view>
+          </view>
+        </view>
+        <view style="{{show1}}">
+          <view class="con-in">
+            选择A：<input name="question_answer1" class="input-address" maxlength="10" placeholder="选择A：" value="{{tempValue}}"/>
+          </view>
+          <view class="con-in">
+            选择B：<input name="question_answer2" class="input-address" maxlength="10" placeholder="选择B：" value="{{tempValue}}"/>
+          </view>
+          <view class="con-in">
+            选择C：<input name="question_answer3" class="input-address" maxlength="10" placeholder="选择C：" value="{{tempValue}}"/>
+          </view>
+          <view class="con-in">
+            选择D：<input name="question_answer4" class="input-address" maxlength="10" placeholder="选择D：" value="{{tempValue}}"/>
+          </view>
+        </view>
+        <view class="con-in">
+          <text>正确答案：</text>
+          <view style="{{show1}}">
+            <radio-group name="question_answerr">
+              <label class="con-ra"><radio value="1" />A</label>
+              <label class="con-ra"><radio value="2" />B</label>
+              <label class="con-ra"><radio value="3" />C</label>
+              <label class="con-ra"><radio value="4" />D</label>
+            </radio-group>
+          </view>
+          <view style="{{show2}}">
+            <input name="question_answers" class="input-address" maxlength="10" placeholder="正确答案：" value="{{tempValue}}"/>
+          </view>
+        </view>
+        <view class="con-in">
+          错误提示：<input name="question_remark" class="input-address" maxlength="10" placeholder="错误提示：" value="{{tempValue}}"/>
+        </view>
+      </view>
+    </form>
+  </view>
 </template>
 
 <script>
+import { $digest } from '../../../../utils/common.util.js'
 export default {
   config: {
     navigationBarTitleText: '英语作业'
   },
-  data: {}
+  data: {
+    show1:"",
+    show2:"display:none",
+    countryList: ['选择题', '填空题', '语音题'],
+    checklist: ['选择题'],
+    question_type:0,
+    images: "",
+  },
+  onLoad: function(res){
+    var that = this;
+    that.setData({
+      subject_id:res.id
+    })
+  },
+  removeImage: function(e) {
+    const idx = e.target.dataset.idx
+    this.setData({
+      images:""
+    })
+  },
+  chooseImage: function(e) {
+    var that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],  //可选择原图或压缩后的图片
+      sourceType: ['album', 'camera'],      //可选择性开放访问相册、相机
+      success: res => {
+        const images = that.data.images.concat(res.tempFilePaths)
+        that.setData({
+          images:res.tempFilePaths[0]
+        })
+      }
+    })
+  },
+  typechange:function(e){
+    var that = this;
+    switch (e.detail.value[0]) {
+      case '语音题':
+        that.setData({
+          show1:"display:none",
+          show2:"",
+          question_type:1
+        });
+        break;
+      case '选择题':
+        that.setData({
+          show1:"",
+          show2:"display:none",
+          question_type:0
+        });
+        break;
+      case '填空题':
+        that.setData({
+          show1:"display:none",
+          show2:"",
+          question_type:2
+        });
+        break;
+      default:
+        break;
+    }
+  },
+  formSubmit: function(res) {
+    console.log(res);
+    var that = this;
+    wx.request({
+        url:getApp().globalData.headurl + 'question/addCommon',
+        data:{
+          tempjson:res.detail.value,
+          question_type:that.data.question_type,
+          subject_id:that.data.subject_id,
+          question_image:that.data.images
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+    })
+  },
+  try11: function(e) {
+    var that = this;
+    var i=0;
+    if(that.data.images != ""){
+      wx.uploadFile({
+        url:getApp().globalData.headurl + 'question/picture',
+        filePath: that.data.images,
+        name: 'file',
+        success:function(e){
+          that.setData({
+            tempimagesurl:e.data
+          });
+        }
+      });
+    }
+    wx.showConfirm({
+      title: '提示',
+      content: '确认上传吗',
+      cancelColor: 'red',
+      confirmColor: '#3399ff',
+      confirmText: '确定',
+      cancelText: '返回',
+      success: function success(res) {
+        if(res.confirm){
+          that.formSubmit(e);
+        }
+      }
+    });
+  }
 }
 </script>
 
 <style lang="less">
+.con{
+  padding: 10px 35px 20px 35px;
+}
+.con-in{
+  padding-top: 10px;
+}
+.con-ra{
+  padding-left: 41px;
+}
+.image-in{
+  height: 100px;
+}
+.image-rm{
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+.question-images{
+  height:150px;
+}
 </style>
