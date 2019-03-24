@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Page({
   data: {
     current1: 0,
-    NAV_HEIGHT: wx.STATUS_BAR_HEIGHT + wx.DEFAULT_HEADER_HEIGHT + 'px',
     items: [],
     accordion: [{
       title: '排除重大事故',

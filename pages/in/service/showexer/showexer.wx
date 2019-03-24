@@ -1,24 +1,12 @@
 <template>
+<view class="temp2">
   <ui-tabs index="{{ current1 }}" bindchange="handleChange1">
-      <ui-tab>选项卡一</ui-tab>
-      <ui-tab>选项卡二</ui-tab>
+      <ui-tab>单选题</ui-tab>
+      <ui-tab>填空题</ui-tab>
   </ui-tabs>
   <swiper class="content" current="{{ current1 }}"  bindchange="handleContentChange1">
       <swiper-item>
         <view>
-          <ui-nav-bar slot="nav-bar" custom-style="{{ {borderBottom:'1px solid rgba(231, 231, 231, 0.6)',backgroundColor:'#fff'} }}">
-            <ui-row height="46">
-              <ui-col vertical-align="middle" align="center" width="60" bindtap="navigateBack">
-                  <ui-icon type="arrow-left" size="16" color="#333"></ui-icon>
-              </ui-col>
-              <ui-col vertical-align="middle" align="center">
-                <view>手风琴</view>
-              </ui-col>
-              <ui-col vertical-align="middle" align="center" width="60">
-              </ui-col>
-            </ui-row>
-          </ui-nav-bar>
-          <view style="height:{{NAV_HEIGHT}}"></view>
           <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50">
             <view slot="header">
               <ui-row height="50" border-bottom class="title">
@@ -50,13 +38,13 @@
           <view>内容 2</view>
       </swiper-item>
   </swiper>
+  </view>
 </template>
 
 <script>
 export default {
     data :{
-        current1: 0,
-        NAV_HEIGHT:wx.STATUS_BAR_HEIGHT+wx.DEFAULT_HEADER_HEIGHT+'px',
+      current1: 0,
     items: [],
     accordion: [
       {
@@ -138,7 +126,6 @@ export default {
 </script>
 
 <style lang="less">
-<style lang="less">
 .ui-accordion {
   .header{
     .arrow{
@@ -171,6 +158,11 @@ export default {
 .content{
   background-color: #F6F6F6;
   font-size: 14px;
+  height: 100%;
   border-bottom: 1px solid #fff;
+}
+
+.temp2{
+  height: 100%;
 }
 </style>
