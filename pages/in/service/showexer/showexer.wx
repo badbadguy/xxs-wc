@@ -11,24 +11,50 @@
             <view slot="header">
               <ui-row height="50" border-bottom class="title">
                 <ui-col vertical-align="middle" align="left" space-left="10">
-                  {{ item.title }}
-                </ui-col>
-                <ui-col vertical-align="middle" align="center" width="60">
-                  {{ item.number }}项
-                </ui-col>
-                <ui-col vertical-align="middle" align="center" width="60">
-                  <view class="state {{ item.state }}" wx:if="{{ item.state==='abnormal' }}">{{ item.stateNum }}项异常</view>
-                  <view class="state {{ item.state }}" wx:else>全部正常</view>
+                  {{ item.question_title }}
                 </ui-col>
                 <ui-col vertical-align="middle" align="center" width="30"></ui-col>
               </ui-row>
             </view>
             <view slot="content">
-              <ui-row height="40" wx:for="{{ item.content }}" wx:for-item="item2" class='content'>
-                <ui-col vertical-align="middle" align="left" space-left="10">{{ item2.title }}</ui-col>
-                <ui-col vertical-align="middle" align="center" width="50">
-                  <ui-icon name="{{ item.state==='abnormal' ? 'error':'success' }}" size="16" color="{{ item.state==='abnormal' ? '#F5AC29':'#2AA744' }}"></ui-icon>
+              <ui-row height="80" class='content' wx:if="{{item.question_image}}">
+                <image src="{{item.question_image}}" mode="aspectFit" lazy-load></image>
+              </ui-row>
+              <ui-row height="40" class='content' wx:if="{{item.question_answer1}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer1 }}</ui-col>
+                <text class="temp1">答案A</text>
+                <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 1}}">
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright"></image>
                 </ui-col>
+                <view wx:else class="xixixi"></view>
+              </ui-row>
+              <ui-row height="40" class='content' wx:if="{{item.question_answer2}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer2 }}</ui-col>
+                <text class="temp1">答案B</text>
+                <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 2}}">
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright"></image>
+                </ui-col>
+                <view wx:else class="xixixi"></view>
+              </ui-row>
+              <ui-row height="40" class='content' wx:if="{{item.question_answer3}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer3 }}</ui-col>
+                <text class="temp1">答案C</text>
+                <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 3}}">
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright"></image>
+                </ui-col>
+                <view wx:else class="xixixi"></view>
+              </ui-row>
+              <ui-row height="40" class='content' wx:if="{{item.question_answer4}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer4 }}</ui-col>
+                <text class="temp1">答案D</text>
+                <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 4}}">
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright"></image>
+                </ui-col>
+                <view wx:else class="xixixi"></view>
+              </ui-row>
+              <ui-row height="40" class='content' wx:if="{{item.question_remark}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_remark }}</ui-col>
+                <text class="temp3">错题提示</text>
               </ui-row>
             </view>
           </ui-accordion>
@@ -66,46 +92,27 @@ export default {
             title: '舱内保险丝盒无火烧或熏黑痕迹'
           }
         ]
-      }, {
-            title: '排除水泡车',
-            number: 8,
-            state: 'normal',
-            stateNum: 5,
-            content: [
-              {
-                title: '防火墙无火烧或熏黑痕迹'
-              },
-              {
-                title: '发动机线束无火烧或熏黑痕迹'
-              },
-              {
-                title: '车辆覆盖件无火烧或熏黑痕迹'
-              },
-              {
-                title: '舱内保险丝盒无火烧或熏黑痕迹'
-              }
-            ]
-        }, {
-            title: '排除水泡车',
-            number: 8,
-            state: 'normal',
-            stateNum: 5,
-            content: [
-              {
-                title: '防火墙无火烧或熏黑痕迹'
-              },
-              {
-                title: '发动机线束无火烧或熏黑痕迹'
-              },
-              {
-                title: '车辆覆盖件无火烧或熏黑痕迹'
-              },
-              {
-                title: '舱内保险丝盒无火烧或熏黑痕迹'
-              }
-            ]
-          }
+      }
       ]
+    },
+    onLoad: function() {
+      var that = this;
+      wx.request({
+          url:getApp().globalData.headurl + 'question/select1',
+          header:{
+          'content-type': 'application/json'
+          },
+          data:{
+            question_type: "1",
+            subject_id : "33018ef1b3b74a18b6d9f94bff995d79"
+          },
+          success: function(res){
+            console.log(res);
+            that.setData({
+              accordion: res.data.resultList
+              })
+          }
+        })
     },
     navigateBack () {
       wx.navigateBack()
@@ -161,8 +168,26 @@ export default {
   height: 100%;
   border-bottom: 1px solid #fff;
 }
-
+.temp1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+}
 .temp2{
   height: 100%;
+}
+.temp3{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  padding-right:38px;
+}
+.imgright{
+  height: 20px;
+}
+.xixixi{
+  padding-right: 49px;
 }
 </style>

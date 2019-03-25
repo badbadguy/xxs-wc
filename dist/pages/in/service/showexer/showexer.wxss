@@ -49,6 +49,25 @@
   height: 100%;
   border-bottom: 1px solid #fff;
 }
+.temp1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+}
 .temp2 {
   height: 100%;
+}
+.temp3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  padding-right: 38px;
+}
+.imgright {
+  height: 20px;
+}
+.xixixi {
+  padding-right: 49px;
 }

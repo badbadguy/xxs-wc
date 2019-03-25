@@ -11,18 +11,7 @@
             <view class="title ui-row ui-row-border-bottom" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">
-                  {{ item.title }}
-                </view>
-              </view>
-              <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
-                <view class="ui-col-content align-center valign-middle">
-                  {{ item.number }}项
-                </view>
-              </view>
-              <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">
-                <view class="ui-col-content align-center valign-middle">
-                  <view class="state {{ item.state }}" wx:if="{{ item.state==='abnormal' }}">{{ item.stateNum }}项异常</view>
-                  <view class="state {{ item.state }}" wx:else="">全部正常</view>
+                  {{ item.question_title }}
                 </view>
               </view>
               <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 30px;">
@@ -31,15 +20,62 @@
             </view>
           </view>
           <view slot="content">
-            <view wx:for="{{ item.content }}" wx:for-item="item2" class="content ui-row" style="height:40px;">
+            <view class="content ui-row" wx:if="{{item.question_image}}" style="height:80px;">
+              <image src="{{item.question_image}}" mode="aspectFit" lazy-load />
+            </view>
+            <view class="content ui-row" wx:if="{{item.question_answer1}}" style="height:40px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
-                <view class="ui-col-content align-left valign-middle">{{ item2.title }}</view>
+                <view class="ui-col-content align-left valign-middle">{{ item.question_answer1 }}</view>
               </view>
-              <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 50px;">
+              <text class="temp1">答案A</text>
+              <view wx:if="{{item.question_answerr === 1}}" class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 50px;">
                 <view class="ui-col-content align-center valign-middle">
-                  <span name="{{ item.state==='abnormal' ? 'error':'success' }}" size="16" color="{{ item.state==='abnormal' ? '#F5AC29':'#2AA744' }}" class="ui-icon" style="color: {{ item.state==='abnormal' ? '#F5AC29':'#2AA744' }};font-size: 16px;"></span>
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright" />
                 </view>
               </view>
+              <view wx:else="" class="xixixi"></view>
+            </view>
+            <view class="content ui-row" wx:if="{{item.question_answer2}}" style="height:40px;">
+              <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
+                <view class="ui-col-content align-left valign-middle">{{ item.question_answer2 }}</view>
+              </view>
+              <text class="temp1">答案B</text>
+              <view wx:if="{{item.question_answerr === 2}}" class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 50px;">
+                <view class="ui-col-content align-center valign-middle">
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright" />
+                </view>
+              </view>
+              <view wx:else="" class="xixixi"></view>
+            </view>
+            <view class="content ui-row" wx:if="{{item.question_answer3}}" style="height:40px;">
+              <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
+                <view class="ui-col-content align-left valign-middle">{{ item.question_answer3 }}</view>
+              </view>
+              <text class="temp1">答案C</text>
+              <view wx:if="{{item.question_answerr === 3}}" class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 50px;">
+                <view class="ui-col-content align-center valign-middle">
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright" />
+                </view>
+              </view>
+              <view wx:else="" class="xixixi"></view>
+            </view>
+            <view class="content ui-row" wx:if="{{item.question_answer4}}" style="height:40px;">
+              <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
+                <view class="ui-col-content align-left valign-middle">{{ item.question_answer4 }}</view>
+              </view>
+              <text class="temp1">答案D</text>
+              <view wx:if="{{item.question_answerr === 4}}" class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 50px;">
+                <view class="ui-col-content align-center valign-middle">
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright" />
+                </view>
+              </view>
+              <view wx:else="" class="xixixi"></view>
+            </view>
+            <view class="content ui-row" wx:if="{{item.question_remark}}" style="height:40px;">
+              <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
+                <view class="ui-col-content align-left valign-middle">{{ item.question_remark }}</view>
+              </view>
+              <text class="temp3">错题提示</text>
             </view>
           </view>
         </ui-accordion>
