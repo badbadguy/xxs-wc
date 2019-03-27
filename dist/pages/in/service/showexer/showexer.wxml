@@ -2,6 +2,7 @@
   <ui-tabs index="{{ current1 }}" bindchange="handleChange1" _pid="{{_pid}}">
     <ui-tab _pid="{{_pid}}">单选题</ui-tab>
     <ui-tab _pid="{{_pid}}">填空题</ui-tab>
+    <ui-tab _pid="{{_pid}}">语音题</ui-tab>
   </ui-tabs>
   <swiper class="content" current="{{ current1 }}" bindchange="handleContentChange1">
     <swiper-item>
@@ -83,6 +84,9 @@
     </swiper-item>
     <swiper-item>
       <view>内容 2</view>
+    </swiper-item>
+    <swiper-item>
+      <view>内容 3</view>
     </swiper-item>
   </swiper>
 </view>
