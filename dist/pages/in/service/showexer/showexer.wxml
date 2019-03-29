@@ -8,7 +8,7 @@
   <swiper class="content" current="{{ current1 }}" bindchange="handleContentChange1">
     <swiper-item>
       <view>
-        <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50" _pid="{{_pid}}">
+        <ui-accordion bindtap="slide" wx:for="{{ accordion }}" header-height="50" id="{{index}}" _pid="{{_pid}}">
           <view slot="header">
             <view class="title ui-row ui-row-border-bottom" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
@@ -85,7 +85,7 @@
     </swiper-item>
     <swiper-item>
       <view>
-        <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50" _pid="{{_pid}}">
+        <ui-accordion bindtap="slide" wx:for="{{ accordion }}" header-height="50" id="{{index}}" _pid="{{_pid}}">
           <view slot="header">
             <view class="title ui-row ui-row-border-bottom" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
@@ -102,11 +102,11 @@
             <view class="content ui-row" wx:if="{{item.question_image}}" style="height:80px;">
               <image src="{{item.question_image}}" mode="aspectFit" lazy-load />
             </view>
-            <view class="content ui-row" wx:if="{{item.question_answerr}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_answers}}" style="">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
-                <view class="ui-col-content align-left valign-middle">{{ item.question_answerr }}</view>
+                <view class="ui-col-content align-left valign-middle">{{ item.question_answers }}</view>
               </view>
-              <text class="temp1">正确答案</text>
+              <text class="temp3">正确答案</text>
             </view>
             <view class="content ui-row" wx:if="{{item.question_remark}}" style="">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
@@ -120,7 +120,7 @@
     </swiper-item>
     <swiper-item wx:if="{{subject_id == '33018ef1b3b74a18b6d9f94bff995d79' || subject_id == '79bed2b0e57c4f7f8e71b9817f03e3b9'}}">
       <view>
-        <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50" _pid="{{_pid}}">
+        <ui-accordion bindtap="slide" wx:for="{{ accordion }}" header-height="50" id="{{index}}" _pid="{{_pid}}">
           <view slot="header">
             <view class="title ui-row ui-row-border-bottom" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
@@ -137,11 +137,11 @@
             <view class="content ui-row" wx:if="{{item.question_image}}" style="height:80px;">
               <image src="{{item.question_image}}" mode="aspectFit" lazy-load />
             </view>
-            <view class="content ui-row" wx:if="{{item.question_answerr}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_answers}}" style="">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
-                <view class="ui-col-content align-left valign-middle">{{ item.question_answerr }}</view>
+                <view class="ui-col-content align-left valign-middle">{{ item.question_answers }}</view>
               </view>
-              <text class="temp1">正确答案</text>
+              <text class="temp3">正确答案</text>
             </view>
             <view class="content ui-row" wx:if="{{item.question_remark}}" style="">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
@@ -155,7 +155,7 @@
     </swiper-item>
     <swiper-item wx:else="">
       <view>
-        <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50" _pid="{{_pid}}">
+        <ui-accordion bindtap="slide" wx:for="{{ accordion }}" header-height="50" id="{{index}}" _pid="{{_pid}}">
           <view slot="header">
             <view class="title ui-row ui-row-border-bottom" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">

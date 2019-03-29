@@ -9,7 +9,7 @@
   <swiper class="content" current="{{ current1 }}"  bindchange="handleContentChange1">
       <swiper-item>
         <view>
-          <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50">
+          <ui-accordion bindtap="slide" wx:for="{{ accordion }}" header-height="50" id="{{index}}">
             <view slot="header">
               <ui-row height="50" border-bottom class="title">
                 <ui-col vertical-align="middle" align="left" space-left="10">
@@ -64,7 +64,7 @@
       </swiper-item>
       <swiper-item>
         <view>
-          <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50">
+          <ui-accordion bindtap="slide" wx:for="{{ accordion }}" header-height="50" id="{{index}}">
             <view slot="header">
               <ui-row height="50" border-bottom class="title">
                 <ui-col vertical-align="middle" align="left" space-left="10">
@@ -77,9 +77,9 @@
               <ui-row height="80" class='content' wx:if="{{item.question_image}}">
                 <image src="{{item.question_image}}" mode="aspectFit" lazy-load>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_answerr}}">
-                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answerr }}</ui-col>
-                <text class="temp1">正确答案</text>
+              <ui-row class='content' wx:if="{{item.question_answers}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answers }}</ui-col>
+                <text class="temp3">正确答案</text>
               </ui-row>
               <ui-row class='content' wx:if="{{item.question_remark}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_remark }}</ui-col>
@@ -91,7 +91,7 @@
       </swiper-item>
       <swiper-item wx:if="{{subject_id == '33018ef1b3b74a18b6d9f94bff995d79' || subject_id == '79bed2b0e57c4f7f8e71b9817f03e3b9'}}">
         <view>
-          <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50">
+          <ui-accordion bindtap="slide" wx:for="{{ accordion }}" header-height="50" id="{{index}}">
             <view slot="header">
               <ui-row height="50" border-bottom class="title">
                 <ui-col vertical-align="middle" align="left" space-left="10">
@@ -104,9 +104,9 @@
               <ui-row height="80" class='content' wx:if="{{item.question_image}}">
                 <image src="{{item.question_image}}" mode="aspectFit" lazy-load>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_answerr}}">
-                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answerr }}</ui-col>
-                <text class="temp1">正确答案</text>
+              <ui-row class='content' wx:if="{{item.question_answers}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answers }}</ui-col>
+                <text class="temp3">正确答案</text>
               </ui-row>
               <ui-row class='content' wx:if="{{item.question_remark}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_remark }}</ui-col>
@@ -118,7 +118,7 @@
       </swiper-item>
       <swiper-item wx:else>
         <view>
-          <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50">
+          <ui-accordion bindtap="slide" wx:for="{{ accordion }}" header-height="50" id="{{index}}">
             <view slot="header">
               <ui-row height="50" border-bottom class="title">
                 <ui-col vertical-align="middle" align="left" space-left="10">
@@ -221,7 +221,7 @@
 export default {
     data :{
       current1: 0,
-      subject_id: 'cd84a79d6ee04e4d9630731b25b589d0',
+      subject_id: '33018ef1b3b74a18b6d9f94bff995d79',
       items: [],
       accordion: [
         {
@@ -232,7 +232,19 @@ export default {
           content: []
         }
         ],
-      heightAuto:"100%"
+      heightAuto:"200%"
+    },
+    slide(res){
+      var that = this;
+      if(that.data.current1 == '2' && that.data.subject_id == 'cd84a79d6ee04e4d9630731b25b589d0'){
+        var tempheight = (that.data.accordion[parseInt(res.currentTarget.id)].children.length + 1) * 100;
+      }else{
+        var tempheight = 100
+      }
+      console.log(tempheight);
+      that.setData({
+        heightAuto: tempheight + '%'
+      })
     },
     onLoad: function() {
       this.question(0);
@@ -249,11 +261,13 @@ export default {
             subject_id : that.data.subject_id
           },
           success: function(res){
+            var tempheight = res.data.resultList.length * 50
             that.setData({
-              accordion: res.data.resultList
+              accordion: res.data.resultList,
+              heightAuto: tempheight +'px'
               })
           }
-        })
+        });
     },
     navigateBack () {
       wx.navigateBack()

@@ -18,6 +18,7 @@
     "pages/in/service/exercises/math",
     "pages/in/service/exercises/english",
     "pages/in/service/decorate/decorate",
+    
     "pages/in/service/service"
   ],
   "tabBar": {
