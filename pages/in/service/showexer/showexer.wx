@@ -1,9 +1,10 @@
 <template>
-<view class="temp2">
+<view style="height:{{heightAuto}}">
   <ui-tabs index="{{ current1 }}" bindchange="handleChange1">
       <ui-tab>单选题</ui-tab>
       <ui-tab>填空题</ui-tab>
-      <ui-tab>语音题</ui-tab>
+      <ui-tab wx:if="{{subject_id == '33018ef1b3b74a18b6d9f94bff995d79' || subject_id == '79bed2b0e57c4f7f8e71b9817f03e3b9'}}">语音题</ui-tab>
+      <ui-tab wx:else>应用题</ui-tab>
   </ui-tabs>
   <swiper class="content" current="{{ current1 }}"  bindchange="handleContentChange1">
       <swiper-item>
@@ -19,41 +20,41 @@
             </view>
             <view slot="content">
               <ui-row height="80" class='content' wx:if="{{item.question_image}}">
-                <image src="{{item.question_image}}" mode="aspectFit" lazy-load></image>
+                <image src="{{item.question_image}}" mode="aspectFit" lazy-load>
               </ui-row>
-              <ui-row height="40" class='content' wx:if="{{item.question_answer1}}">
+              <ui-row class='content' wx:if="{{item.question_answer1}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer1 }}</ui-col>
                 <text class="temp1">答案A</text>
                 <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 1}}">
-                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright"></image>
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright">
                 </ui-col>
                 <view wx:else class="xixixi"></view>
               </ui-row>
-              <ui-row height="40" class='content' wx:if="{{item.question_answer2}}">
+              <ui-row class='content' wx:if="{{item.question_answer2}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer2 }}</ui-col>
                 <text class="temp1">答案B</text>
                 <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 2}}">
-                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright"></image>
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright">
                 </ui-col>
                 <view wx:else class="xixixi"></view>
               </ui-row>
-              <ui-row height="40" class='content' wx:if="{{item.question_answer3}}">
+              <ui-row class='content' wx:if="{{item.question_answer3}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer3 }}</ui-col>
                 <text class="temp1">答案C</text>
                 <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 3}}">
-                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright"></image>
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright">
                 </ui-col>
                 <view wx:else class="xixixi"></view>
               </ui-row>
-              <ui-row height="40" class='content' wx:if="{{item.question_answer4}}">
+              <ui-row class='content' wx:if="{{item.question_answer4}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer4 }}</ui-col>
                 <text class="temp1">答案D</text>
                 <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 4}}">
-                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright"></image>
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright">
                 </ui-col>
                 <view wx:else class="xixixi"></view>
               </ui-row>
-              <ui-row height="40" class='content' wx:if="{{item.question_remark}}">
+              <ui-row class='content' wx:if="{{item.question_remark}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_remark }}</ui-col>
                 <text class="temp3">错题提示</text>
               </ui-row>
@@ -62,10 +63,155 @@
         </view>
       </swiper-item>
       <swiper-item>
-          <view>内容 2</view>
+        <view>
+          <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50">
+            <view slot="header">
+              <ui-row height="50" border-bottom class="title">
+                <ui-col vertical-align="middle" align="left" space-left="10">
+                  {{ item.question_title }}
+                </ui-col>
+                <ui-col vertical-align="middle" align="center" width="30"></ui-col>
+              </ui-row>
+            </view>
+            <view slot="content">
+              <ui-row height="80" class='content' wx:if="{{item.question_image}}">
+                <image src="{{item.question_image}}" mode="aspectFit" lazy-load>
+              </ui-row>
+              <ui-row class='content' wx:if="{{item.question_answerr}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answerr }}</ui-col>
+                <text class="temp1">正确答案</text>
+              </ui-row>
+              <ui-row class='content' wx:if="{{item.question_remark}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_remark }}</ui-col>
+                <text class="temp3">错题提示</text>
+              </ui-row>
+            </view>
+          </ui-accordion>
+        </view>
       </swiper-item>
-      <swiper-item>
-          <view>内容 3</view>
+      <swiper-item wx:if="{{subject_id == '33018ef1b3b74a18b6d9f94bff995d79' || subject_id == '79bed2b0e57c4f7f8e71b9817f03e3b9'}}">
+        <view>
+          <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50">
+            <view slot="header">
+              <ui-row height="50" border-bottom class="title">
+                <ui-col vertical-align="middle" align="left" space-left="10">
+                  {{ item.question_title }}
+                </ui-col>
+                <ui-col vertical-align="middle" align="center" width="30"></ui-col>
+              </ui-row>
+            </view>
+            <view slot="content">
+              <ui-row height="80" class='content' wx:if="{{item.question_image}}">
+                <image src="{{item.question_image}}" mode="aspectFit" lazy-load>
+              </ui-row>
+              <ui-row class='content' wx:if="{{item.question_answerr}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answerr }}</ui-col>
+                <text class="temp1">正确答案</text>
+              </ui-row>
+              <ui-row class='content' wx:if="{{item.question_remark}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_remark }}</ui-col>
+                <text class="temp3">错题提示</text>
+              </ui-row>
+            </view>
+          </ui-accordion>
+        </view>
+      </swiper-item>
+      <swiper-item wx:else>
+        <view>
+          <ui-accordion bindchange="slide" wx:for="{{ accordion }}" header-height="50">
+            <view slot="header">
+              <ui-row height="50" border-bottom class="title">
+                <ui-col vertical-align="middle" align="left" space-left="10">
+                  {{ item.question_title }}
+                </ui-col>
+                <ui-col vertical-align="middle" align="center" width="30"></ui-col>
+              </ui-row>
+            </view>
+            <view slot="content">
+              <ui-row height="80" class='content' wx:if="{{item.question_image}}">
+                <image src="{{item.question_image}}" mode="aspectFit" lazy-load>
+              </ui-row>
+              <ui-row class='content' wx:if="{{item.question_answer1}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer1 }}</ui-col>
+                <text class="temp1">答案A</text>
+                <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 1}}">
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright">
+                </ui-col>
+                <view wx:else class="xixixi"></view>
+              </ui-row>
+              <ui-row class='content' wx:if="{{item.question_answer2}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer2 }}</ui-col>
+                <text class="temp1">答案B</text>
+                <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 2}}">
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright">
+                </ui-col>
+                <view wx:else class="xixixi"></view>
+              </ui-row>
+              <ui-row class='content' wx:if="{{item.question_answer3}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer3 }}</ui-col>
+                <text class="temp1">答案C</text>
+                <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 3}}">
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright">
+                </ui-col>
+                <view wx:else class="xixixi"></view>
+              </ui-row>
+              <ui-row class='content' wx:if="{{item.question_answer4}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer4 }}</ui-col>
+                <text class="temp1">答案D</text>
+                <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 4}}">
+                  <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright">
+                </ui-col>
+                <view wx:else class="xixixi"></view>
+              </ui-row>
+              <ui-row class='content' wx:if="{{item.question_remark}}">
+                <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_remark }}</ui-col>
+                <text class="temp3">错题提示</text>
+              </ui-row>
+              <view wx:for="{{item.children}}" wx:for-item="children">
+                <ui-row class='intitle'>
+                  <ui-col vertical-align="middle" align="left" space-left="10">{{ children.question_title }}</ui-col>
+                  <text class="temp3">嵌套题目</text>
+                </ui-row>
+                <ui-row class='content' wx:if="{{children.question_answer1}}">
+                  <ui-col vertical-align="middle" align="left" space-left="10">{{ children.question_answer1 }}</ui-col>
+                  <text class="temp1">答案A</text>
+                  <ui-col vertical-align="middle" align="center" width="50" wx:if="{{children.question_answerr === 1}}">
+                    <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright">
+                  </ui-col>
+                  <view wx:else class="xixixi"></view>
+                </ui-row>
+                <ui-row class='content' wx:if="{{children.question_answer2}}">
+                  <ui-col vertical-align="middle" align="left" space-left="10">{{ children.question_answer2 }}</ui-col>
+                  <text class="temp1">答案B</text>
+                  <ui-col vertical-align="middle" align="center" width="50" wx:if="{{children.question_answerr === 2}}">
+                    <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright">
+                  </ui-col>
+                  <view wx:else class="xixixi"></view>
+                </ui-row>
+                <ui-row class='content' wx:if="{{children.question_answer3}}">
+                  <ui-col vertical-align="middle" align="left" space-left="10">{{ children.question_answer3 }}</ui-col>
+                  <text class="temp1">答案C</text>
+                  <ui-col vertical-align="middle" align="center" width="50" wx:if="{{children.question_answerr === 3}}">
+                    <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright">
+                  </ui-col>
+                  <view wx:else class="xixixi"></view>
+                </ui-row>
+                <ui-row class='content' wx:if="{{children.question_answer4}}">
+                  <ui-col vertical-align="middle" align="left" space-left="10">{{ children.question_answer4 }}</ui-col>
+                  <text class="temp1">答案D</text>
+                  <ui-col vertical-align="middle" align="center" width="50" wx:if="{{children.question_answerr === 4}}">
+                    <image src="../../../../imgs/service/right.png" mode="aspectFit" lazy-load class="imgright">
+                  </ui-col>
+                  <view wx:else class="xixixi"></view>
+                </ui-row>
+                <ui-row class='content' wx:if="{{children.question_remark}}">
+                  <ui-col vertical-align="middle" align="left" space-left="10">{{ children.question_remark }}</ui-col>
+                  <text class="temp3">错题提示</text>
+                </ui-row>
+              </view>
+            </view>
+          </ui-accordion>
+        </view>
       </swiper-item>
   </swiper>
   </view>
@@ -75,31 +221,23 @@
 export default {
     data :{
       current1: 0,
-    items: [],
-    accordion: [
-      {
-        title: '排除重大事故',
-        number: 20,
-        state: 'abnormal',
-        stateNum: 5,
-        content: [
-          {
-            title: '防火墙无火烧或熏黑痕迹'
-          },
-          {
-            title: '发动机线束无火烧或熏黑痕迹'
-          },
-          {
-            title: '车辆覆盖件无火烧或熏黑痕迹'
-          },
-          {
-            title: '舱内保险丝盒无火烧或熏黑痕迹'
-          }
-        ]
-      }
-      ]
+      subject_id: 'cd84a79d6ee04e4d9630731b25b589d0',
+      items: [],
+      accordion: [
+        {
+          title: '查询出错',
+          number: 1,
+          state: 'abnormal',
+          stateNum: 5,
+          content: []
+        }
+        ],
+      heightAuto:"100%"
     },
     onLoad: function() {
+      this.question(0);
+    },
+    question(temp){
       var that = this;
       wx.request({
           url:getApp().globalData.headurl + 'question/select1',
@@ -107,11 +245,10 @@ export default {
           'content-type': 'application/json'
           },
           data:{
-            question_type: "1",
-            subject_id : "33018ef1b3b74a18b6d9f94bff995d79"
+            question_type: temp,
+            subject_id : that.data.subject_id
           },
           success: function(res){
-            console.log(res);
             that.setData({
               accordion: res.data.resultList
               })
@@ -122,10 +259,28 @@ export default {
       wx.navigateBack()
     },
     handleContentChange1 (e) {
-        let current = e.detail.current
-        this.setData({
-          current1:current
-        })
+      var that = this;
+      let current = e.detail.current
+      that.setData({
+        current1:current
+      });
+      switch (current) {
+        case 0:
+          that.question(0);
+          break;
+        case 1:
+          that.question(2);
+          break;
+        case 2:
+          if(that.data.subject_id == 'cd84a79d6ee04e4d9630731b25b589d0'){
+            that.question(3);
+          }else{
+            that.question(1);
+          }
+          break;
+        default:
+          break;
+      }
     },
     handleChange1 (e) {
         let index = e.detail.index
@@ -144,6 +299,16 @@ export default {
       top: 10px;
     }
   } 
+}
+.intitle{
+  background-color: #0080FF;
+  font-size: 14px;
+  height: 100%;
+  min-height: 50px;
+  border-bottom: 1px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .title{
   width: 100%;
@@ -170,16 +335,17 @@ export default {
   background-color: #F6F6F6;
   font-size: 14px;
   height: 100%;
+  min-height: 40px;
   border-bottom: 1px solid #fff;
-}
-.temp1{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.temp1{
   width: 40px;
 }
 .temp2{
-  height: 100%;
+  height: 150%;
 }
 .temp3{
   display: flex;

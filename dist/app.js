@@ -17,7 +17,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = App({
   globalData: {
     openid: '',
-    headurl: 'http://192.168.0.116:9999/',
+    headurl: 'http://10.50.34.86:9999/',
     history: []
   },
   onLaunch: function onLaunch() {

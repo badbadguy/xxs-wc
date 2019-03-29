@@ -6,24 +6,21 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Page({
   data: {
     current1: 0,
+    subject_id: 'cd84a79d6ee04e4d9630731b25b589d0',
     items: [],
     accordion: [{
-      title: '排除重大事故',
-      number: 20,
+      title: '查询出错',
+      number: 1,
       state: 'abnormal',
       stateNum: 5,
-      content: [{
-        title: '防火墙无火烧或熏黑痕迹'
-      }, {
-        title: '发动机线束无火烧或熏黑痕迹'
-      }, {
-        title: '车辆覆盖件无火烧或熏黑痕迹'
-      }, {
-        title: '舱内保险丝盒无火烧或熏黑痕迹'
-      }]
-    }]
+      content: []
+    }],
+    heightAuto: "100%"
   },
   onLoad: function onLoad() {
+    this.question(0);
+  },
+  question: function question(temp) {
     var that = this;
     wx.request({
       url: getApp().globalData.headurl + 'question/select1',
@@ -31,11 +28,10 @@ exports.default = Page({
         'content-type': 'application/json'
       },
       data: {
-        question_type: "1",
-        subject_id: "33018ef1b3b74a18b6d9f94bff995d79"
+        question_type: temp,
+        subject_id: that.data.subject_id
       },
       success: function success(res) {
-        console.log(res);
         that.setData({
           accordion: res.data.resultList
         });
@@ -46,10 +42,28 @@ exports.default = Page({
     wx.navigateBack();
   },
   handleContentChange1: function handleContentChange1(e) {
+    var that = this;
     var current = e.detail.current;
-    this.setData({
+    that.setData({
       current1: current
     });
+    switch (current) {
+      case 0:
+        that.question(0);
+        break;
+      case 1:
+        that.question(2);
+        break;
+      case 2:
+        if (that.data.subject_id == 'cd84a79d6ee04e4d9630731b25b589d0') {
+          that.question(3);
+        } else {
+          that.question(1);
+        }
+        break;
+      default:
+        break;
+    }
   },
   handleChange1: function handleChange1(e) {
     var index = e.detail.index;
