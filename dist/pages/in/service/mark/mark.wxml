@@ -1,0 +1,54 @@
+<view class="all">
+
+  <view class="all-in">
+    <button data-show="{{ true }}" bindtap="openPopup0">选择单选题</button>
+    <ui-popup show="{{ show0 }}" height="100%" _pid="{{_pid}}">
+      <view class="popup1">
+        <button bindtap="handleShow0" plain type="primary">确定</button>
+        <ui-check-list label-position="left" options="{{ accordion0 }}" value="{{ accordionValue0 }}" type="plain" bindchange="change0" _pid="{{_pid}}"></ui-check-list>
+      </view>
+    </ui-popup>
+    <view class="all-in" wx:if="{{accordionValue0.length > 0}}">
+      <text class="select" style="margin-top: 20px;">已经选择了{{accordionValue0.length}}道单选题</text>
+    </view>
+  </view>
+  <view class="all-in">
+    <button data-show="{{ true }}" bindtap="openPopup2">选择填空题</button>
+    <ui-popup show="{{ show2 }}" height="100%" _pid="{{_pid}}">
+      <view class="popup1">
+        <button bindtap="handleShow2" plain type="primary">确定</button>
+        <ui-check-list label-position="left" options="{{ accordion2 }}" value="{{ accordionValue2 }}" type="plain" bindchange="change2" _pid="{{_pid}}"></ui-check-list>
+      </view>
+    </ui-popup>
+    <view class="all-in" wx:if="{{accordionValue2.length > 0}}">
+      <text class="select" style="margin-top: 20px;">已经选择了{{accordionValue2.length}}道填空题</text>
+    </view>
+  </view>
+  <view wx:if="{{subject_id == 'cd84a79d6ee04e4d9630731b25b589d0'}}" class="all-in">
+    <button data-show="{{ true }}" bindtap="openPopup3">选择应用题</button>
+    <ui-popup show="{{ show3 }}" height="100%" _pid="{{_pid}}">
+      <view class="popup1">
+        <button bindtap="handleShow3" plain type="primary">确定</button>
+        <ui-check-list label-position="left" options="{{ accordion3 }}" value="{{ accordionValue3 }}" type="plain" bindchange="change3" _pid="{{_pid}}"></ui-check-list>
+      </view>
+    </ui-popup>
+    <view class="all-in" wx:if="{{accordionValue3.length > 0}}">
+      <text class="select" style="margin-top: 20px;">已经选择了{{accordionValue3.length}}道应用题</text>
+    </view>
+  </view>
+  <view wx:else="" class="all-in">
+    <button data-show="{{ true }}" bindtap="openPopup1">选择语音题</button>
+    <ui-popup show="{{ show1 }}" height="100%" _pid="{{_pid}}">
+      <view class="popup1">
+        <button bindtap="handleShow1" plain type="primary">确定</button>
+        <ui-check-list label-position="left" options="{{ accordion1 }}" value="{{ accordionValue1 }}" type="plain" bindchange="change1" _pid="{{_pid}}"></ui-check-list>
+      </view>
+    </ui-popup>
+    <view class="all-in" wx:if="{{accordionValue1.length > 0}}">
+      <text class="select" style="margin-top: 20px;">已经选择了{{accordionValue1.length}}道语音题</text>
+    </view>
+  </view>
+  <view class="select" style="margin-top: 88px;">
+    <button bindtap="selectTo">布置</button>
+  </view>
+</view>

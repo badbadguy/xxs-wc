@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/in/service/showexer/showexer",
+    "pages/in/service/mark/mark",
     "pages/test/cascaderTest",
     "pages/home/register",
     "pages/in/mine/mine",
@@ -18,7 +18,8 @@
     "pages/in/service/exercises/math",
     "pages/in/service/exercises/english",
     "pages/in/service/decorate/decorate",
-    
+    "pages/in/service/showexer/showexer",
+    "pages/in/service/mark/selectTo",
     "pages/in/service/service"
   ],
   "tabBar": {

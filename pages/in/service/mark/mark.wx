@@ -1,0 +1,206 @@
+<template>
+  <view class="all">
+
+    <view class="all-in">
+      <button data-show="{{ true }}" bindtap="openPopup0">选择单选题</button>
+      <ui-popup show="{{ show0 }}" height="100%">
+          <view class="popup1">
+            <button bindtap="handleShow0" plain type="primary">确定</button>
+            <ui-check-list label-position="left" options="{{ accordion0 }}" value="{{ accordionValue0 }}" type="plain" bindchange="change0"></ui-check-list>
+          </view>
+      </ui-popup>
+      <view class="all-in" wx:if="{{accordionValue0.length > 0}}">
+        <text class="select" style="margin-top: 20px;">已经选择了{{accordionValue0.length}}道单选题</text>
+      </view>
+    </view>
+    <view class="all-in">
+      <button data-show="{{ true }}" bindtap="openPopup2">选择填空题</button>
+      <ui-popup show="{{ show2 }}" height="100%">
+        <view class="popup1">
+          <button bindtap="handleShow2" plain type="primary">确定</button>
+          <ui-check-list label-position="left" options="{{ accordion2 }}" value="{{ accordionValue2 }}" type="plain" bindchange="change2"></ui-check-list>
+        </view>
+      </ui-popup>
+      <view class="all-in" wx:if="{{accordionValue2.length > 0}}">
+        <text class="select" style="margin-top: 20px;">已经选择了{{accordionValue2.length}}道填空题</text>
+      </view>
+    </view>
+    <view wx:if="{{subject_id == 'cd84a79d6ee04e4d9630731b25b589d0'}}"  class="all-in">
+      <button data-show="{{ true }}" bindtap="openPopup3">选择应用题</button>
+      <ui-popup show="{{ show3 }}" height="100%">
+        <view class="popup1">
+          <button bindtap="handleShow3" plain type="primary">确定</button>
+          <ui-check-list label-position="left" options="{{ accordion3 }}" value="{{ accordionValue3 }}" type="plain" bindchange="change3"></ui-check-list>
+        </view>
+      </ui-popup>
+      <view class="all-in" wx:if="{{accordionValue3.length > 0}}">
+        <text class="select" style="margin-top: 20px;">已经选择了{{accordionValue3.length}}道应用题</text>
+      </view>
+    </view>
+    <view wx:else  class="all-in">
+      <button data-show="{{ true }}" bindtap="openPopup1">选择语音题</button>
+      <ui-popup show="{{ show1 }}" height="100%">
+        <view class="popup1">
+          <button bindtap="handleShow1" plain type="primary">确定</button>
+          <ui-check-list label-position="left" options="{{ accordion1 }}" value="{{ accordionValue1 }}" type="plain" bindchange="change1"></ui-check-list>
+        </view>
+      </ui-popup>
+      <view class="all-in" wx:if="{{accordionValue1.length > 0}}">
+        <text class="select" style="margin-top: 20px;">已经选择了{{accordionValue1.length}}道语音题</text>
+      </view>
+    </view>
+    <view class="select" style="margin-top: 88px;">
+      <button bindtap="selectTo">布置</button>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: ''
+  },
+  data: {
+    subject_id:'33018ef1b3b74a18b6d9f94bff995d79',
+    accordion0:[],
+    accordionValue0:[],
+    accordion1:[],
+    accordionValue1:[],
+    accordion2:[],
+    accordionValue2:[],
+    accordion3:[],
+    accordionValue3:[],
+    show0: false,
+    show1: false,
+    show2: false,
+    show3: false,
+  },
+  change0(e){
+    this.setData({
+      accordionValue0:e.detail.value
+    })
+  },
+  change1(e){
+    this.setData({
+      accordionValue1:e.detail.value
+    })
+  },
+  change2(e){
+    this.setData({
+      accordionValue2:e.detail.value
+    })
+  },
+  change3(e){
+    this.setData({
+      accordionValue3:e.detail.value
+    })
+  },
+  openPopup0 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      show0: show
+    })
+  },
+  handleShow0(){
+    this.setData({
+      show0:false
+    })
+  },
+  openPopup1 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      show1: show
+    })
+  },
+  handleShow1(){
+    this.setData({
+      show1:false
+    })
+  },
+  openPopup2 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      show2: show
+    })
+  },
+  handleShow2(){
+    this.setData({
+      show2:false
+    })
+  },
+  openPopup3 (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      show3: show
+    })
+  },
+  handleShow3(){
+    this.setData({
+      show3:false
+    })
+  },
+  selectTo(){
+
+  },
+  onLoad:function(){
+    var that = this;
+    that.getQuestion(0);
+    that.getQuestion(1);
+    that.getQuestion(2);
+    that.getQuestion(3);
+  },
+  getQuestion(type){
+    var that = this;
+    wx.request({
+      url:getApp().globalData.headurl + 'question/select2',
+      header:{
+      'content-type': 'application/json'
+      },
+      data:{
+        question_type: type,
+        subject_id : that.data.subject_id
+      },
+      success: function(res){
+        var temp = "accordion" + type
+        that.setData({
+          [temp]: res.data.resultList,
+          });
+      }
+    });
+  }
+
+}
+</script>
+
+<style lang="less">
+.text{
+  width: 60px;
+}
+.temp1{
+  height: 1000%;
+}
+.select{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content{
+  background-color: #F6F6F6;
+  font-size: 14px;
+  height: 100%;
+  min-height: 40px;
+  border-bottom: 1px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup1{
+  padding: 40px 20px 0 20px;
+}
+.all{
+  padding-top: 60px;
+}
+.all-in{
+  margin-top: 20px;
+}
+</style>
