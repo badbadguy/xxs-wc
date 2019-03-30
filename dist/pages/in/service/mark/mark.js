@@ -86,7 +86,26 @@ exports.default = Page({
       show3: false
     });
   },
-  selectTo: function selectTo() {},
+  selectTo: function selectTo() {
+    var that = this;
+    var tempNum = that.data.accordionValue0.length + that.data.accordionValue1.length + that.data.accordionValue2.length + that.data.accordionValue3.length;
+    wx.request({
+      url: getApp().globalData.headurl + 'homework/add',
+      header: {
+        'content-type': 'application/json'
+      },
+      data: {
+        subject_id: that.data.subject_id,
+        teacher_id: getApp().globalData.openid,
+        question0_id: that.data.accordionValue0,
+        question1_id: that.data.accordionValue1,
+        question2_id: that.data.accordionValue2,
+        question3_id: that.data.accordionValue3,
+        num: tempNum
+      },
+      success: function success(res) {}
+    });
+  },
 
   onLoad: function onLoad() {
     var that = this;
@@ -94,6 +113,16 @@ exports.default = Page({
     that.getQuestion(1);
     that.getQuestion(2);
     that.getQuestion(3);
+    var tempDate = new Date();
+    //年
+    var Y = tempDate.getFullYear();
+    //月
+    var M = tempDate.getMonth() + 1 < 10 ? '0' + (tempDate.getMonth() + 1) : tempDate.getMonth() + 1;
+    //日
+    var D = tempDate.getDate() < 10 ? '0' + tempDate.getDate() : tempDate.getDate();
+    that.setData({
+      nowTime: Y + "-" + M + "-" + D
+    });
   },
   getQuestion: function getQuestion(type) {
     var that = this;

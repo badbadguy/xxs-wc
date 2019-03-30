@@ -1,5 +1,5 @@
 <view class="all">
-
+  <text class="select">{{nowTime}}</text>
   <view class="all-in">
     <button data-show="{{ true }}" bindtap="openPopup0">选择单选题</button>
     <ui-popup show="{{ show0 }}" height="100%" _pid="{{_pid}}">

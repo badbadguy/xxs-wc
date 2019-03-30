@@ -1,6 +1,6 @@
 <template>
   <view class="all">
-
+    <text class="select">{{nowTime}}</text>
     <view class="all-in">
       <button data-show="{{ true }}" bindtap="openPopup0">选择单选题</button>
       <ui-popup show="{{ show0 }}" height="100%">
@@ -140,7 +140,25 @@ export default {
     })
   },
   selectTo(){
-
+    var that = this;
+    var tempNum = that.data.accordionValue0.length + that.data.accordionValue1.length + that.data.accordionValue2.length + that.data.accordionValue3.length
+    wx.request({
+      url:getApp().globalData.headurl + 'homework/add',
+      header:{
+        'content-type': 'application/json'
+      },
+      data:{
+        subject_id : that.data.subject_id,
+        teacher_id : getApp().globalData.openid,
+        question0_id : that.data.accordionValue0,
+        question1_id : that.data.accordionValue1,
+        question2_id : that.data.accordionValue2,
+        question3_id : that.data.accordionValue3,
+        num : tempNum
+      },
+      success: function(res){
+      }
+    });
   },
   onLoad:function(){
     var that = this;
@@ -148,13 +166,23 @@ export default {
     that.getQuestion(1);
     that.getQuestion(2);
     that.getQuestion(3);
+    var tempDate = new Date();
+    //年
+    var Y = tempDate.getFullYear();
+    //月
+    var M = (tempDate.getMonth()+ 1 < 10 ? '0' + (tempDate.getMonth() + 1) : tempDate.getMonth() + 1);
+    //日
+    var D = tempDate.getDate()< 10 ? '0' + tempDate.getDate():tempDate.getDate();
+    that.setData({
+      nowTime:Y + "-" + M + "-" + D,
+    })
   },
   getQuestion(type){
     var that = this;
     wx.request({
       url:getApp().globalData.headurl + 'question/select2',
       header:{
-      'content-type': 'application/json'
+        'content-type': 'application/json'
       },
       data:{
         question_type: type,
