@@ -9,6 +9,8 @@ export default {
   config: {
     usingComponents: {},
     pages: [
+      'pages/in/service/doexercises/Math',
+      'pages/in/service/doexercises/select',
       'pages/in/service/sureStudent/sureStudent',
       'pages/in/service/mark/mark',
       'pages/home/index',

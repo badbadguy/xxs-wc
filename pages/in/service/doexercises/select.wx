@@ -1,0 +1,92 @@
+<template>
+  <view>
+    <ui-row-list border-indent bordered>
+        <ui-row height="100">
+            <ui-col width="40" vertical-align="middle" align="center">
+                <image src="../../../../imgs/service/work.png" class="imgin"/>
+            </ui-col>
+            <ui-col class="text" bindtap="onclick" id="1">
+                <text class="text">
+                    语文
+                </text>
+            </ui-col>
+            <ui-col width="25" vertical-align="middle">
+                <ui-icon type="arrow-right"></ui-icon>
+            </ui-col>
+        </ui-row>
+        <ui-row height="100">
+            <ui-col width="40" vertical-align="middle" align="center">
+                <image src="../../../../imgs/service/work.png" class="imgin"/>
+            </ui-col>
+            <ui-col class="text" bindtap="onclick" id="2">
+                <text class="text">
+                    数学
+                </text>
+            </ui-col>
+            <ui-col width="25" vertical-align="middle">
+                <ui-icon type="arrow-right"></ui-icon>
+            </ui-col>
+        </ui-row>
+        <ui-row height="100">
+            <ui-col width="40" vertical-align="middle" align="center">
+                <image src="../../../../imgs/service/work.png" class="imgin"/>
+            </ui-col>
+            <ui-col class="text" bindtap="onclick" id="3">
+                <text class="text">
+                    英语
+                </text>
+            </ui-col>
+            <ui-col width="25" vertical-align="middle">
+                <ui-icon type="arrow-right"></ui-icon>
+            </ui-col>
+        </ui-row>
+    </ui-row-list>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: "家庭作业"
+  },
+  data: {
+  },
+  onLoad: function(res){
+      var that = this;
+  },
+  onclick: function(res) {
+      var that = this;
+      switch (res.currentTarget.id) {
+          case "1":
+              wx.navigateTo({
+                  url:'/pages/in/service/doexercises/Chinese'
+                  });
+              break;
+          case "2":
+              wx.navigateTo({
+                  url:'/pages/in/service/doexercises/Math'
+                  });
+              break;
+          case "3":
+              wx.navigateTo({
+                  url:'/pages/in/service/doexercises/English'
+                  });
+              break;
+          default:
+              break;
+      }
+  }
+};
+</script>
+
+<style lang="less">
+.text {
+  line-height: 32px;
+  font-size: 20px;
+  padding-left: 20px;
+}
+.imgin{
+    width: 40px;
+    height: 40px;
+}
+</style>

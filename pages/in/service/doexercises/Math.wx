@@ -1,0 +1,57 @@
+<template>
+  <view>
+    <ui-popup show="{{ show3 }}" height="100%">
+      <view class="popup1">
+        <button bindtap="handleShow3" plain type="primary">关闭</button>
+      </view>
+    </ui-popup>
+    <view class="title">
+      <text>{{title}}</text>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '数学'
+  },
+  data: {
+    subject_id:'cd84a79d6ee04e4d9630731b25b589d0',
+    title: '单选题',
+    show3: show
+  },
+  handleShow3(){
+    this.setData({
+      show3:false
+    })
+  },
+  onLoad: function(res){
+    wx.request({
+      url:getApp().globalData.headurl + 'homework/selectNum',
+      header:{
+        'content-type': 'application/json'
+      },
+      data:{
+        question_type: type,
+        subject_id : that.data.subject_id
+      },
+      success: function(res){
+        var temp = "accordion" + type
+        that.setData({
+          [temp]: res.data.resultList,
+          });
+      }
+    });
+  }
+}
+</script>
+
+<style lang="less">
+.title{
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

@@ -1,0 +1,10 @@
+<view>
+  <ui-popup show="{{ show3 }}" height="100%" _pid="{{_pid}}">
+    <view class="popup1">
+      <button bindtap="handleShow3" plain type="primary">关闭</button>
+    </view>
+  </ui-popup>
+  <view class="title">
+    <text>{{title}}</text>
+  </view>
+</view>

@@ -1,0 +1,61 @@
+<view>
+  <view class="ui-row-list ui-row-list-bordered ui-row-list-border-indent" style="">
+    <view class="ui-row" style="height:100px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
+        <view class="ui-col-content align-center valign-middle">
+          <image src="../../../../imgs/service/work.png" class="imgin" />
+        </view>
+      </view>
+      <view class="text ui-col" bindtap="onclick" id="1" style="">
+        <view class="ui-col-content">
+          <text class="text">
+            语文
+          </text>
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 25px;">
+        <view class="ui-col-content valign-middle">
+          <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+        </view>
+      </view>
+    </view>
+    <view class="ui-row" style="height:100px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
+        <view class="ui-col-content align-center valign-middle">
+          <image src="../../../../imgs/service/work.png" class="imgin" />
+        </view>
+      </view>
+      <view class="text ui-col" bindtap="onclick" id="2" style="">
+        <view class="ui-col-content">
+          <text class="text">
+            数学
+          </text>
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 25px;">
+        <view class="ui-col-content valign-middle">
+          <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+        </view>
+      </view>
+    </view>
+    <view class="ui-row" style="height:100px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
+        <view class="ui-col-content align-center valign-middle">
+          <image src="../../../../imgs/service/work.png" class="imgin" />
+        </view>
+      </view>
+      <view class="text ui-col" bindtap="onclick" id="3" style="">
+        <view class="ui-col-content">
+          <text class="text">
+            英语
+          </text>
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 25px;">
+        <view class="ui-col-content valign-middle">
+          <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
