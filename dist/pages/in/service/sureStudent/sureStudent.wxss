@@ -1,0 +1,51 @@
+/* 1像素解决方案 */
+/*
+ * 清除1px
+ */
+/*
+ * 清除浮动
+ */
+/*
+ * mobile
+ */
+/*
+ * 1px
+ */
+/*
+ * text
+ */
+/* 垂直居中 */
+/* 水平居中 */
+/* 水平垂直居中 */
+/* 超出部分出省略号 */
+/* 多行文本超出部分省略号 */
+.sure {
+  width: 80px;
+  text-align: center;
+  line-height: 80px;
+  font-size: 14px;
+  color: #fff;
+  background: #313338;
+}
+.top_tip {
+  background-color: #fff;
+}
+.top_tip .left_icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #FCB300;
+  text-align: center;
+  line-height: 50px;
+}
+.top_tip .text .ui-text {
+  font-size: 16px;
+  color: #313338;
+}
+.top_tip .text .ui-view {
+  color: #9C9FA4;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

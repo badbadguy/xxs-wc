@@ -1,0 +1,37 @@
+<view>
+  <ui-swipe-out operate-width="80" data-index="{{index}}" can-swipe="{{item.canSwipe}}" value="{{item.switcher}}" bindchange="changeHandler1" wx:for="{{list1}}" height="{{ item.height}}" _pid="{{_pid}}">
+    <view slot="content">
+      <view class="top_tip ui-row ui-row-border-bottom" style="height:80px;">
+        <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 20px;">
+          <view class="ui-col-content align-center valign-middle">
+            <view class="left_icon left_icon1" style="background-color:{{item.color }}">
+              <span type="{{ item.icon }}" color="#fff" size="2" class="ui-icon icon-{{ item.icon }}" style="color: #fff;font-size: 2px;"></span>
+            </view>
+          </view>
+        </view>
+        <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+          <view class="ui-col-content align-left valign-middle">
+            <view style="width: 100%;">
+              <view class="ui-row" style="height:30px;">
+                <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                  <view class="ui-col-content align-left valign-middle">
+                    <text>{{item.user_name}}</text>
+                  </view>
+                </view>
+                <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                  <view class="ui-col-content align-right valign-middle">
+                    <text>09-18</text>
+                  </view>
+                </view>
+              </view>
+              <view>{{ item.text }}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view slot="operate">
+      <view class="sure" data-idx="{{index}}" bindtap="sure">通过</view>
+    </view>
+  </ui-swipe-out>
+</view>

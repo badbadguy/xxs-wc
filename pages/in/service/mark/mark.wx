@@ -49,6 +49,18 @@
         <text class="select" style="margin-top: 20px;">已经选择了{{accordionValue1.length}}道语音题</text>
       </view>
     </view>
+    <view class="all-in">
+      <button data-show="{{ true }}" bindtap="openPopupC">选择班级</button>
+      <ui-popup show="{{ showC }}" height="100%">
+        <view class="popup1">
+          <button bindtap="handleShowC" plain type="primary">确定</button>
+          <ui-check-list label-position="left" options="{{ accordionC }}" value="{{ accordionValueC }}" type="plain" bindchange="changeC"></ui-check-list>
+        </view>
+      </ui-popup>
+      <view class="all-in" wx:if="{{accordionValueC.length > 0}}">
+        <text class="select" style="margin-top: 20px;">已经选择了{{accordionValueC.length}}个班级</text>
+      </view>
+    </view>
     <view class="select" style="margin-top: 88px;">
       <button bindtap="selectTo">布置</button>
     </view>
@@ -70,10 +82,13 @@ export default {
     accordionValue2:[],
     accordion3:[],
     accordionValue3:[],
+    accordionC:[],
+    accordionValueC:[],
     show0: false,
     show1: false,
     show2: false,
     show3: false,
+    showC: false,
   },
   change0(e){
     this.setData({
@@ -93,6 +108,11 @@ export default {
   change3(e){
     this.setData({
       accordionValue3:e.detail.value
+    })
+  },
+  changeC(e){
+    this.setData({
+      accordionValueC:e.detail.value
     })
   },
   openPopup0 (e) {
@@ -139,6 +159,17 @@ export default {
       show3:false
     })
   },
+  openPopupC (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      showC: show
+    })
+  },
+  handleShowC(){
+    this.setData({
+      showC:false
+    })
+  },
   selectTo(){
     var that = this;
     var tempNum = that.data.accordionValue0.length + that.data.accordionValue1.length + that.data.accordionValue2.length + that.data.accordionValue3.length
@@ -154,6 +185,7 @@ export default {
         question1_id : that.data.accordionValue1,
         question2_id : that.data.accordionValue2,
         question3_id : that.data.accordionValue3,
+        class_id : that.data.accordionValueC,
         num : tempNum
       },
       success: function(res){
@@ -173,6 +205,22 @@ export default {
     var M = (tempDate.getMonth()+ 1 < 10 ? '0' + (tempDate.getMonth() + 1) : tempDate.getMonth() + 1);
     //日
     var D = tempDate.getDate()< 10 ? '0' + tempDate.getDate():tempDate.getDate();
+
+    wx.request({
+      url:getApp().globalData.headurl + 'class/checkclass',
+      header:{
+        'content-type': 'application/json'
+      },
+      data:{
+        user_id:getApp().globalData.openid
+      },
+      success: function(res){
+        console.log(res);
+        that.setData({
+          accordionC: res.data,
+          });
+      }
+    });
     that.setData({
       nowTime:Y + "-" + M + "-" + D,
     })

@@ -48,6 +48,18 @@
       <text class="select" style="margin-top: 20px;">已经选择了{{accordionValue1.length}}道语音题</text>
     </view>
   </view>
+  <view class="all-in">
+    <button data-show="{{ true }}" bindtap="openPopupC">选择班级</button>
+    <ui-popup show="{{ showC }}" height="100%" _pid="{{_pid}}">
+      <view class="popup1">
+        <button bindtap="handleShowC" plain type="primary">确定</button>
+        <ui-check-list label-position="left" options="{{ accordionC }}" value="{{ accordionValueC }}" type="plain" bindchange="changeC" _pid="{{_pid}}"></ui-check-list>
+      </view>
+    </ui-popup>
+    <view class="all-in" wx:if="{{accordionValueC.length > 0}}">
+      <text class="select" style="margin-top: 20px;">已经选择了{{accordionValueC.length}}个班级</text>
+    </view>
+  </view>
   <view class="select" style="margin-top: 88px;">
     <button bindtap="selectTo">布置</button>
   </view>

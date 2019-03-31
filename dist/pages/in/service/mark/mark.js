@@ -17,10 +17,13 @@ exports.default = Page({
     accordionValue2: [],
     accordion3: [],
     accordionValue3: [],
+    accordionC: [],
+    accordionValueC: [],
     show0: false,
     show1: false,
     show2: false,
-    show3: false
+    show3: false,
+    showC: false
   },
   change0: function change0(e) {
     this.setData({
@@ -40,6 +43,11 @@ exports.default = Page({
   change3: function change3(e) {
     this.setData({
       accordionValue3: e.detail.value
+    });
+  },
+  changeC: function changeC(e) {
+    this.setData({
+      accordionValueC: e.detail.value
     });
   },
   openPopup0: function openPopup0(e) {
@@ -86,6 +94,17 @@ exports.default = Page({
       show3: false
     });
   },
+  openPopupC: function openPopupC(e) {
+    var show = e.currentTarget.dataset.show;
+    this.setData({
+      showC: show
+    });
+  },
+  handleShowC: function handleShowC() {
+    this.setData({
+      showC: false
+    });
+  },
   selectTo: function selectTo() {
     var that = this;
     var tempNum = that.data.accordionValue0.length + that.data.accordionValue1.length + that.data.accordionValue2.length + that.data.accordionValue3.length;
@@ -101,6 +120,7 @@ exports.default = Page({
         question1_id: that.data.accordionValue1,
         question2_id: that.data.accordionValue2,
         question3_id: that.data.accordionValue3,
+        class_id: that.data.accordionValueC,
         num: tempNum
       },
       success: function success(res) {}
@@ -120,6 +140,22 @@ exports.default = Page({
     var M = tempDate.getMonth() + 1 < 10 ? '0' + (tempDate.getMonth() + 1) : tempDate.getMonth() + 1;
     //日
     var D = tempDate.getDate() < 10 ? '0' + tempDate.getDate() : tempDate.getDate();
+
+    wx.request({
+      url: getApp().globalData.headurl + 'class/checkclass',
+      header: {
+        'content-type': 'application/json'
+      },
+      data: {
+        user_id: getApp().globalData.openid
+      },
+      success: function success(res) {
+        console.log(res);
+        that.setData({
+          accordionC: res.data
+        });
+      }
+    });
     that.setData({
       nowTime: Y + "-" + M + "-" + D
     });

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "ui-swipe-out": "../../../../packages/touchui-wx-components/ui-swipe-out/dist/index"
+  },
+  "navigationBarTitleText": ""
+}
