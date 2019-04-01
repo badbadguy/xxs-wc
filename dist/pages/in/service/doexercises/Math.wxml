@@ -1,10 +1,40 @@
 <view>
   <ui-popup show="{{ show3 }}" height="100%" _pid="{{_pid}}">
     <view class="popup1">
-      <button bindtap="handleShow3" plain type="primary">关闭</button>
+      <button bindtap="handleShow3" plain type="primary">开始做作业</button>
+      <view class="text-in" wx:if="{{q0_num >0}}">
+        <text>单选题一共有：{{q0_num}} 题</text>
+      </view>
+      <view class="text-in" wx:if="{{q1_num >0}}">
+        <text>语音题一共有：{{q1_num}} 题</text>
+      </view>
+      <view class="text-in" wx:if="{{q2_num >0}}">
+        <text>填空题一共有：{{q2_num}} 题</text>
+      </view>
+      <view class="text-in" wx:if="{{q3_num >0}}">
+        <text>应用题一共有：{{q3_num}} 题</text>
+      </view>
+      <view class="text-in">
+        <text>一共需要做：{{num}} 题</text>
+      </view>
     </view>
   </ui-popup>
-  <view class="title">
+  <view style="{{showq0}}">
+    <view class="title"><text>{{title}}</text></view>
+    <view class="Qtitle">题目：<text>{{question_title}}</text></view>
+    <ui-check-list max="1" options="{{ select }}" value="{{ selectValue }}" type="circle" bindchange="change" _pid="{{_pid}}"></ui-check-list>
+    <view style="padding-top:20px;"><button class="button-style-demo1" bindtap="sure">确定</button></view>
+  </view>
+  <view class="title" style="{{showq1}}">
     <text>{{title}}</text>
+    <text>1</text>
+  </view>
+  <view class="title" style="{{showq2}}">
+    <text>{{title}}</text>
+    <view class="Qtitle"><text>2</text></view>
+  </view>
+  <view class="title" style="{{showq3}}">
+    <text>{{title}}</text>
+    <text>3</text>
   </view>
 </view>

@@ -2,11 +2,41 @@
   <view>
     <ui-popup show="{{ show3 }}" height="100%">
       <view class="popup1">
-        <button bindtap="handleShow3" plain type="primary">关闭</button>
+        <button bindtap="handleShow3" plain type="primary">开始做作业</button>
+        <view class="text-in" wx:if="{{q0_num >0}}">
+          <text>单选题一共有：{{q0_num}} 题</text>
+        </view>
+        <view class="text-in" wx:if="{{q1_num >0}}">
+          <text>语音题一共有：{{q1_num}} 题</text>
+        </view>
+        <view class="text-in" wx:if="{{q2_num >0}}">
+          <text>填空题一共有：{{q2_num}} 题</text>
+        </view>
+        <view class="text-in" wx:if="{{q3_num >0}}">
+          <text>应用题一共有：{{q3_num}} 题</text>
+        </view>
+        <view class="text-in">
+          <text>一共需要做：{{num}} 题</text>
+        </view>
       </view>
     </ui-popup>
-    <view class="title">
+    <view style="{{showq0}}">
+      <view class="title"><text>{{title}}</text></view>
+      <view class="Qtitle">题目：<text>{{question_title}}</text></view>
+      <ui-check-list max="1" options="{{ select }}" value="{{ selectValue }}" type="circle" bindchange="change"></ui-check-list>
+      <view style="padding-top:20px;"><button class="button-style-demo1" bindtap="sure">确定</button></view>
+    </view>
+    <view class="title" style="{{showq1}}">
       <text>{{title}}</text>
+      <text>1</text>
+    </view>
+    <view class="title" style="{{showq2}}">
+      <text>{{title}}</text>
+      <view class="Qtitle"><text>2</text></view>
+    </view>
+    <view class="title" style="{{showq3}}">
+      <text>{{title}}</text>
+      <text>3</text>
     </view>
   </view>
 </template>
@@ -19,28 +49,128 @@ export default {
   data: {
     subject_id:'cd84a79d6ee04e4d9630731b25b589d0',
     title: '单选题',
-    show3: show
+    class_id: 'temp1',
+    show3: 'show',
+    showq0: 'display:none',
+    showq1: 'display:none',
+    showq2: 'display:none',
+    showq3: 'display:none',
+    question_title:'',
+    select:[],
+    selectValue:[],
   },
-  handleShow3(){
-    this.setData({
-      show3:false
+  sure(){
+    var that = this;
+    if(that.data.selectValue.length == 0){
+      wx.showToast({
+        title:'请选择！',
+        icon: 'none',
+        duration:1000
+      });
+      return;
+    }
+    wx.request({
+      url:getApp().globalData.headurl + 'question/answer',
+      header:{
+        'content-type': 'application/json'
+      },
+      data:{
+        user_id : 'tempUser',
+        // user_id : getApp().globalData.openid,
+        q : that.data.tempQ,
+        answer: that.data.selectValue[0]
+      },
+      success: function(res){
+        console.log(res);
+      }
     })
   },
-  onLoad: function(res){
+  change(e){
+    this.setData({
+      selectValue:e.detail.value
+    })
+  },
+  handleShow3(){
+    var that = this;
+    that.setData({
+      show3:false
+    });
+    if(that.data.q0_num>0){
+      that.setData({
+        showq0:'',
+        title:'单选题'
+      })
+      return;
+    }
+    if(that.data.q1_num>0){
+      that.setData({
+        showq1:'',
+        title:'语音题'
+      })
+      return;
+    }
+    if(that.data.q2_num>0){
+      that.setData({
+        showq2:'',
+        title:'填空题'
+      })
+      return;
+    }
+    if(that.data.q3_num>0){
+      that.setData({
+        showq3:'',
+        title:'应用题'
+      })
+      return;
+    }
+  },
+  onShow: function(res){
+    var that = this;
     wx.request({
       url:getApp().globalData.headurl + 'homework/selectNum',
       header:{
         'content-type': 'application/json'
       },
       data:{
-        question_type: type,
-        subject_id : that.data.subject_id
+        class_id : that.data.class_id,
+        subject_id : that.data.subject_id,
+        user_id : 'tempUser'
+        // user_id : getApp().globalData.openid
       },
       success: function(res){
-        var temp = "accordion" + type
+        var tempres = [res.data.q0_num,res.data.q1_num,res.data.q2_num,res.data.q3_num];
+        var tempQ = null;
+        for(var i = 0; i < tempres.length; i++){
+          if(tempres[i] > 0){
+            tempQ = "q"+i;
+            break;
+          }
+        }
+        wx.request({
+          url:getApp().globalData.headurl + 'homework/selectOne',
+          header:{
+            'content-type': 'application/json'
+          },
+          data:{
+            user_id : 'tempUser',
+            // user_id : getApp().globalData.openid,
+            q : tempQ
+          },
+          success: function(data){
+            that.setData({
+              question_title : data.data.question_title,
+              select : data.data.select
+            })
+          }
+        })
         that.setData({
-          [temp]: res.data.resultList,
-          });
+          q0_num:res.data.q0_num,
+          q1_num:res.data.q1_num,
+          q2_num:res.data.q2_num,
+          q3_num:res.data.q3_num,
+          num:res.data.num,
+          tempQ:tempQ
+        })
       }
     });
   }
@@ -53,5 +183,23 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.text-in{
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+}
+.Qtitle{
+  font-size: 25px;
+  min-height: 120px;
+}
+.button-style-demo1 {
+  background-color: #C01920;
+  border-radius: 20px;
+  border-color: #C01920;
+  box-shadow: 3px 3px 8px #E57A7E;
+  color: #fff;
 }
 </style>
