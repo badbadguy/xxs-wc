@@ -2,20 +2,45 @@
   <ui-popup show="{{ show3 }}" height="100%" _pid="{{_pid}}">
     <view class="popup1">
       <button bindtap="handleShow3" plain type="primary">开始做作业</button>
+      <view class="text-in">
+        <text>今天作业一共有：{{num}} 题</text>
+      </view>
       <view class="text-in" wx:if="{{q0_num >0}}">
-        <text>单选题一共有：{{q0_num}} 题</text>
+        <text>单选题还剩下：{{q0_num}} 题</text>
       </view>
       <view class="text-in" wx:if="{{q1_num >0}}">
-        <text>语音题一共有：{{q1_num}} 题</text>
+        <text>语音题还剩下：{{q1_num}} 题</text>
       </view>
       <view class="text-in" wx:if="{{q2_num >0}}">
-        <text>填空题一共有：{{q2_num}} 题</text>
+        <text>填空题还剩下：{{q2_num}} 题</text>
       </view>
       <view class="text-in" wx:if="{{q3_num >0}}">
-        <text>应用题一共有：{{q3_num}} 题</text>
+        <text>应用题还剩下：{{q3_num}} 题</text>
       </view>
       <view class="text-in">
-        <text>一共需要做：{{num}} 题</text>
+        <text>还需要做：{{tempNum}} 题</text>
+      </view>
+    </view>
+  </ui-popup>
+  <ui-popup show="{{ show5 }}" height="{{500}}" background="transparent" _pid="{{_pid}}">
+    <view class="popup5">
+      <view class="ui-row ui-row-border-bottom" style="height:40px;">
+        <view class="ui-col valign-middle" style="padding-left: 20px;">
+          <view class="ui-col-content valign-middle">答错了哦~不要灰心，我们来看看为什么</view>
+        </view>
+        <view bindtap="handleShow5" class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
+          <view class="ui-col-content align-center valign-middle">
+            <span type="x" size="18" color="#FC8950" class="ui-icon icon-x" style="color: #FC8950;font-size: 18px;"></span>
+          </view>
+        </view>
+      </view>
+      <view class="title">{{question_remark}}</view>
+      <view class="ui-row" style="height:50px;">
+        <view class="ui-col valign-middle" style="padding-left: 10px;padding-right: 20px;">
+          <view class="ui-col-content valign-middle">
+            <button type="primary" bindtap="handleShow5">下一题</button>
+          </view>
+        </view>
       </view>
     </view>
   </ui-popup>
@@ -25,16 +50,37 @@
     <ui-check-list max="1" options="{{ select }}" value="{{ selectValue }}" type="circle" bindchange="change" _pid="{{_pid}}"></ui-check-list>
     <view style="padding-top:20px;"><button class="button-style-demo1" bindtap="sure">确定</button></view>
   </view>
-  <view class="title" style="{{showq1}}">
-    <text>{{title}}</text>
-    <text>1</text>
+  <view style="{{showq1}}">
+    <view class="title"><text>{{title}}</text></view>
+    <view class="Qtitle">题目：<text>{{question_title}}</text></view>
+    <view wx:if="{{Qimg}}" style="height:280px;padding-bottom:40px;">
+      <image src="{{Qimg}}" mode="aspectFit" lazy-load />
+    </view>
+    <view class="tra">
+
+      <!-- <view wx:for="{{buttons}}" wx:for-item="button" wx:key="{{button.lang}}" class="button-item"> -->
+      <view catchtouchstart="streamRecord" catchtouchend="endStreamRecord" data-conf="{{buttons}}" class="button-press">
+        <span class="text-in-button {{ buttonsAn? 'text-press': '' }}">{{buttons.msg}}</span>
+        <image class="button-background" src="../../../../imgs/button_zh.png" />
+      </view>
+      <!-- </view> -->
+
+    </view>
+    <view class="tra">
+      <view class="button-press" bindtap="play">
+        <span class="text-in-button">听录音</span>
+        <image class="button-background" src="../../../../imgs/button_en.png" />
+      </view>
+    </view>
   </view>
   <view class="title" style="{{showq2}}">
-    <text>{{title}}</text>
-    <view class="Qtitle"><text>2</text></view>
+    <view class="title"><text>{{title}}</text></view>
+    <view class="Qtitle">题目：<text>{{question_title}}</text></view>
+    <text>2</text>
   </view>
   <view class="title" style="{{showq3}}">
-    <text>{{title}}</text>
+    <view class="title"><text>{{title}}</text></view>
+    <view class="Qtitle">题目：<text>{{question_title}}</text></view>
     <text>3</text>
   </view>
 </view>

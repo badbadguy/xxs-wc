@@ -34,7 +34,7 @@
 }
 .Qtitle {
   font-size: 25px;
-  min-height: 120px;
+  min-height: 80px;
 }
 .button-style-demo1 {
   background-color: #C01920;
@@ -42,4 +42,51 @@
   border-color: #C01920;
   box-shadow: 3px 3px 8px #E57A7E;
   color: #fff;
+}
+.popup5 {
+  width: 95%;
+  background-color: #fff;
+  height: 250px;
+  margin: 0 auto;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.popup5 .title {
+  line-height: 30px;
+  padding: 10px 20px;
+}
+.tra {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-item {
+  width: 240rpx;
+}
+.button-press {
+  position: relative;
+  display: flex;
+  height: 100rpx;
+  width: 164px;
+  justify-content: center;
+  -webkit-justify-content: center;
+  align-items: center;
+}
+.button-background {
+  position: absolute;
+  height: 100rpx;
+  width: 100%;
+  border-radius: 100rpx;
+  left: 0;
+  z-index: 1;
+}
+.text-in-button {
+  font-weight: bold;
+  font-size: 34rpx;
+  color: #FFFFFF;
+  z-index: 2;
+}
+.text-in-button.text-press {
+  opacity: 0.6;
 }
