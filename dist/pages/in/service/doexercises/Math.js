@@ -12,12 +12,12 @@ exports.default = Page({
     title: '单选题',
     class_id: 'temp1',
     show3: 'show',
-    show5: false,
+    isWrong: false,
     showq0: 'display:none',
-    showq1: '',
-    // showq1: 'display:none',
+    showq1: 'display:none',
     showq2: 'display:none',
     showq3: 'display:none',
+    showPlay: 'display:none',
     question_title: '',
     select: [],
     selectValue: [],
@@ -66,6 +66,7 @@ exports.default = Page({
      */
   streamRecord: function streamRecord(e) {
     this.setData({
+      showPlay: 'display:none',
       buttonsAn: true
     });
     manager.start({
@@ -98,16 +99,20 @@ exports.default = Page({
   * 绑定语音播放开始事件
   */
   initRecord: function initRecord() {
+    var _this = this;
+
     //有新的识别内容返回，则会调用此事件
     manager.onRecognize = function (res) {
       console.log("有新的识别内容返回，则会调用此事件");
+      _this.setData({
+        showPlay: ''
+      });
     };
 
     // 识别结束事件
     manager.onStop = function (res) {
       wx.hideLoading();
       innerAudioContext.src = res.tempFilePath;
-      console.log("识别结束");
       console.log(res);
     };
 
@@ -115,10 +120,9 @@ exports.default = Page({
     manager.onError = function (res) {
       wx.hideLoading();
       wx.showToast({
-        title: "识别错误，请重试！"
+        title: "识别错误，请重试！",
+        icon: 'none'
       });
-      console.log("识别错误");
-      console.log(res);
     };
   },
 
@@ -141,15 +145,26 @@ exports.default = Page({
         user_id: 'tempUser',
         // user_id : getApp().globalData.openid,
         q: that.data.tempQ,
-        answer: that.data.selectValue[0]
+        answer: that.data.selectValue[0],
+        QType: that.data.QType
+        //缺homework_id
       },
       success: function success(res) {
-        console.log(res);
+        that.setData({
+          selectValue: []
+        });
         if (res.data.RorW == 0) {
           that.setData({
             question_remark: res.data.question_remark,
-            show5: 'show'
+            isWrong: 'show'
           });
+        } else {
+          wx.showToast({
+            title: '答对了哦！真棒~',
+            icon: 'none',
+            duration: 2000
+          });
+          that.onShow();
         }
       }
     });
@@ -162,12 +177,12 @@ exports.default = Page({
   openPopup5: function openPopup5(e) {
     var show = e.currentTarget.dataset.show;
     this.setData({
-      show5: show
+      isWrong: show
     });
   },
   handleShow5: function handleShow5() {
     this.setData({
-      show5: false
+      isWrong: false
     });
   },
   handleShow3: function handleShow3() {
@@ -175,29 +190,45 @@ exports.default = Page({
     that.setData({
       show3: false
     });
+    that.binggo();
+  },
+  binggo: function binggo() {
+    var that = this;
     if (that.data.q0_num > 0) {
       that.setData({
         showq0: '',
+        showq1: 'display:none',
+        showq2: 'display:none',
+        showq3: 'display:none',
         title: '单选题'
       });
       return;
     }
     if (that.data.q1_num > 0) {
       that.setData({
+        showq0: 'display:none',
         showq1: '',
+        showq2: 'display:none',
+        showq3: 'display:none',
         title: '语音题'
       });
       return;
     }
     if (that.data.q2_num > 0) {
       that.setData({
+        showq0: 'display:none',
+        showq1: 'display:none',
         showq2: '',
+        showq3: 'display:none',
         title: '填空题'
       });
       return;
     }
     if (that.data.q3_num > 0) {
       that.setData({
+        showq0: 'display:none',
+        showq1: 'display:none',
+        showq2: 'display:none',
         showq3: '',
         title: '应用题'
       });
@@ -227,55 +258,6 @@ exports.default = Page({
             break;
           }
         }
-        wx.request({
-          url: getApp().globalData.headurl + 'homework/selectOne',
-          header: {
-            'content-type': 'application/json'
-          },
-          data: {
-            user_id: 'tempUser',
-            // user_id : getApp().globalData.openid,
-            q: tempQ
-          },
-          success: function success(data) {
-            //单选题
-            if (data.data.QType == "0") {
-              that.setData({
-                question_title: data.data.question_title,
-                select: data.data.select,
-                Qimg: data.data.question_image
-              });
-              console.log("单选题");
-              return;
-            }
-            //语音题
-            if (data.data.QType == "1") {
-              that.setData({
-                question_title: data.data.question_title,
-                Qimg: data.data.question_image
-              });
-              console.log("语音题");
-              return;
-            }
-            //填空题
-            if (data.data.QType == "2") {
-              that.setData({
-                question_title: data.data.question_title,
-                Qimg: data.data.question_image
-              });
-              console.log("填空题");
-              return;
-            } //应用题
-            if (data.data.QType == "3") {
-              that.setData({
-                question_title: data.data.question_title,
-                Qimg: data.data.question_image
-              });
-              console.log("应用题");
-              return;
-            }
-          }
-        });
         var tempNum = parseInt(res.data.q0_num) + parseInt(res.data.q1_num) + parseInt(res.data.q2_num) + parseInt(res.data.q3_num);
         that.setData({
           q0_num: res.data.q0_num,
@@ -286,6 +268,75 @@ exports.default = Page({
           num: res.data.num,
           tempQ: tempQ
         });
+        if (tempNum <= 0) {
+          wx.showModal({
+            title: '哇塞',
+            content: '已经没有作业了哦~',
+            showCancel: false,
+            success: function success(res) {
+              console.log("跳转作业");
+            }
+          });
+        }
+        that.selectOne(tempQ);
+        that.binggo();
+      }
+    });
+  },
+  selectOne: function selectOne(tempQ) {
+    var that = this;
+    wx.request({
+      url: getApp().globalData.headurl + 'homework/selectOne',
+      header: {
+        'content-type': 'application/json'
+      },
+      data: {
+        user_id: 'tempUser',
+        // user_id : getApp().globalData.openid,
+        q: tempQ
+      },
+      success: function success(data) {
+        console.log(data);
+        //单选题
+        if (data.data.QType == "0") {
+          that.setData({
+            question_title: data.data.question_title,
+            select: data.data.select,
+            Qimg: data.data.question_image,
+            QType: data.data.QType
+          });
+          console.log("单选题");
+          return;
+        }
+        //语音题
+        if (data.data.QType == "1") {
+          that.setData({
+            question_title: data.data.question_title,
+            Qimg: data.data.question_image,
+            QType: data.data.QType
+          });
+          console.log("语音题");
+          return;
+        }
+        //填空题
+        if (data.data.QType == "2") {
+          that.setData({
+            question_title: data.data.question_title,
+            Qimg: data.data.question_image,
+            QType: data.data.QType
+          });
+          console.log("填空题");
+          return;
+        } //应用题
+        if (data.data.QType == "3") {
+          that.setData({
+            question_title: data.data.question_title,
+            Qimg: data.data.question_image,
+            QType: data.data.QType
+          });
+          console.log("应用题");
+          return;
+        }
       }
     });
   }

@@ -23,7 +23,7 @@
         </view>
       </view>
     </ui-popup>
-    <ui-popup show="{{ show5 }}" height="{{500}}" background="transparent">
+    <ui-popup show="{{ isWrong }}" height="{{500}}" background="transparent">
         <view class="popup5">
             <ui-row height="40" border-bottom>
                 <ui-col vertical-align="middle" space-left="20">答错了哦~不要灰心，我们来看看为什么</ui-col>
@@ -43,7 +43,12 @@
       <view class="title"><text>{{title}}</text></view>
       <view class="Qtitle">题目：<text>{{question_title}}</text></view>
       <ui-check-list max="1" options="{{ select }}" value="{{ selectValue }}" type="circle" bindchange="change"></ui-check-list>
-      <view style="padding-top:20px;"><button class="button-style-demo1" bindtap="sure">确定</button></view>
+      <view class="tra">
+        <view class="button-press" bindtap="sure">
+          <span class="text-in-button">确定</span>
+          <image class="button-background" src="../../../../imgs/button_en.png">
+        </view>
+      </view>
     </view>
     <view style="{{showq1}}">
       <view class="title"><text>{{title}}</text></view>
@@ -60,7 +65,7 @@
 
       </view>
       <view class="tra">
-        <view class="button-press" bindtap="play">
+        <view class="button-press" bindtap="play" style="{{showPlay}}">
           <span class="text-in-button">听录音</span>
           <image class="button-background" src="../../../../imgs/button_en.png">
         </view>
@@ -92,12 +97,12 @@ export default {
     title: '单选题',
     class_id: 'temp1',
     show3: 'show',
-    show5: false,
+    isWrong: false,
     showq0: 'display:none',
-    showq1: '',
-    // showq1: 'display:none',
+    showq1: 'display:none',
     showq2: 'display:none',
     showq3: 'display:none',
+    showPlay: 'display:none',
     question_title:'',
     select:[],
     selectValue:[],
@@ -146,10 +151,11 @@ export default {
      */
     streamRecord(e) {
       this.setData({
+        showPlay: 'display:none',
         buttonsAn:true
       })
       manager.start({
-        lang: 'zh_CN',
+        lang: 'zh_CN'
       })
       wx.showLoading({
         title: '接收语音中',
@@ -179,13 +185,15 @@ export default {
     //有新的识别内容返回，则会调用此事件
     manager.onRecognize = (res) => {
       console.log("有新的识别内容返回，则会调用此事件");
+      this.setData({
+        showPlay: '',
+      })
     }
 
     // 识别结束事件
     manager.onStop = (res) => {
       wx.hideLoading();
       innerAudioContext.src = res.tempFilePath;
-      console.log("识别结束");
       console.log(res);
     }
 
@@ -193,10 +201,9 @@ export default {
     manager.onError = (res) => {
       wx.hideLoading();
       wx.showToast({
-        title:"识别错误，请重试！"
+        title:"识别错误，请重试！",
+        icon: 'none',
       })
-      console.log("识别错误")
-      console.log(res)
     }
   },
 
@@ -219,15 +226,26 @@ export default {
         user_id : 'tempUser',
         // user_id : getApp().globalData.openid,
         q : that.data.tempQ,
-        answer: that.data.selectValue[0]
+        answer: that.data.selectValue[0],
+        QType:that.data.QType
+        //缺homework_id
       },
       success: function(res){
-        console.log(res);
+        that.setData({
+            selectValue:[]
+        })
         if(res.data.RorW == 0){
           that.setData({
             question_remark : res.data.question_remark,
-            show5 : 'show'
+            isWrong : 'show'
           })
+        }else{
+          wx.showToast({
+            title:'答对了哦！真棒~',
+            icon: 'none',
+            duration:2000
+          })
+          that.onShow();
         }
       }
     })
@@ -240,12 +258,12 @@ export default {
   openPopup5 (e) {
     let show = e.currentTarget.dataset.show
     this.setData({
-      show5: show
+      isWrong: show
     })
   },
   handleShow5(){
     this.setData({
-      show5:false
+      isWrong:false
     })
   },
   handleShow3(){
@@ -253,29 +271,45 @@ export default {
     that.setData({
       show3:false
     });
+    that.binggo();
+  },
+  binggo(){
+    var that = this;
     if(that.data.q0_num>0){
       that.setData({
         showq0:'',
+        showq1:'display:none',
+        showq2:'display:none',
+        showq3:'display:none',
         title:'单选题'
       })
       return;
     }
     if(that.data.q1_num>0){
       that.setData({
+        showq0:'display:none',
         showq1:'',
+        showq2:'display:none',
+        showq3:'display:none',
         title:'语音题'
       })
       return;
     }
     if(that.data.q2_num>0){
       that.setData({
+        showq0:'display:none',
+        showq1:'display:none',
         showq2:'',
+        showq3:'display:none',
         title:'填空题'
       })
       return;
     }
     if(that.data.q3_num>0){
       that.setData({
+        showq0:'display:none',
+        showq1:'display:none',
+        showq2:'display:none',
         showq3:'',
         title:'应用题'
       })
@@ -304,55 +338,6 @@ export default {
             break;
           }
         }
-        wx.request({
-          url:getApp().globalData.headurl + 'homework/selectOne',
-          header:{
-            'content-type': 'application/json'
-          },
-          data:{
-            user_id : 'tempUser',
-            // user_id : getApp().globalData.openid,
-            q : tempQ
-          },
-          success: function(data){
-            //单选题
-            if(data.data.QType == "0"){
-              that.setData({
-                question_title : data.data.question_title,
-                select : data.data.select,
-                Qimg : data.data.question_image
-              })
-              console.log("单选题");
-              return;
-            }
-            //语音题
-            if(data.data.QType == "1"){
-              that.setData({
-                question_title : data.data.question_title,
-                Qimg : data.data.question_image
-              })
-              console.log("语音题");
-              return;
-            }
-            //填空题
-            if(data.data.QType == "2"){
-              that.setData({
-                question_title : data.data.question_title,
-                Qimg : data.data.question_image
-              })
-              console.log("填空题");
-              return;
-            }//应用题
-            if(data.data.QType == "3"){
-              that.setData({
-                question_title : data.data.question_title,
-                Qimg : data.data.question_image
-              })
-              console.log("应用题");
-              return;
-            }
-          }
-        })
         var tempNum = parseInt(res.data.q0_num)+parseInt(res.data.q1_num)+parseInt(res.data.q2_num)+parseInt(res.data.q3_num);
         that.setData({
           q0_num : res.data.q0_num,
@@ -363,8 +348,77 @@ export default {
           num : res.data.num,
           tempQ : tempQ
         })
+        if(tempNum<=0){
+          wx.showModal({
+            title:'哇塞',
+            content:'已经没有作业了哦~',
+            showCancel:false,
+            success(res){
+              console.log("跳转作业")
+            }
+          })
+        }
+        that.selectOne(tempQ);
+        that.binggo();
       }
     });
+  },
+  selectOne: function(tempQ){
+    var that = this;
+    wx.request({
+      url:getApp().globalData.headurl + 'homework/selectOne',
+      header:{
+        'content-type': 'application/json'
+      },
+      data:{
+        user_id : 'tempUser',
+        // user_id : getApp().globalData.openid,
+        q : tempQ
+      },
+      success: function(data){
+        console.log(data)
+        //单选题
+        if(data.data.QType == "0"){
+          that.setData({
+            question_title : data.data.question_title,
+            select : data.data.select,
+            Qimg : data.data.question_image,
+            QType : data.data.QType
+          })
+          console.log("单选题");
+          return;
+        }
+        //语音题
+        if(data.data.QType == "1"){
+          that.setData({
+            question_title : data.data.question_title,
+            Qimg : data.data.question_image,
+            QType : data.data.QType
+          })
+          console.log("语音题");
+          return;
+        }
+        //填空题
+        if(data.data.QType == "2"){
+          that.setData({
+            question_title : data.data.question_title,
+            Qimg : data.data.question_image,
+            QType : data.data.QType
+          })
+          console.log("填空题");
+          return;
+        }//应用题
+        if(data.data.QType == "3"){
+          that.setData({
+            question_title : data.data.question_title,
+            Qimg : data.data.question_image,
+            QType : data.data.QType
+          })
+          console.log("应用题");
+          return;
+        }
+      }
+    })
   }
 }
 </script>

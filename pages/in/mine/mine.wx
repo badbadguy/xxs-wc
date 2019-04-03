@@ -3,7 +3,7 @@
     <view class="avatar-wrapper">
       <view>
         <view class="avatar" style="padding-left:39%">
-          <image style="border-radius:50%;" src="{{imgurl}}"></image>
+          <image style="border-radius:50%;" src="{{imgurl}}">
         </view>
         <view class="text">
           <text>{{user_nickname}}</text>
@@ -20,7 +20,7 @@
         <block wx:for="{{menuitems}}" wx:key="menu_for">
           <navigator url="{{item.url}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__hd">
-              <image src="{{item.icon}}"></image>
+              <image src="{{item.icon}}">
               <text>{{item.text}}</text>
             </view>
             <view class="weui-cell__ft weui-cell__ft_in-access">{{item.tips}}</view>

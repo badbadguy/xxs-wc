@@ -22,7 +22,7 @@
       </view>
     </view>
   </ui-popup>
-  <ui-popup show="{{ show5 }}" height="{{500}}" background="transparent" _pid="{{_pid}}">
+  <ui-popup show="{{ isWrong }}" height="{{500}}" background="transparent" _pid="{{_pid}}">
     <view class="popup5">
       <view class="ui-row ui-row-border-bottom" style="height:40px;">
         <view class="ui-col valign-middle" style="padding-left: 20px;">
@@ -48,7 +48,12 @@
     <view class="title"><text>{{title}}</text></view>
     <view class="Qtitle">题目：<text>{{question_title}}</text></view>
     <ui-check-list max="1" options="{{ select }}" value="{{ selectValue }}" type="circle" bindchange="change" _pid="{{_pid}}"></ui-check-list>
-    <view style="padding-top:20px;"><button class="button-style-demo1" bindtap="sure">确定</button></view>
+    <view class="tra">
+      <view class="button-press" bindtap="sure">
+        <span class="text-in-button">确定</span>
+        <image class="button-background" src="../../../../imgs/button_en.png" />
+      </view>
+    </view>
   </view>
   <view style="{{showq1}}">
     <view class="title"><text>{{title}}</text></view>
@@ -67,7 +72,7 @@
 
     </view>
     <view class="tra">
-      <view class="button-press" bindtap="play">
+      <view class="button-press" bindtap="play" style="{{showPlay}}">
         <span class="text-in-button">听录音</span>
         <image class="button-background" src="../../../../imgs/button_en.png" />
       </view>
