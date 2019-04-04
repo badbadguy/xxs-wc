@@ -42,6 +42,7 @@
     <view style="{{showq0}}">
       <view class="title"><text>{{title}}</text></view>
       <view class="Qtitle">题目：<text>{{question_title}}</text></view>
+      <view wx:if="{{Qimg}}" style="height:280px;padding-bottom:40px;"><image src="{{Qimg}}" mode="aspectFit" lazy-load></view>
       <ui-check-list max="1" options="{{ select }}" value="{{ selectValue }}" type="circle" bindchange="change"></ui-check-list>
       <view class="tra">
         <view class="button-press" bindtap="sure">
@@ -57,8 +58,8 @@
       <view class="tra">
 
         <!-- <view wx:for="{{buttons}}" wx:for-item="button" wx:key="{{button.lang}}" class="button-item"> -->
-          <view catchtouchstart="streamRecord" catchtouchend="endStreamRecord" data-conf="{{buttons}}" class="button-press">
-            <span class="text-in-button {{ buttonsAn? 'text-press': '' }}">{{buttons.msg}}</span>
+          <view catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class="button-press">
+            <span class="text-in-button {{ buttonsAn? 'text-press': '' }}">长按说话</span>
             <image class="button-background" src="../../../../imgs/button_zh.png">
           </view>
         <!-- </view> -->
@@ -71,15 +72,27 @@
         </view>
       </view>
     </view>
-    <view class="title" style="{{showq2}}">
+    <view style="{{showq2}}">
       <view class="title"><text>{{title}}</text></view>
       <view class="Qtitle">题目：<text>{{question_title}}</text></view>
-      <text>2</text>
+      <view wx:if="{{Qimg}}" style="height:280px;padding-bottom:40px;"><image src="{{Qimg}}" mode="aspectFit" lazy-load></view>
+      <view class="input">答案：<input style="padding-top: 8rpx; padding-left: 30rpx;" bindinput="input_an" placeholder="请输入答案"></view>
+      <view class="tra">
+        <view class="button-press" bindtap="sure">
+          <span class="text-in-button">确定</span>
+          <image class="button-background" src="../../../../imgs/button_en.png">
+        </view>
+      </view>
     </view>
-    <view class="title" style="{{showq3}}">
+    <view style="{{showq3}}">
       <view class="title"><text>{{title}}</text></view>
-      <view class="Qtitle">题目：<text>{{question_title}}</text></view>
-      <text>3</text>
+      <block wx:for="{{QList}}">
+        <view class="Qtitle">题目：<text>{{item.question_title}}</text></view>
+        <view wx:if="{{Qimg}}" style="height:280px;padding-bottom:40px;"><image src="{{Qimg}}" mode="aspectFit" lazy-load></view>
+        <ui-check-list max="1" options="{{ select3[index] }}" value="{{ selectValue3[index] }}" type="circle" bindchange="change3"></ui-check-list>
+        <!-- 分割线 -->
+        <image wx:if="{{QList.length-1 != index}}" class="line" src="../../../../imgs/service/line.png" mode="aspectFill">
+      </block>
     </view>
   </view>
 </template>
@@ -106,17 +119,19 @@ export default {
     question_title:'',
     select:[],
     selectValue:[],
-    buttonsAn:false,
-    buttons: {
-      buttonText: '中文',
-      lang: 'zh_CN',
-      lto: 'en_US',
-      msg: '长按说话',
-      buttonType: 'normal',
-    }
+    buttonsAn:false
   },
   onLoad: function(){
     this.initRecord();
+  },
+  input_an(e){
+    var obj = {};
+    obj = e.detail.value;
+    let selectValue = [];
+    selectValue.push(obj);
+    this.setData({
+      selectValue,
+    })
   },
   play: function(){
     //开始播放
@@ -125,6 +140,7 @@ export default {
     innerAudioContext.onPlay(() => {
       wx.showLoading({
         title: '播放录音中',
+        mask: true
       })
     })
     //播放出错触发
@@ -134,13 +150,14 @@ export default {
     })
     //播放完成触发
     innerAudioContext.onEnded(() => {
+      var that = this;
       wx.hideLoading();
       wx.showModal({
         title:'提交答案',
         content:'请注意发音准确哦~',
         success:function(res){
           if(res.confirm){
-            console.log("触发提交")
+            that.sentAnswer();
           }
         }
       })
@@ -150,18 +167,23 @@ export default {
      * 按下按钮开始录音
      */
     streamRecord(e) {
-      this.setData({
-        showPlay: 'display:none',
-        buttonsAn:true
-      })
-      manager.start({
-        lang: 'zh_CN'
-      })
       wx.showLoading({
         title: '接收语音中',
+      });
+      this.setData({
+        showPlay: 'display:none',
+        buttonsAn:true,
+        selectValue:[]
       })
-      console.log("按下");
-      console.log(e);
+      if(this.data.subject_id == '79bed2b0e57c4f7f8e71b9817f03e3b9'){
+        manager.start({
+          lang: 'en_US'
+        })
+      }else{
+        manager.start({
+          lang: 'zh_CN'
+        })
+      }
     },
 
     /**
@@ -172,31 +194,41 @@ export default {
       this.setData({
         buttonsAn:false
       })
-      manager.stop();
       wx.showLoading({
         title: '加载语音中',
+        mask: true
       })
+      manager.stop();
     },
     /**
    * 初始化语音识别回调
    * 绑定语音播放开始事件
    */
   initRecord: function() {
-    //有新的识别内容返回，则会调用此事件
-    manager.onRecognize = (res) => {
-      console.log("有新的识别内容返回，则会调用此事件");
-      this.setData({
-        showPlay: '',
-      })
-    }
-
     // 识别结束事件
     manager.onStop = (res) => {
-      wx.hideLoading();
-      innerAudioContext.src = res.tempFilePath;
+      console.log("触发结束事件");
       console.log(res);
+      if(res.result!=""){
+        wx.hideLoading();
+        innerAudioContext.src = res.tempFilePath;
+        var obj = {};
+        obj = res.result;
+        let selectValue = [];
+        selectValue.push(obj);
+        this.setData({
+          selectValue,
+          showPlay:''
+        })
+      }else{
+        wx.showToast({
+          title:'没听清楚你说什么呢~',
+          icon:'none',
+          duration:3000,
+          image:'/imgs/service/noListen.gif',
+        })
+      }
     }
-
     // 识别错误事件
     manager.onError = (res) => {
       wx.hideLoading();
@@ -211,12 +243,16 @@ export default {
     var that = this;
     if(that.data.selectValue.length == 0){
       wx.showToast({
-        title:'请选择！',
+        title:'不能交白卷哦！~',
         icon: 'none',
         duration:3000
       });
       return;
     }
+    that.sentAnswer();
+  },
+  sentAnswer(){
+    var that = this;
     wx.request({
       url:getApp().globalData.headurl + 'question/answer',
       header:{
@@ -227,8 +263,8 @@ export default {
         // user_id : getApp().globalData.openid,
         q : that.data.tempQ,
         answer: that.data.selectValue[0],
-        QType:that.data.QType
-        //缺homework_id
+        QType:that.data.QType,
+        homework_id:that.data.homework_id
       },
       success: function(res){
         that.setData({
@@ -237,7 +273,7 @@ export default {
         if(res.data.RorW == 0){
           that.setData({
             question_remark : res.data.question_remark,
-            isWrong : 'show'
+            isWrong : 'show',
           })
         }else{
           wx.showToast({
@@ -245,8 +281,8 @@ export default {
             icon: 'none',
             duration:2000
           })
-          that.onShow();
         }
+        that.onShow();
       }
     })
   },
@@ -317,6 +353,7 @@ export default {
     }
   },
   onShow: function(res){
+    console.log("触发onshow")
     var that = this;
     wx.request({
       url:getApp().globalData.headurl + 'homework/selectNum',
@@ -346,7 +383,8 @@ export default {
           q3_num : res.data.q3_num,
           tempNum : tempNum,
           num : res.data.num,
-          tempQ : tempQ
+          tempQ : tempQ,
+          homework_id : res.data.homework_id
         })
         if(tempNum<=0){
           wx.showModal({
@@ -373,7 +411,7 @@ export default {
       data:{
         user_id : 'tempUser',
         // user_id : getApp().globalData.openid,
-        q : tempQ
+        q : tempQ,
       },
       success: function(data){
         console.log(data)
@@ -412,7 +450,8 @@ export default {
           that.setData({
             question_title : data.data.question_title,
             Qimg : data.data.question_image,
-            QType : data.data.QType
+            QType : data.data.QType,
+            QList : data.data.Qlist
           })
           console.log("应用题");
           return;
@@ -424,47 +463,58 @@ export default {
 </script>
 
 <style lang="less">
+.line{
+  height:100rpx;
+  padding-top:20rpx;
+  padding-bottom:50rpx;
+}
+.input{
+  display: flex;
+  flex-grow: 1;
+  padding-left:88rpx;
+  font-size:44rpx;
+}
 .title{
-  padding-top: 20px;
+  padding-top: 36.2rpx;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .text-in{
-  padding-top: 20px;
+  padding-top: 36.2rpx;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 40px;
+  font-size: 65rpx;
 }
 .Qtitle{
-  font-size: 25px;
-  min-height: 80px;
+  font-size: 45.25rpx;
+  min-height: 144.8rpx;
 }
 .button-style-demo1 {
   background-color: #C01920;
-  border-radius: 20px;
+  border-radius: 36.2rpx;
   border-color: #C01920;
-  box-shadow: 3px 3px 8px #E57A7E;
+  box-shadow: 5.43rpx 5.43rpx 14.84rpx #E57A7E;
   color: #fff;
 }
 .popup5{
   width: 95%;
   background-color:#fff;
-  height:250px;
+  height:452.5rpx;
   margin:0 auto;
-  border-radius:5px;
+  border-radius:9.05rpx;
   overflow:hidden;
   .title{
-    line-height: 30px;
-    padding: 10px 20px;
+    line-height: 54.3rpx;
+    padding: 18.1rpx 36.2rpx;
   }
 }
 
 
 //翻译
 .tra{
-  height: 100px;
+  height: 181rpx;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -476,7 +526,7 @@ export default {
   position: relative;
   display: flex;
   height: 100rpx;
-  width: 164px;
+  width: 296.84rpx;
   justify-content: center;
   -webkit-justify-content: center;
   align-items: center;

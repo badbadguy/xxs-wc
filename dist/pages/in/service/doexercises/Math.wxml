@@ -47,6 +47,9 @@
   <view style="{{showq0}}">
     <view class="title"><text>{{title}}</text></view>
     <view class="Qtitle">题目：<text>{{question_title}}</text></view>
+    <view wx:if="{{Qimg}}" style="height:280px;padding-bottom:40px;">
+      <image src="{{Qimg}}" mode="aspectFit" lazy-load />
+    </view>
     <ui-check-list max="1" options="{{ select }}" value="{{ selectValue }}" type="circle" bindchange="change" _pid="{{_pid}}"></ui-check-list>
     <view class="tra">
       <view class="button-press" bindtap="sure">
@@ -64,8 +67,8 @@
     <view class="tra">
 
       <!-- <view wx:for="{{buttons}}" wx:for-item="button" wx:key="{{button.lang}}" class="button-item"> -->
-      <view catchtouchstart="streamRecord" catchtouchend="endStreamRecord" data-conf="{{buttons}}" class="button-press">
-        <span class="text-in-button {{ buttonsAn? 'text-press': '' }}">{{buttons.msg}}</span>
+      <view catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class="button-press">
+        <span class="text-in-button {{ buttonsAn? 'text-press': '' }}">长按说话</span>
         <image class="button-background" src="../../../../imgs/button_zh.png" />
       </view>
       <!-- </view> -->
@@ -78,14 +81,30 @@
       </view>
     </view>
   </view>
-  <view class="title" style="{{showq2}}">
+  <view style="{{showq2}}">
     <view class="title"><text>{{title}}</text></view>
     <view class="Qtitle">题目：<text>{{question_title}}</text></view>
-    <text>2</text>
+    <view wx:if="{{Qimg}}" style="height:280px;padding-bottom:40px;">
+      <image src="{{Qimg}}" mode="aspectFit" lazy-load />
+    </view>
+    <view class="input">答案：<input style="padding-top: 8rpx; padding-left: 30rpx;" bindinput="input_an" placeholder="请输入答案"></input></view>
+    <view class="tra">
+      <view class="button-press" bindtap="sure">
+        <span class="text-in-button">确定</span>
+        <image class="button-background" src="../../../../imgs/button_en.png" />
+      </view>
+    </view>
   </view>
-  <view class="title" style="{{showq3}}">
+  <view style="{{showq3}}">
     <view class="title"><text>{{title}}</text></view>
-    <view class="Qtitle">题目：<text>{{question_title}}</text></view>
-    <text>3</text>
+    <block wx:for="{{QList}}">
+      <view class="Qtitle">题目：<text>{{item.question_title}}</text></view>
+      <view wx:if="{{Qimg}}" style="height:280px;padding-bottom:40px;">
+        <image src="{{Qimg}}" mode="aspectFit" lazy-load />
+      </view>
+      <ui-check-list max="1" options="{{ select3[index] }}" value="{{ selectValue3[index] }}" type="circle" bindchange="change3" _pid="{{_pid}}"></ui-check-list>
+      <!-- 分割线 -->
+      <image wx:if="{{QList.length-1 != index}}" class="line" src="../../../../imgs/service/line.png" mode="aspectFill" />
+    </block>
   </view>
 </view>

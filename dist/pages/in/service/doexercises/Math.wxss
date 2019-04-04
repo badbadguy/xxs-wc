@@ -19,44 +19,55 @@
 /* 水平垂直居中 */
 /* 超出部分出省略号 */
 /* 多行文本超出部分省略号 */
+.line {
+  height: 100rpx;
+  padding-top: 20rpx;
+  padding-bottom: 50rpx;
+}
+.input {
+  display: flex;
+  flex-grow: 1;
+  padding-left: 88rpx;
+  font-size: 44rpx;
+}
 .title {
-  padding-top: 20px;
+  padding-top: 36.2rpx;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .text-in {
-  padding-top: 20px;
+  padding-top: 36.2rpx;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 40px;
+  font-size: 65rpx;
 }
 .Qtitle {
-  font-size: 25px;
-  min-height: 80px;
+  font-size: 45.25rpx;
+  min-height: 144.8rpx;
 }
 .button-style-demo1 {
   background-color: #C01920;
-  border-radius: 20px;
+  border-radius: 36.2rpx;
   border-color: #C01920;
-  box-shadow: 3px 3px 8px #E57A7E;
+  box-shadow: 5.43rpx 5.43rpx 14.84rpx #E57A7E;
   color: #fff;
 }
 .popup5 {
   width: 95%;
   background-color: #fff;
-  height: 250px;
+  height: 452.5rpx;
   margin: 0 auto;
-  border-radius: 5px;
+  border-radius: 9.05rpx;
   overflow: hidden;
 }
 .popup5 .title {
-  line-height: 30px;
-  padding: 10px 20px;
+  line-height: 54.3rpx;
+  padding: 18.1rpx 36.2rpx;
 }
 .tra {
-  height: 100px;
+  height: 181rpx;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,7 +79,7 @@
   position: relative;
   display: flex;
   height: 100rpx;
-  width: 164px;
+  width: 296.84rpx;
   justify-content: center;
   -webkit-justify-content: center;
   align-items: center;

@@ -26,61 +26,6 @@ exports.default = Page({
     addclsscn: "",
     multiIndex: [0, 0]
   },
-
-  onReady: function onReady() {
-    console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-    this.setData({
-      datatest: [{
-        name: '美食',
-        value: 'food',
-        children: [{
-          name: '火锅',
-          value: 'chafing dish',
-          children: [{ name: '川味火锅', value: 'SiChuan chafing dish' }, { name: '老北京火锅', value: 'Beijing chafing dish' }, { name: '牛肉火锅', value: 'Beef chafing dish' }]
-        }, {
-          name: '西餐',
-          value: 'western food',
-          children: [{ name: '意大利菜', value: 'Italy food' }, { name: '法国菜', value: 'France food' }, { name: '汉堡', value: 'Hamburg' }]
-        }]
-      }, {
-        name: '旅游',
-        value: 'tour',
-        children: [{
-          name: '周边游',
-          value: 'tour around',
-          children: [{ name: '景点', value: 'Scenic spot' }, { name: '公园', value: 'Park' }, { name: '名胜古迹', value: 'Historical sites' }]
-        }, {
-          name: '海外游',
-          value: 'tour aboard',
-          children: [{ name: '美国游', value: 'American tour' }, { name: '欧洲游', value: 'Europe tour' }, { name: '东南亚游', value: 'Southease Asia tour' }]
-        }]
-      }, {
-        name: '旅游',
-        value: 'tour',
-        children: [{
-          name: '周边游',
-          value: 'tour around',
-          children: [{ name: '景点', value: 'Scenic spot' }, { name: '公园', value: 'Park' }, { name: '名胜古迹', value: 'Historical sites' }]
-        }, {
-          name: '海外游',
-          value: 'tour aboard',
-          children: [{ name: '美国游', value: 'American tour' }, { name: '欧洲游', value: 'Europe tour' }, { name: '东南亚游', value: 'Southease Asia tour' }]
-        }]
-      }, {
-        name: '旅游',
-        value: 'tour',
-        children: [{
-          name: '周边游',
-          value: 'tour around',
-          children: [{ name: '景点', value: 'Scenic spot' }, { name: '公园', value: 'Park' }, { name: '名胜古迹', value: 'Historical sites' }]
-        }, {
-          name: '海外游',
-          value: 'tour aboard',
-          children: [{ name: '美国游', value: 'American tour' }, { name: '欧洲游', value: 'Europe tour' }, { name: '东南亚游', value: 'Southease Asia tour' }]
-        }]
-      }]
-    });
-  },
   handleselectedtest: function handleselected1(e) {
     var data = e.detail;
     this.data.titletest = "";
@@ -152,7 +97,6 @@ exports.default = Page({
     console.log(that.data.addclsscn);
   },
   bindMultiPickerChange: function bindMultiPickerChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value);
     this.setData({
       multiIndex: e.detail.value,
       tempclass: e.detail.value,
@@ -160,7 +104,6 @@ exports.default = Page({
     });
   },
   bindMultiPickerColumnChange: function bindMultiPickerColumnChange(e) {
-    console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
     var data = {
       multiArray: this.data.multiArray,
       multiIndex: this.data.multiIndex

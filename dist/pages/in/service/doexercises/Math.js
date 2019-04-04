@@ -21,25 +21,31 @@ exports.default = Page({
     question_title: '',
     select: [],
     selectValue: [],
-    buttonsAn: false,
-    buttons: {
-      buttonText: '中文',
-      lang: 'zh_CN',
-      lto: 'en_US',
-      msg: '长按说话',
-      buttonType: 'normal'
-    }
+    buttonsAn: false
   },
   onLoad: function onLoad() {
     this.initRecord();
   },
+  input_an: function input_an(e) {
+    var obj = {};
+    obj = e.detail.value;
+    var selectValue = [];
+    selectValue.push(obj);
+    this.setData({
+      selectValue: selectValue
+    });
+  },
+
   play: function play() {
+    var _this = this;
+
     //开始播放
     innerAudioContext.play();
     //开始播放触发
     innerAudioContext.onPlay(function () {
       wx.showLoading({
-        title: '播放录音中'
+        title: '播放录音中',
+        mask: true
       });
     });
     //播放出错触发
@@ -49,13 +55,14 @@ exports.default = Page({
     });
     //播放完成触发
     innerAudioContext.onEnded(function () {
+      var that = _this;
       wx.hideLoading();
       wx.showModal({
         title: '提交答案',
         content: '请注意发音准确哦~',
         success: function success(res) {
           if (res.confirm) {
-            console.log("触发提交");
+            that.sentAnswer();
           }
         }
       });
@@ -65,18 +72,23 @@ exports.default = Page({
      * 按下按钮开始录音
      */
   streamRecord: function streamRecord(e) {
-    this.setData({
-      showPlay: 'display:none',
-      buttonsAn: true
-    });
-    manager.start({
-      lang: 'zh_CN'
-    });
     wx.showLoading({
       title: '接收语音中'
     });
-    console.log("按下");
-    console.log(e);
+    this.setData({
+      showPlay: 'display:none',
+      buttonsAn: true,
+      selectValue: []
+    });
+    if (this.data.subject_id == '79bed2b0e57c4f7f8e71b9817f03e3b9') {
+      manager.start({
+        lang: 'en_US'
+      });
+    } else {
+      manager.start({
+        lang: 'zh_CN'
+      });
+    }
   },
 
 
@@ -88,10 +100,11 @@ exports.default = Page({
     this.setData({
       buttonsAn: false
     });
-    manager.stop();
     wx.showLoading({
-      title: '加载语音中'
+      title: '加载语音中',
+      mask: true
     });
+    manager.stop();
   },
 
   /**
@@ -99,23 +112,32 @@ exports.default = Page({
   * 绑定语音播放开始事件
   */
   initRecord: function initRecord() {
-    var _this = this;
-
-    //有新的识别内容返回，则会调用此事件
-    manager.onRecognize = function (res) {
-      console.log("有新的识别内容返回，则会调用此事件");
-      _this.setData({
-        showPlay: ''
-      });
-    };
+    var _this2 = this;
 
     // 识别结束事件
     manager.onStop = function (res) {
-      wx.hideLoading();
-      innerAudioContext.src = res.tempFilePath;
+      console.log("触发结束事件");
       console.log(res);
+      if (res.result != "") {
+        wx.hideLoading();
+        innerAudioContext.src = res.tempFilePath;
+        var obj = {};
+        obj = res.result;
+        var selectValue = [];
+        selectValue.push(obj);
+        _this2.setData({
+          selectValue: selectValue,
+          showPlay: ''
+        });
+      } else {
+        wx.showToast({
+          title: '没听清楚你说什么呢~',
+          icon: 'none',
+          duration: 3000,
+          image: '/imgs/service/noListen.gif'
+        });
+      }
     };
-
     // 识别错误事件
     manager.onError = function (res) {
       wx.hideLoading();
@@ -130,12 +152,16 @@ exports.default = Page({
     var that = this;
     if (that.data.selectValue.length == 0) {
       wx.showToast({
-        title: '请选择！',
+        title: '不能交白卷哦！~',
         icon: 'none',
         duration: 3000
       });
       return;
     }
+    that.sentAnswer();
+  },
+  sentAnswer: function sentAnswer() {
+    var that = this;
     wx.request({
       url: getApp().globalData.headurl + 'question/answer',
       header: {
@@ -146,8 +172,8 @@ exports.default = Page({
         // user_id : getApp().globalData.openid,
         q: that.data.tempQ,
         answer: that.data.selectValue[0],
-        QType: that.data.QType
-        //缺homework_id
+        QType: that.data.QType,
+        homework_id: that.data.homework_id
       },
       success: function success(res) {
         that.setData({
@@ -164,8 +190,8 @@ exports.default = Page({
             icon: 'none',
             duration: 2000
           });
-          that.onShow();
         }
+        that.onShow();
       }
     });
   },
@@ -237,6 +263,7 @@ exports.default = Page({
   },
 
   onShow: function onShow(res) {
+    console.log("触发onshow");
     var that = this;
     wx.request({
       url: getApp().globalData.headurl + 'homework/selectNum',
@@ -266,7 +293,8 @@ exports.default = Page({
           q3_num: res.data.q3_num,
           tempNum: tempNum,
           num: res.data.num,
-          tempQ: tempQ
+          tempQ: tempQ,
+          homework_id: res.data.homework_id
         });
         if (tempNum <= 0) {
           wx.showModal({
@@ -332,7 +360,8 @@ exports.default = Page({
           that.setData({
             question_title: data.data.question_title,
             Qimg: data.data.question_image,
-            QType: data.data.QType
+            QType: data.data.QType,
+            QList: data.data.Qlist
           });
           console.log("应用题");
           return;
