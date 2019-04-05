@@ -87,7 +87,7 @@
     <view wx:if="{{Qimg}}" style="height:280px;padding-bottom:40px;">
       <image src="{{Qimg}}" mode="aspectFit" lazy-load />
     </view>
-    <view class="input">答案：<input style="padding-top: 8rpx; padding-left: 30rpx;" bindinput="input_an" placeholder="请输入答案"></input></view>
+    <view class="input">答案：<input class="input_an" bindinput="input_an" placeholder="请输入答案"></input></view>
     <view class="tra">
       <view class="button-press" bindtap="sure">
         <span class="text-in-button">确定</span>
@@ -97,12 +97,28 @@
   </view>
   <view style="{{showq3}}">
     <view class="title"><text>{{title}}</text></view>
-    <block wx:for="{{QList}}">
+    <!-- <block wx:for="{{QList}}" wx:if="{{index==0 || tempSelect3[index==0 ? '0': index-1]==false || tempSelect3[index==0 ? '0': index-1]==true}}"> -->
+    <block wx:for="{{QList}}" wx:if="{{index==0 || kyb[index-1] != null}}">
       <view class="Qtitle">题目：<text>{{item.question_title}}</text></view>
       <view wx:if="{{Qimg}}" style="height:280px;padding-bottom:40px;">
         <image src="{{Qimg}}" mode="aspectFit" lazy-load />
       </view>
-      <ui-check-list max="1" options="{{ select3[index] }}" value="{{ selectValue3[index] }}" type="circle" bindchange="change3" _pid="{{_pid}}"></ui-check-list>
+      <ui-check-list max="1" disabled="{{kyb[index] != null?true:false}}" options="{{ select3[index] }}" value="" type="circle" bindchange="change3" id="{{index}}" _pid="{{_pid}}"></ui-check-list>
+      <!-- <view class="tra" wx:if="{{kyb[index] != null?true:false}}"> -->
+      <view>
+        <view class="tra" wx:if="{{kyb[index] != null?false:true}}">
+          <view class="button-press" bindtap="sure3" id="{{index}}">
+            <span class="text-in-button">确定</span>
+            <image class="button-background" src="../../../../imgs/button_en.png" />
+          </view>
+        </view>
+        <view class="tra" wx:else="">
+          <view class="button-press">
+            <span class="text-in-button">已选定</span>
+            <image class="button-background" src="../../../../imgs/button_zh.png" />
+          </view>
+        </view>
+      </view>
       <!-- 分割线 -->
       <image wx:if="{{QList.length-1 != index}}" class="line" src="../../../../imgs/service/line.png" mode="aspectFill" />
     </block>

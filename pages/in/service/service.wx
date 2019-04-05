@@ -20,6 +20,12 @@
       <text class="text-down">查看作业库</text>
     </ui-col>
   </ui-row>
+  <ui-row border-top border-bottom class="row-height">
+    <ui-col vertical-align="middle" align="center" border-right bindtap="gotowhere" id="5">
+      <image src="../../../imgs/service/output.png" class="imgin"/>
+      <text class="text-down">写作业</text>
+    </ui-col>
+  </ui-row>
 </view>
 </template>
 
@@ -53,6 +59,11 @@ export default {
       case "4":
         wx.navigateTo({
           url:'/pages/in/service/showexer/showexer'
+        })
+        break;
+      case "5":
+        wx.navigateTo({
+          url:'/pages/in/service/doexercises/select'
         })
         break;
       default:

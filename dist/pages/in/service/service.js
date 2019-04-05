@@ -27,6 +27,11 @@ exports.default = Page({
           url: '/pages/in/service/showexer/showexer'
         });
         break;
+      case "5":
+        wx.navigateTo({
+          url: '/pages/in/service/doexercises/select'
+        });
+        break;
       default:
         break;
     }

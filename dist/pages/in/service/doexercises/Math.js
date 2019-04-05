@@ -3,14 +3,17 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var plugin = requirePlugin("WechatSI");
 var manager = plugin.getRecordRecognitionManager();
 var innerAudioContext = wx.createInnerAudioContext();
 exports.default = Page({
   data: {
-    subject_id: 'cd84a79d6ee04e4d9630731b25b589d0',
+    subject_id: '',
     title: '单选题',
-    class_id: 'temp1',
+    class_id: '',
     show3: 'show',
     isWrong: false,
     showq0: 'display:none',
@@ -21,9 +24,16 @@ exports.default = Page({
     question_title: '',
     select: [],
     selectValue: [],
-    buttonsAn: false
+    buttonsAn: false,
+    tempSelect3: [],
+    kyb: []
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad(e) {
+    var that = this;
+    that.setData({
+      class_id: e.class_id,
+      subject_id: e.subject_id
+    });
     this.initRecord();
   },
   input_an: function input_an(e) {
@@ -49,10 +59,7 @@ exports.default = Page({
       });
     });
     //播放出错触发
-    innerAudioContext.onError(function (res) {
-      console.log(res.errMsg);
-      console.log(res.errCode);
-    });
+    innerAudioContext.onError(function (res) {});
     //播放完成触发
     innerAudioContext.onEnded(function () {
       var that = _this;
@@ -116,8 +123,6 @@ exports.default = Page({
 
     // 识别结束事件
     manager.onStop = function (res) {
-      console.log("触发结束事件");
-      console.log(res);
       if (res.result != "") {
         wx.hideLoading();
         innerAudioContext.src = res.tempFilePath;
@@ -160,6 +165,65 @@ exports.default = Page({
     }
     that.sentAnswer();
   },
+  sure3: function sure3(e) {
+    var that = this;
+    if (that.data.tempSelect3[e.currentTarget.id] == null) {
+      wx.showToast({
+        title: '不能交白卷哦！~',
+        icon: 'none',
+        duration: 3000
+      });
+      return;
+    }
+    var wori = "kyb[" + e.currentTarget.id + "]";
+    this.setData(_defineProperty({}, wori, 1));
+    if (that.data.tempSelect3[e.currentTarget.id]) {
+      wx.showToast({
+        title: '答对了哦！真棒~\r\n往下拉吧~',
+        icon: 'none',
+        duration: 2000
+      });
+    } else {
+      var wrongMessage = that.data.QList[e.currentTarget.id].question_remark;
+      that.setData({
+        question_remark: wrongMessage,
+        isWrong: 'show'
+      });
+    }
+    if (e.currentTarget.id == that.data.select3.length - 1) {
+      var tempQID;
+      var tempRorW = 0;
+      for (var i = 0; i < that.data.tempSelect3.length; i++) {
+        if (!that.data.tempSelect3[i]) {
+          tempQID = that.data.QList[0].question_id;
+          tempRorW = 1;
+          break;
+        }
+      }
+      wx.request({
+        url: getApp().globalData.headurl + 'question/xigua',
+        header: {
+          'content-type': 'application/json'
+        },
+        data: {
+          user_id: getApp().globalData.openid,
+          q: that.data.tempQ,
+          homework_id: that.data.homework_id,
+          question_id: tempQID,
+          RorW: tempRorW
+        },
+        success: function success(res) {
+          that.setData({
+            tempSelect3: [],
+            kyb: []
+          });
+          setTimeout(function () {
+            that.onShow();
+          }, 500);
+        }
+      });
+    }
+  },
   sentAnswer: function sentAnswer() {
     var that = this;
     wx.request({
@@ -168,8 +232,7 @@ exports.default = Page({
         'content-type': 'application/json'
       },
       data: {
-        user_id: 'tempUser',
-        // user_id : getApp().globalData.openid,
+        user_id: getApp().globalData.openid,
         q: that.data.tempQ,
         answer: that.data.selectValue[0],
         QType: that.data.QType,
@@ -199,6 +262,19 @@ exports.default = Page({
     this.setData({
       selectValue: e.detail.value
     });
+  },
+  change3: function change3(e) {
+    var that = this;
+    var tempIndex;
+    for (var i = 0; i < 4; i++) {
+      if (that.data.select3[e.target.id][i].key == e.detail.value) {
+        tempIndex = i;
+      }
+    }
+    var temp = this.data.select3[e.target.id][tempIndex];
+    var wori = "tempSelect3[" + e.target.id + "]";
+    var dcqs = temp.RorF;
+    this.setData(_defineProperty({}, wori, dcqs));
   },
   openPopup5: function openPopup5(e) {
     var show = e.currentTarget.dataset.show;
@@ -263,7 +339,6 @@ exports.default = Page({
   },
 
   onShow: function onShow(res) {
-    console.log("触发onshow");
     var that = this;
     wx.request({
       url: getApp().globalData.headurl + 'homework/selectNum',
@@ -273,10 +348,13 @@ exports.default = Page({
       data: {
         class_id: that.data.class_id,
         subject_id: that.data.subject_id,
-        user_id: 'tempUser'
-        // user_id : getApp().globalData.openid
+        user_id: getApp().globalData.openid
       },
       success: function success(res) {
+        console.log(res);
+        console.log(that.data.class_id);
+        console.log(that.data.subject_id);
+        console.log(getApp().globalData.openid);
         var tempres = [res.data.q0_num, res.data.q1_num, res.data.q2_num, res.data.q3_num];
         var tempQ = null;
         for (var i = 0; i < tempres.length; i++) {
@@ -302,7 +380,9 @@ exports.default = Page({
             content: '已经没有作业了哦~',
             showCancel: false,
             success: function success(res) {
-              console.log("跳转作业");
+              wx.navigateBack({
+                delta: 1
+              });
             }
           });
         }
@@ -319,12 +399,10 @@ exports.default = Page({
         'content-type': 'application/json'
       },
       data: {
-        user_id: 'tempUser',
-        // user_id : getApp().globalData.openid,
+        user_id: getApp().globalData.openid,
         q: tempQ
       },
       success: function success(data) {
-        console.log(data);
         //单选题
         if (data.data.QType == "0") {
           that.setData({
@@ -333,7 +411,6 @@ exports.default = Page({
             Qimg: data.data.question_image,
             QType: data.data.QType
           });
-          console.log("单选题");
           return;
         }
         //语音题
@@ -343,7 +420,6 @@ exports.default = Page({
             Qimg: data.data.question_image,
             QType: data.data.QType
           });
-          console.log("语音题");
           return;
         }
         //填空题
@@ -353,7 +429,6 @@ exports.default = Page({
             Qimg: data.data.question_image,
             QType: data.data.QType
           });
-          console.log("填空题");
           return;
         } //应用题
         if (data.data.QType == "3") {
@@ -361,9 +436,9 @@ exports.default = Page({
             question_title: data.data.question_title,
             Qimg: data.data.question_image,
             QType: data.data.QType,
-            QList: data.data.Qlist
+            QList: data.data.Qlist,
+            select3: data.data.select3
           });
-          console.log("应用题");
           return;
         }
       }

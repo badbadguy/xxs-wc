@@ -27,4 +27,12 @@
       </view>
     </view>
   </view>
+  <view class="row-height ui-row ui-row-border-top ui-row-border-bottom" style="">
+    <view bindtap="gotowhere" id="5" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
+      <view class="ui-col-content align-center valign-middle">
+        <image src="../../../imgs/service/output.png" class="imgin" />
+        <text class="text-down">写作业</text>
+      </view>
+    </view>
+  </view>
 </view>

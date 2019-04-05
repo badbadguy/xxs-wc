@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/home/index",
     "pages/in/service/doexercises/Math",
     "pages/in/service/doexercises/select",
     "pages/in/service/sureStudent/sureStudent",

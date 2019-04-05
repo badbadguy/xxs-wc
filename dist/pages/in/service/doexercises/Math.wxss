@@ -27,8 +27,13 @@
 .input {
   display: flex;
   flex-grow: 1;
-  padding-left: 88rpx;
+  padding-left: 70rpx;
   font-size: 44rpx;
+}
+.input_an {
+  padding-top: 8rpx;
+  padding-left: 30rpx;
+  width: 638rpx;
 }
 .title {
   padding-top: 36.2rpx;
