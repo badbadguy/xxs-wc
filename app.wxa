@@ -9,7 +9,10 @@ export default {
   config: {
     usingComponents: {},
     pages: [
+      'pages/in/service/bindStudent/bindStudent',
+      'pages/in/service/ranking/ranking',
       'pages/home/index',
+      'pages/in/service/checkWrong/checkkWrong',
       'pages/in/service/doexercises/Math',
       'pages/in/service/doexercises/select',
       'pages/in/service/sureStudent/sureStudent',
@@ -35,7 +38,9 @@ export default {
       'pages/in/service/decorate/decorate',
       'pages/in/service/showexer/showexer',
       'pages/in/service/translate/translate',
-      'pages/in/service/mark/selectTo'
+      'pages/in/service/mark/selectTo',
+      'pages/in/service/messageB/messageB',
+      'pages/in/service/checkStudent/checkStudent'
     ], //'pages/home/index','pages/test/mapTest'
     tabBar: {
       color: '#a9b7b7',

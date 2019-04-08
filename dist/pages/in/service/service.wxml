@@ -1,15 +1,15 @@
 <view class="box">
   <view class="row-height ui-row ui-row-border-top ui-row-border-bottom" style="">
-    <view bindtap="gotowhere" id="translate" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
+    <view bindtap="gotowhere" id="1" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
       <view class="ui-col-content align-center valign-middle">
         <image src="../../../imgs/service/translate.png" class="imgin" />
         <text class="text-down">语音翻译</text>
       </view>
     </view>
-    <view bindtap="gotowhere" id="2" class="ui-col ui-col-align-center align-center valign-middle" style="">
+    <view bindtap="gotowhere" id="2" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
       <view class="ui-col-content align-center valign-middle">
-        <image src="../../../imgs/service/homework.png" class="imgin" />
-        <text class="text-down">增加作业库</text>
+        <image src="../../../imgs/service/translate.png" class="imgin" />
+        <text class="text-down">错题排行榜</text>
       </view>
     </view>
   </view>
@@ -32,6 +32,26 @@
       <view class="ui-col-content align-center valign-middle">
         <image src="../../../imgs/service/output.png" class="imgin" />
         <text class="text-down">写作业</text>
+      </view>
+    </view>
+    <view bindtap="gotowhere" id="6" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
+      <view class="ui-col-content align-center valign-middle">
+        <image src="../../../imgs/service/output.png" class="imgin" />
+        <text class="text-down">查看错题</text>
+      </view>
+    </view>
+  </view>
+  <view class="row-height ui-row ui-row-border-top ui-row-border-bottom" style="">
+    <view bindtap="gotowhere" id="7" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
+      <view class="ui-col-content align-center valign-middle">
+        <image src="../../../imgs/service/output.png" class="imgin" />
+        <text class="text-down">认证学生</text>
+      </view>
+    </view>
+    <view bindtap="gotowhere" id="8" class="ui-col ui-col-align-center align-center valign-middle" style="">
+      <view class="ui-col-content align-center valign-middle">
+        <image src="../../../imgs/service/homework.png" class="imgin" />
+        <text class="text-down">增加作业库</text>
       </view>
     </view>
   </view>

@@ -1,0 +1,87 @@
+/* 1像素解决方案 */
+/*
+ * 清除1px
+ */
+/*
+ * 清除浮动
+ */
+/*
+ * mobile
+ */
+/*
+ * 1px
+ */
+/*
+ * text
+ */
+/* 垂直居中 */
+/* 水平居中 */
+/* 水平垂直居中 */
+/* 超出部分出省略号 */
+/* 多行文本超出部分省略号 */
+.ui-accordion .header .arrow {
+  right: 8px;
+  top: 10px;
+}
+.intitle {
+  background-color: #0080FF;
+  font-size: 14px;
+  height: 100%;
+  min-height: 50px;
+  border-bottom: 1px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  width: 100%;
+  background-color: #fff;
+  font-size: 14px;
+}
+.title .state {
+  border: 1px solid #797979;
+  width: 100%;
+  height: 30px;
+  color: #797979;
+  font-size: 12px;
+}
+.title .state.abnormal {
+  border: 1px solid #F5AC29;
+  color: #F5AC29;
+}
+.title .state.normal {
+  border: 1px solid #2AA744;
+  color: #2AA744;
+}
+.content {
+  background-color: #F6F6F6;
+  font-size: 14px;
+  height: 100%;
+  min-height: 40px;
+  border-bottom: 1px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.temp1 {
+  width: 40px;
+}
+.temp2 {
+  height: 150%;
+}
+.temp3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  padding-right: 38px;
+}
+.imgright {
+  height: 20px;
+}
+.xixixi {
+  padding-right: 49px;
+}
+.ojbk {
+  font-size: 40rpx;
+}

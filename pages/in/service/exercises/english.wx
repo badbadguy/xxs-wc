@@ -8,7 +8,7 @@
           </view>
           <view class="ui-col ui-col-align-center align-center valign-middle" style="">
             <view class="ui-col-content align-center valign-middle">
-              <view><text>增加语文题目</text></view>
+              <view><text>增加英语题目</text></view>
             </view>
           </view>
           <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 60px;">

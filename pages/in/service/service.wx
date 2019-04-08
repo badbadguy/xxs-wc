@@ -1,13 +1,13 @@
 <template>
 <view class="box">
   <ui-row border-top border-bottom class="row-height">
-    <ui-col vertical-align="middle" align="center" border-right bindtap="gotowhere" id="translate">
+    <ui-col vertical-align="middle" align="center" border-right bindtap="gotowhere" id="1">
       <image src="../../../imgs/service/translate.png" class="imgin"/>
       <text class="text-down">语音翻译</text>
     </ui-col>
-    <ui-col vertical-align="middle" align="center" bindtap="gotowhere" id="2">
-      <image src="../../../imgs/service/homework.png" class="imgin"/>
-      <text class="text-down">增加作业库</text>
+    <ui-col vertical-align="middle" align="center" border-right bindtap="gotowhere" id="2">
+      <image src="../../../imgs/service/translate.png" class="imgin"/>
+      <text class="text-down">错题排行榜</text>
     </ui-col>
   </ui-row>
   <ui-row border-top border-bottom class="row-height">
@@ -25,6 +25,20 @@
       <image src="../../../imgs/service/output.png" class="imgin"/>
       <text class="text-down">写作业</text>
     </ui-col>
+    <ui-col vertical-align="middle" align="center" border-right bindtap="gotowhere" id="6">
+      <image src="../../../imgs/service/output.png" class="imgin"/>
+      <text class="text-down">查看错题</text>
+    </ui-col>
+  </ui-row>
+  <ui-row border-top border-bottom class="row-height">
+    <ui-col vertical-align="middle" align="center" border-right bindtap="gotowhere" id="7">
+      <image src="../../../imgs/service/output.png" class="imgin"/>
+      <text class="text-down">认证学生</text>
+    </ui-col>
+    <ui-col vertical-align="middle" align="center" bindtap="gotowhere" id="8">
+      <image src="../../../imgs/service/homework.png" class="imgin"/>
+      <text class="text-down">增加作业库</text>
+    </ui-col>
   </ui-row>
 </view>
 </template>
@@ -41,14 +55,14 @@ export default {
   data: {},
   gotowhere: function(res) {
     switch (res.currentTarget.id) {
-      case "translate":
+      case "1":
         wx.navigateTo({
           url:'/pages/in/service/translate/translate'
         })
         break;
       case "2":
         wx.navigateTo({
-          url:'/pages/in/service/exercises/exercises'
+          url:'/pages/in/service/ranking/ranking'
         })
         break;
       case "3":
@@ -64,6 +78,20 @@ export default {
       case "5":
         wx.navigateTo({
           url:'/pages/in/service/doexercises/select'
+        })
+        break;
+      case "6":
+        wx.navigateTo({
+          url:'/pages/in/service/checkWrong/checkkWrong'
+        })
+      case "7":
+        wx.navigateTo({
+          url:'/pages/in/service/sureStudent/sureStudent'
+        })
+        break;
+      case "8":
+        wx.navigateTo({
+          url:'/pages/in/service/exercises/exercises'
         })
         break;
       default:

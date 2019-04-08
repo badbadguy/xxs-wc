@@ -1,6 +1,8 @@
 {
   "pages": [
-    "pages/home/index",
+    "pages/in/service/bindStudent/bindStudent",
+    "pages/in/service/ranking/ranking",
+    "pages/in/service/checkWrong/checkkWrong",
     "pages/in/service/doexercises/Math",
     "pages/in/service/doexercises/select",
     "pages/in/service/sureStudent/sureStudent",
@@ -12,9 +14,6 @@
     "pages/in/userinfo/parentInfo",
     "pages/in/userinfo/teacherInfo",
     "pages/in/userinfo/studentInfo",
-    "pages/in/history/parentHistory",
-    "pages/in/history/teacherHistory",
-    "pages/in/history/studentHistory",
     "pages/test/speechRecognition",
     "pages/in/service/exercises/exercises",
     "pages/in/service/exercises/chinese",
@@ -23,6 +22,8 @@
     "pages/in/service/decorate/decorate",
     "pages/in/service/showexer/showexer",
     "pages/in/service/translate/translate",
+    "pages/in/service/messageB/messageB",
+    "pages/in/service/checkStudent/checkStudent",
     "pages/in/service/service"
   ],
   "tabBar": {

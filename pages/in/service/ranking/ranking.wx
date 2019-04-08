@@ -1,0 +1,69 @@
+<template>
+    <ui-row height="50" border-top border-bottom space-bottom="20">
+      <ui-col span="3" border-right vertical-align="middle" align="center">
+        排名
+      </ui-col>
+      <ui-col>
+        <ui-row height="40">
+          <ui-col span="8" border-right vertical-align="middle" align="center">
+            名字
+          </ui-col>
+          <ui-col span="3" vertical-align="middle" align="center">
+            错题数量
+          </ui-col>
+        </ui-row>
+      </ui-col>
+    </ui-row>
+  <view wx:for="{{ranking}}">
+    <ui-row height="50" border-top border-bottom space-bottom="0">
+      <ui-col span="3" border-right vertical-align="middle" align="center">
+        <block wx:if="{{index<4}}">
+          <image src="{{imgurl[index].url}}" style="width:72.4rpx;height:72.4rpx;">
+        </block>
+      </ui-col>
+      <ui-col>
+        <ui-row height="40">
+          <ui-col span="8" border-right vertical-align="middle" align="center">
+            {{item.s}}
+          </ui-col>
+          <ui-col span="3" vertical-align="middle" align="center">
+            {{item.c}}
+          </ui-col>
+        </ui-row>
+      </ui-col>
+    </ui-row>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '错题排行榜'
+  },
+  data: {
+    imgurl:[
+      {"url":'../../../../imgs/service/no1.png'},
+      {"url":'../../../../imgs/service/no2.png'},
+      {"url":'../../../../imgs/service/no3.png'}
+    ]
+  },
+  onLoad(){
+    var that = this;
+    wx.request({
+      url:getApp().globalData.headurl + 'answer/ranking',
+      header:{
+        'content-type': 'application/json'
+      },
+      data:{},
+      success: function(res){
+        that.setData({
+          ranking: res.data
+        })
+      }
+    });
+  }
+}
+</script>
+
+<style lang="less">
+</style>

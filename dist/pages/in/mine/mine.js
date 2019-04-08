@@ -36,10 +36,10 @@ exports.default = Page({
             case 1:
               break;
             case 2:
-              temp = [{ text: '账号信息', url: '../userinfo/teacherInfo', icon: '../../../imgs/mine/accountInfo.png', tips: '' }, { text: '作业发布历史', url: '../history/teacherHistory', icon: '../../../imgs/mine/history.png', tips: '' }];
+              temp = [{ text: '账号信息', url: '../userinfo/teacherInfo', icon: '../../../imgs/mine/accountInfo.png', tips: '' }];
               break;
             case 3:
-              temp = [{ text: '账号信息', url: '../userinfo/studentInfo', icon: '../../../imgs/mine/accountInfo.png', tips: '' }, { text: '作业提交历史', url: '../history/studentHistory', icon: '../../../imgs/mine/history.png', tips: '' }];
+              temp = [{ text: '账号信息', url: '../userinfo/studentInfo', icon: '../../../imgs/mine/accountInfo.png', tips: '' }];
             case 4:
               temp = [{ text: '账号信息', url: '../userinfo/parentInfo', icon: '../../../imgs/mine/accountInfo.png', tips: '' }];
               break;
