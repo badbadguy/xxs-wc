@@ -68,11 +68,11 @@
           </radio-group>
         </view>
         <view style="{{show2}}">
-          <input name="question_answers" class="input-address" maxlength="10" placeholder="正确答案：" value="{{tempValue}}"></input>
+          <input name="question_answers" class="input-address" maxlength="20" placeholder="正确答案：" value="{{tempValue}}"></input>
         </view>
       </view>
       <view class="con-in">
-        错误提示：<input name="question_remark" class="input-address" maxlength="10" placeholder="错误提示：" value="{{tempValue}}"></input>
+        错误提示：<input name="question_remark" class="input-address" maxlength="20" placeholder="错误提示：" value="{{tempValue}}"></input>
       </view>
     </view>
   </form>

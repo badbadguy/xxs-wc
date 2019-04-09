@@ -1,4 +1,7 @@
 <view>
+  <view class="none" wx:if="{{list1.length == 0}}">
+    暂时没有申请的同学
+  </view>
   <ui-swipe-out operate-width="80" data-index="{{index}}" can-swipe="{{item.canSwipe}}" value="{{item.switcher}}" bindchange="changeHandler1" wx:for="{{list1}}" height="{{ item.height}}" _pid="{{_pid}}">
     <view slot="content">
       <view class="top_tip ui-row ui-row-border-bottom" style="height:80px;">

@@ -107,23 +107,55 @@ exports.default = Page({
   },
   selectTo: function selectTo() {
     var that = this;
-    var tempNum = that.data.accordionValue0.length + that.data.accordionValue1.length + that.data.accordionValue2.length + that.data.accordionValue3.length;
     wx.request({
-      url: getApp().globalData.headurl + 'homework/add',
+      url: getApp().globalData.headurl + 'homework/bulin',
       header: {
         'content-type': 'application/json'
       },
       data: {
-        subject_id: that.data.subject_id,
-        teacher_id: getApp().globalData.openid,
-        question0_id: that.data.accordionValue0,
-        question1_id: that.data.accordionValue1,
-        question2_id: that.data.accordionValue2,
-        question3_id: that.data.accordionValue3,
         class_id: that.data.accordionValueC,
-        num: tempNum
+        teacher_id: getApp().globalData.openid
       },
-      success: function success(res) {}
+      success: function success(res) {
+        console.log(res.data);
+        if (res.data) {
+          wx.showToast({
+            title: '该班级今日已布置作业',
+            icon: 'none',
+            duration: 2000
+          });
+        } else {
+          var tempNum = that.data.accordionValue0.length + that.data.accordionValue1.length + that.data.accordionValue2.length + that.data.accordionValue3.length;
+          wx.request({
+            url: getApp().globalData.headurl + 'homework/add',
+            header: {
+              'content-type': 'application/json'
+            },
+            data: {
+              subject_id: that.data.subject_id,
+              teacher_id: getApp().globalData.openid,
+              question0_id: that.data.accordionValue0,
+              question1_id: that.data.accordionValue1,
+              question2_id: that.data.accordionValue2,
+              question3_id: that.data.accordionValue3,
+              class_id: that.data.accordionValueC,
+              num: tempNum
+            },
+            success: function success(res) {
+              wx.showToast({
+                title: '成功',
+                icon: 'success',
+                duration: 2000
+              });
+              setTimeout(function () {
+                wx.switchTab({
+                  url: '/pages/in/service/service'
+                });
+              }, 1500);
+            }
+          });
+        }
+      }
     });
   },
 

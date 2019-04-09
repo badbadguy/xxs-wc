@@ -3,7 +3,7 @@
     <view class='nav'>
       <view class='top'>
         <view style="padding-top:25px;padding-left:15px;height:125px;width:115px;">
-          <image style="border-radius:50%;" src="{{user_image}}"></image>
+          <image style="border-radius:50%;" src="{{user_image}}">
         </view>
       </view>
       <view class='nickname'>

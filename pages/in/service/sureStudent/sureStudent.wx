@@ -1,5 +1,8 @@
 <template>
   <view>
+    <view class="none" wx:if="{{list1.length == 0}}">
+      暂时没有申请的同学
+    </view>
     <ui-swipe-out operate-width="80" data-index="{{index}}" can-swipe="{{item.canSwipe}}" value="{{item.switcher}}" bindchange="changeHandler1" wx:for="{{list1}}"  height="{{ item.height}}">
       <view slot="content">
           <ui-row height="80" class="top_tip" border-bottom>
@@ -131,5 +134,10 @@ export default {
             .mix-text-overflow();
         }
     }
+}
+.none{
+  display: flex;
+  justify-content: center;
+  font-size: 40rpx;
 }
 </style>

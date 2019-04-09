@@ -29,7 +29,7 @@
               题目：<input name="question_title{{index}}" class="input-address" maxlength="50" placeholder="题目" value="{{tempValue}}"/>
             </view>
             <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images[index] == null || images[index] == ''}}" id="{{index}}">添加图片</button>
-            <view class="question-images"wx:if="{{images[index]}}">
+            <view class="question-images" wx:if="{{images[index]}}">
               <view class="image-in">
                 <!-- 图片缩略图  -->
                 <image mode="aspectFit" src="{{images[index]}}" bindtap="imageClick"/>
@@ -62,11 +62,11 @@
                 </radio-group>
               </view>
               <view style="{{show3}}">
-                  <input name="question_answers{{index}}" class="input-address" maxlength="10" placeholder="正确答案：" value="{{tempValue}}"/>
+                  <input name="question_answers{{index}}" class="input-address" maxlength="20" placeholder="正确答案：" value="{{tempValue}}"/>
               </view>
             </view>
             <view class="con-in">
-              错误提示：<input name="question_remark{{index}}" class="input-address" maxlength="10" placeholder="错误提示：" value="{{tempValue}}"/>
+              错误提示：<input name="question_remark{{index}}" class="input-address" maxlength="50" placeholder="错误提示：" value="{{tempValue}}"/>
             </view>
           </view>
         </view>
@@ -238,6 +238,17 @@ export default {
         header: {
           'content-type': 'application/json'
         },
+        success(){
+          wx.showToast({
+            title:"已上传！",
+            icon: 'success'
+          })
+          setTimeout(function() {
+            wx.switchTab({
+              url: '/pages/in/service/service'
+            })
+          }, 1500);
+        }
     })
   },
   formReset: function(){

@@ -1,6 +1,6 @@
 <view>
   <view class="ui-row-list ui-row-list-bordered ui-row-list-border-indent" style="">
-    <view class="ui-row" style="height:100px;">
+    <view wx:if="{{teacher_subject == '33018ef1b3b74a18b6d9f94bff995d79'}}" class="ui-row" style="height:100px;">
       <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
         <view class="ui-col-content align-center valign-middle">
           <image src="../../../../imgs/service/work.png" class="imgin" />
@@ -19,7 +19,7 @@
         </view>
       </view>
     </view>
-    <view class="ui-row" style="height:100px;">
+    <view wx:if="{{teacher_subject == 'cd84a79d6ee04e4d9630731b25b589d0'}}" class="ui-row" style="height:100px;">
       <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
         <view class="ui-col-content align-center valign-middle">
           <image src="../../../../imgs/service/work.png" class="imgin" />
@@ -38,7 +38,7 @@
         </view>
       </view>
     </view>
-    <view class="ui-row" style="height:100px;">
+    <view wx:if="{{teacher_subject == '79bed2b0e57c4f7f8e71b9817f03e3b9'}}" class="ui-row" style="height:100px;">
       <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
         <view class="ui-col-content align-center valign-middle">
           <image src="../../../../imgs/service/work.png" class="imgin" />

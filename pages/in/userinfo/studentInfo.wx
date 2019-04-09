@@ -1,15 +1,281 @@
 <template>
-  <view></view>
+  <view class='content'>
+    <view class='nav'>
+      <view class='top'>
+        <view style="padding-top:25px;padding-left:15px;height:125px;width:115px;">
+          <image style="border-radius:50%;" src="{{user_image}}">
+        </view>
+      </view>
+      <view class='nickname'>
+          <text>{{user_nickname}}</text>
+      </view>
+    </view>
+    <view class='item' bindtap='resetname'>
+      <text class='left'>姓名：</text><text class='right'>{{user_name}}</text>
+    </view>
+    <view style="{{name_is}};height:80px;">
+      <input placeholder="请输入您的真实姓名" type="text" bindblur="getText" style="padding-left:40px" id="name"/>
+      <button plain="true" class="button-left" type="primary" bindtap="sure" id="names"> 确认 </button>
+      <button plain="true" class="button-right" type="primary" bindtap="cancle" id="namec"> 取消 </button>
+    </view>
+    <view class='item' bindtap='resetaddress'>
+      <text class='left'>地址：</text><text class='right'>{{parent_address}}</text>
+    </view>
+    <view style="{{address_is}};height:{{tempheight}}px;">
+      <view style="padding-left:7%;padding-right:7%;">
+        <!--绑定输入事件-->
+        <input style="border:1px solid black;" bindinput="getsuggest" value="{{backfill}}" bindblur="setaddress"/>
+      </view>
+      <!--关键词输入提示列表渲染-->
+      <view wx:for="{{suggestion}}" wx:key="index">
+          <!--绑定回填事件-->
+          <view>
+            <!--根据需求渲染相应数据-->
+            <!--渲染地址title-->
+            <view style="text-align:center;" bindtap="backfill" id="{{index}}">{{item.title}}</view>
+            <!--渲染详细地址-->
+            <view style="font-size:12px;color:#666;text-align:center;">{{item.addr}}</view>
+          </view>
+      </view>
+      <button plain="true" class="button-left" type="primary" bindtap="sure" id="addresss"> 确认 </button>
+      <button plain="true" class="button-right" type="primary" bindtap="cancle" id="addressc"> 取消 </button>
+    </view>
+    <view class='item'>
+      <text class='left'>创建用户时间：</text><text class='right'>{{creattime}}</text>
+    </view>
+    <view class='item'>
+      <text class='left'>上次修改时间：</text><text class='right'>{{updatetime}}</text>
+    </view>
+    <view class='item'>
+      <text class='left'>最后登录时间：</text><text class='right'>{{lastLogintime}}</text>
+    </view>
+  </view>
 </template>
 
 <script>
+var QQMapWX = require('../../../packages/amap/qqmap-wx-jssdk.js');
+var qqmapsdk;
 export default {
   config: {
-    navigationBarTitleText: ''
+    navigationBarTitleText: '账号信息'
   },
-  data: {}
+  data: {
+    name_is:"display:none",
+    address_is:"display:none",
+    tempheight:90
+
+  },
+  resetname: function(e){
+    var that = this;
+    if(e.type=="tap")
+      that.setData({
+        name_is:""
+      })
+  },
+  cancle: function(e) {
+    var that = this;
+    switch (e.target.id) {
+      case "namec":
+        that.setData({
+          name_is:"display:none",
+        })
+        break;
+      case "addressc":
+        that.setData({
+          address_is:"display:none"
+        })
+        break;
+      default:
+        break;
+    }
+  },
+  sure: function(e) {
+    var that = this;
+    switch (e.target.id) {
+      case "names":
+        wx.request({
+          url:getApp().globalData.headurl + 'user/update',
+          header:{
+          'content-type': 'application/json'
+          },
+          data:{
+            user_name:that.data.tempName,
+            user_id : getApp().globalData.openid
+          },
+          success: function(){
+            that.setData({
+              name_is:"display:none",
+              user_name:that.data.tempName
+              })
+          }
+        })
+        break;
+      case "addresss":
+        wx.request({
+          url:getApp().globalData.headurl + 'user/updatep',
+          header:{
+          'content-type': 'application/json'
+          },
+          data:{
+            parent_address:that.data.selectAddress,
+            user_id : getApp().globalData.openid
+          },
+          success: function(){
+            that.setData({
+              address_is:"display:none",
+              parent_address:that.data.selectAddress
+              })
+          }
+        })
+        break;
+      default:
+        break;
+    }
+  },
+  getText: function(e){
+    var that = this;
+    var temp = e.detail.value;
+    switch (e.currentTarget.id) {
+      case "name":
+        that.setData({
+          tempName:temp
+        })
+        break;
+      case "address":
+        that.setData({
+          tempAddress:temp
+        })
+        break;
+      default:
+        break;
+    }
+  },
+  resetaddress: function(e){
+    var that = this;
+    if(e.type=="tap")
+      that.setData({
+        address_is:""
+      })
+  },
+  onLoad: function() {
+    var that = this;
+    wx.request({
+      url:getApp().globalData.headurl + 'user/selectAll',
+      data:{
+        user_id : getApp().globalData.openid
+       },
+       header: {
+          'content-type': 'application/json'
+        },
+       success: function(res){
+          var tempdata = res.data.returnMap;
+          console.log(tempdata)
+          that.setData({
+            parent_address:tempdata.parent_address,
+            parent_remark:tempdata.parent_remark,
+            user_image:tempdata.user_image,
+            user_name:tempdata.user_name,
+            user_nickname:tempdata.user_nickname,
+            creattime:tempdata.creattime,
+            updatetime:tempdata.updatetime,
+            lastLogintime:tempdata.lastLogintime
+          })
+       }
+    })
+  },
+  //数据回填方法
+  backfill: function(e) {
+    var that = this;
+    var id = e.currentTarget.id;
+    for (var i = 0; i < that.data.suggestion.length;i++){
+      if(i == id){
+        that.setData({
+          selectAddress:that.data.suggestion[i].addr,
+          backfill: that.data.suggestion[i].addr,
+          suggestion:[],
+          tempheight:90
+        });
+      }  
+    }
+  },
+  //触发关键词输入提示事件
+  getsuggest: function(e) {
+    var that = this;
+    qqmapsdk =new QQMapWX({
+      key:'A5PBZ-7SYW4-RIHUP-XFZA2-MURDE-66BOO'
+    });
+    //调用关键词提示接口
+    qqmapsdk.getSuggestion({
+      //获取输入框值并设置keyword参数
+      keyword: e.detail.value, //用户输入的关键词，可设置固定值,如keyword:'KFC'
+      //region:'北京', //设置城市名，限制关键词所示的地域范围，非必填参数
+      success: function(res) {//搜索成功后的回调
+        var sug = [];
+        for (var i = 0; i < res.data.length; i++) {
+          sug.push({ // 获取返回结果，放到sug数组中
+            title: res.data[i].title,
+            id: res.data[i].id,
+            addr: res.data[i].address,
+            city: res.data[i].city,
+            district: res.data[i].district,
+            latitude: res.data[i].location.lat,
+            longitude: res.data[i].location.lng
+          });
+        }
+        that.setData({ //设置suggestion属性，将关键词搜索结果以列表形式展示
+          suggestion: sug,
+          tempheight: that.data.tempheight + res.data.length*40
+        });
+      }
+    });
+  }
 }
 </script>
 
 <style lang="less">
+/* pages/myinfo/myinfo.wxss */
+.nav{
+    background-color: #1b82d1;
+}
+.top{
+  width: 250rpx;
+  height: 250rpx;
+  margin: 0 auto;
+}
+.nickname{
+  font-size: 25px;
+  margin-bottom: 10rpx;
+  text-align: center;
+}
+.item{
+  height: 70rpx;
+  background-color: #fff;
+  margin: 20rpx;
+  display: flex;
+  border-radius: 20rpx;
+}
+.left{
+  display: flex;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+.right{
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+  color: #999999;
+  margin-right: 20rpx;
+}
+.button-right{
+  width: 166px;
+  height: 36px;
+  float: right;
+  margin-right: 20px;
+}
+.button-left{
+  width: 166px;
+  height: 36px;
+  float: left;
+  margin-left: 20px;
+}
 </style>

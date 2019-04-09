@@ -25,12 +25,14 @@
   padding: 15rpx;
 }
 .text {
-  width: 30%;
+  width: 45%;
   font-size: 40rpx;
   padding-top: 11rpx;
 }
 .input {
-  width: 50%;
+  width: 35%;
+  padding-top: 18rpx;
+  font-size: 35rpx;
 }
 .button {
   width: 20%;

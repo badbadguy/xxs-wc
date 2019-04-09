@@ -101,7 +101,7 @@
             </view>
           </view>
           <view slot="content">
-            <view class="content ui-row" style="height:80px;">
+            <view class="content ui-row" wx:if="{{item.question_image == null}}" style="height:80px;">
               <image src="{{item.question_image}}" mode="aspectFit" lazy-load />
             </view>
             <view class="content ui-row" style="">

@@ -152,6 +152,17 @@ exports.default = Page({
       },
       header: {
         'content-type': 'application/json'
+      },
+      success: function success() {
+        wx.showToast({
+          title: "已上传！",
+          icon: 'success'
+        });
+        setTimeout(function () {
+          wx.switchTab({
+            url: '/pages/in/service/service'
+          });
+        }, 1500);
       }
     });
   },

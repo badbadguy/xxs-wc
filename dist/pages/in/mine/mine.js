@@ -40,6 +40,7 @@ exports.default = Page({
               break;
             case 3:
               temp = [{ text: '账号信息', url: '../userinfo/studentInfo', icon: '../../../imgs/mine/accountInfo.png', tips: '' }];
+              break;
             case 4:
               temp = [{ text: '账号信息', url: '../userinfo/parentInfo', icon: '../../../imgs/mine/accountInfo.png', tips: '' }];
               break;

@@ -7,6 +7,9 @@ exports.default = Page({
     data: {},
     onLoad: function onLoad(res) {
         var that = this;
+        that.setData({
+            teacher_subject: res.teacher_subject
+        });
     },
     onclick: function onclick(res) {
         var that = this;

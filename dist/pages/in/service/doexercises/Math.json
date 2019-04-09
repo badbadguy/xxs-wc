@@ -3,5 +3,5 @@
     "ui-popup": "../../../../packages/touchui-wx-components/ui-popup/dist/index",
     "ui-check-list": "../../../../packages/touchui-wx-components/ui-check-list/dist/index"
   },
-  "navigationBarTitleText": "数学"
+  "navigationBarTitleText": ""
 }

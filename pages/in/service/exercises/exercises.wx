@@ -1,7 +1,7 @@
 <template>
   <view>
     <ui-row-list border-indent bordered>
-        <ui-row height="100">
+        <ui-row height="100" wx:if="{{teacher_subject == '33018ef1b3b74a18b6d9f94bff995d79'}}">
             <ui-col width="40" vertical-align="middle" align="center">
                 <image src="../../../../imgs/service/work.png" class="imgin"/>
             </ui-col>
@@ -14,7 +14,7 @@
                 <ui-icon type="arrow-right"></ui-icon>
             </ui-col>
         </ui-row>
-        <ui-row height="100">
+        <ui-row height="100" wx:if="{{teacher_subject == 'cd84a79d6ee04e4d9630731b25b589d0'}}">
             <ui-col width="40" vertical-align="middle" align="center">
                 <image src="../../../../imgs/service/work.png" class="imgin"/>
             </ui-col>
@@ -27,7 +27,7 @@
                 <ui-icon type="arrow-right"></ui-icon>
             </ui-col>
         </ui-row>
-        <ui-row height="100">
+        <ui-row height="100" wx:if="{{teacher_subject == '79bed2b0e57c4f7f8e71b9817f03e3b9'}}">
             <ui-col width="40" vertical-align="middle" align="center">
                 <image src="../../../../imgs/service/work.png" class="imgin"/>
             </ui-col>
@@ -53,6 +53,9 @@ export default {
   },
   onLoad: function(res){
       var that = this;
+      that.setData({
+        teacher_subject:res.teacher_subject
+      })
   },
   onclick: function(res) {
       var that = this;

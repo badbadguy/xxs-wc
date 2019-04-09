@@ -1,5 +1,29 @@
 <template>
-  <view></view>
+  <view class="font">
+    <view wx:if="{{chinese.num != 0 && english.num != 0 && math.num != 0}}">
+      <view>
+        <view class="h">语文：</view>
+        <view class="i">单选题：{{chinese.q0_num}}  题</view>
+        <view class="i">语音题：{{chinese.q1_num}}  题</view>
+        <view class="i">填空题：{{chinese.q2_num}}  题</view>
+      </view>
+      <view>
+        <view class="h">数学：</view>
+        <view class="i">单选题：{{math.q0_num}}  题</view>
+        <view class="i">填空题：{{math.q2_num}}  题</view>
+        <view class="i">应用题：{{math.q3_num}}  题</view>
+      </view>
+      <view>
+        <view class="h">英语：</view>
+        <view class="i">单选题：{{english.q0_num}}  题</view>
+        <view class="i">语音题：{{english.q1_num}}  题</view>
+        <view class="i">填空题：{{english.q2_num}}  题</view>
+      </view>
+    </view>
+    <view wx:else>
+      全部完成
+    </view>
+  </view>
 </template>
 
 <script>
@@ -7,9 +31,39 @@ export default {
   config: {
     navigationBarTitleText: ''
   },
-  data: {}
+  data: {},
+  onLoad(){
+    var that = this;
+    wx.request({
+      url:getApp().globalData.headurl + 'homework/checkStudent',
+      header:{
+      'content-type': 'application/json'
+      },
+      data:{
+        user_id : getApp().globalData.openid
+      },
+      success: function(res){
+        that.setData({
+          chinese:res.data.chinese,
+          english:res.data.english,
+          math:res.data.math
+          })
+      }
+    })
+  }
 }
 </script>
 
 <style lang="less">
+.font{
+  font-size: 40rpx;
+  display: flex;
+  justify-content: center;
+}
+.h{
+  width: 100%;
+  font-size:50rpx;
+  padding-top:40rpx;
+  padding-bottom:20rpx;
+}
 </style>

@@ -19,15 +19,17 @@ exports.default = Page({
   },
   slide: function slide(res) {
     var that = this;
-    if (that.data.current1 == '1') {
+    if (that.data.current1 == '0') {
       var tempheight = that.data.accordion.length * 330;
+    } else if (that.data.current1 == '1') {
+      var tempheight = that.data.accordion.length * 500;
     } else if (that.data.current1 == '2') {
-      var tempheight = that.data.accordion.length * 210;
+      var tempheight = that.data.accordion.length * 500;
     } else if (that.data.current1 == '3') {
-      var tempheight = that.data.accordion.length * 210;
-    } else if (that.data.current1 == '4') {
-      var tempheight = that.data.accordion.length * 330;
+      var tempheight = that.data.accordion.length * 830;
     }
+    console.log(res);
+    console.log(tempheight);
     that.setData({
       heightAuto: tempheight + 'rpx'
     });

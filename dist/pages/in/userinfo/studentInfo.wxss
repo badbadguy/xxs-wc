@@ -1,0 +1,66 @@
+/* 1像素解决方案 */
+/*
+ * 清除1px
+ */
+/*
+ * 清除浮动
+ */
+/*
+ * mobile
+ */
+/*
+ * 1px
+ */
+/*
+ * text
+ */
+/* 垂直居中 */
+/* 水平居中 */
+/* 水平垂直居中 */
+/* 超出部分出省略号 */
+/* 多行文本超出部分省略号 */
+/* pages/myinfo/myinfo.wxss */
+.nav {
+  background-color: #1b82d1;
+}
+.top {
+  width: 250rpx;
+  height: 250rpx;
+  margin: 0 auto;
+}
+.nickname {
+  font-size: 25px;
+  margin-bottom: 10rpx;
+  text-align: center;
+}
+.item {
+  height: 70rpx;
+  background-color: #fff;
+  margin: 20rpx;
+  display: flex;
+  border-radius: 20rpx;
+}
+.left {
+  display: flex;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+.right {
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+  color: #999999;
+  margin-right: 20rpx;
+}
+.button-right {
+  width: 166px;
+  height: 36px;
+  float: right;
+  margin-right: 20px;
+}
+.button-left {
+  width: 166px;
+  height: 36px;
+  float: left;
+  margin-left: 20px;
+}

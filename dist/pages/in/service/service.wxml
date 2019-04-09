@@ -13,7 +13,7 @@
       </view>
     </view>
   </view>
-  <view class="row-height ui-row ui-row-border-top ui-row-border-bottom" style="">
+  <view class="row-height ui-row ui-row-border-top ui-row-border-bottom" wx:if="{{user_type == 2 && xixixi}}" style="">
     <view bindtap="gotowhere" id="3" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
       <view class="ui-col-content align-center valign-middle">
         <image src="../../../imgs/service/output.png" class="imgin" />
@@ -27,7 +27,7 @@
       </view>
     </view>
   </view>
-  <view class="row-height ui-row ui-row-border-top ui-row-border-bottom" style="">
+  <view class="row-height ui-row ui-row-border-top ui-row-border-bottom" wx:if="{{user_type == 3 && xixixi}}" style="">
     <view bindtap="gotowhere" id="5" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
       <view class="ui-col-content align-center valign-middle">
         <image src="../../../imgs/service/output.png" class="imgin" />
@@ -41,8 +41,8 @@
       </view>
     </view>
   </view>
-  <view class="row-height ui-row ui-row-border-top ui-row-border-bottom" style="">
-    <view bindtap="gotowhere" id="7" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
+  <view class="row-height ui-row ui-row-border-top ui-row-border-bottom" wx:if="{{user_type == 2 && xixixi}}" style="">
+    <view bindtap="gotowhere" id="7" wx:if="{{ishead}}" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
       <view class="ui-col-content align-center valign-middle">
         <image src="../../../imgs/service/output.png" class="imgin" />
         <text class="text-down">认证学生</text>
@@ -52,6 +52,14 @@
       <view class="ui-col-content align-center valign-middle">
         <image src="../../../imgs/service/homework.png" class="imgin" />
         <text class="text-down">增加作业库</text>
+      </view>
+    </view>
+  </view>
+  <view class="row-height ui-row ui-row-border-top ui-row-border-bottom" wx:if="{{user_type == 4 && xixixi}}" style="">
+    <view bindtap="gotowhere" id="9" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
+      <view class="ui-col-content align-center valign-middle">
+        <image src="../../../imgs/service/output.png" class="imgin" />
+        <text class="text-down">查看学生作业情况</text>
       </view>
     </view>
   </view>

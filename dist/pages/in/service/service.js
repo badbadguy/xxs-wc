@@ -4,8 +4,103 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Page({
-  data: {},
+  data: {
+    xixixi: true
+  },
+  onShow: function onShow() {
+    var that = this;
+    wx.request({
+      url: getApp().globalData.headurl + 'user/sf',
+      header: {
+        'content-type': 'application/json'
+      },
+      data: {
+        user_id: getApp().globalData.openid,
+        xixixi: true
+      },
+      success: function success(res) {
+        console.log(res);
+        that.setData({
+          user_type: res.data.user_type
+        });
+        switch (res.data.user_type) {
+          case 2:
+            if (!res.data.teacher_class) {
+              console.log("没绑定班级");
+              that.setData({
+                xixixi: false
+              });
+              wx.showModal({
+                title: '错误',
+                content: '没绑定班级,请联系管理员',
+                showCancel: false
+              });
+            }
+            if (!res.data.teacher_subject) {
+              console.log("没绑定学科");
+              that.setData({
+                xixixi: false
+              });
+              wx.showModal({
+                title: '错误',
+                content: '没绑定学科,请联系管理员',
+                showCancel: false
+              });
+            }
+            that.setData({
+              ishead: res.data.teacher_ishead,
+              teacher_subject: res.data.teacher_subject
+            });
+            break;
+          case 3:
+            if (!res.data.student_class) {
+              console.log("没绑定班级");
+              that.setData({
+                xixixi: false
+              });
+              wx.showModal({
+                title: '错误',
+                content: '没绑定班级,请联系教师',
+                showCancel: false
+              });
+            }
+            if (!res.data.student_status) {
+              console.log("班级申请未通过");
+              that.setData({
+                xixixi: false
+              });
+              wx.showModal({
+                title: '错误',
+                content: '班级申请未通过,请联系教师',
+                showCancel: false
+              });
+            }
+            break;
+          case 4:
+            if (!res.data.children_id) {
+              console.log("没绑定学生");
+              that.setData({
+                xixixi: false
+              });
+              wx.showModal({
+                title: '错误',
+                content: '没绑定学生,将跳转绑定页面',
+                showCancel: false,
+                success: function success() {
+                  wx.redirectTo({
+                    url: '/pages/in/service/bindStudent/bindStudent'
+                  });
+                }
+              });
+            }
+            break;
+        }
+      }
+    });
+  },
+
   gotowhere: function gotowhere(res) {
+    var that = this;
     switch (res.currentTarget.id) {
       case "1":
         wx.navigateTo({
@@ -19,7 +114,7 @@ exports.default = Page({
         break;
       case "3":
         wx.navigateTo({
-          url: '/pages/in/service/decorate/decorate'
+          url: '/pages/in/service/mark/mark'
         });
         break;
       case "4":
@@ -43,7 +138,12 @@ exports.default = Page({
         break;
       case "8":
         wx.navigateTo({
-          url: '/pages/in/service/exercises/exercises'
+          url: '/pages/in/service/exercises/exercises?teacher_subject=' + that.data.teacher_subject
+        });
+        break;
+      case "9":
+        wx.navigateTo({
+          url: '/pages/in/service/checkStudent/checkStudent'
         });
         break;
       default:

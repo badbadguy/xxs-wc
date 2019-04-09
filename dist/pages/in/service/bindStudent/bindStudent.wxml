@@ -1,10 +1,10 @@
 <view>
   <view class="top">
-    <text class="text">学生姓名：</text>
-    <input class="input"></input>
+    <text class="text">按学生姓名搜索：</text>
+    <input class="input" placeholder="请输入"></input>
     <button class="button">按钮</button>
   </view>
-  <ui-swipe-out operate-width="80" data-index="{{index}}" can-swipe="{{item.canSwipe}}" value="off" bindchange="changeHandler1" wx:for="{{list1}}" height="80" _pid="{{_pid}}">
+  <ui-swipe-out operate-width="80" data-index="{{index}}" can-swipe="{{item.canSwipe}}" value="{{item.switcher}}" bindchange="changeHandler1" wx:for="{{list1}}" height="{{item.height}}" _pid="{{_pid}}">
     <view slot="content">
       <view class="top_tip ui-row ui-row-border-bottom" style="height:80px;">
         <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 20px;">
@@ -23,11 +23,6 @@
                     <text>{{item.user_name}}</text>
                   </view>
                 </view>
-                <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
-                  <view class="ui-col-content align-right valign-middle">
-                    <text>09-18</text>
-                  </view>
-                </view>
               </view>
               <view>{{ item.nj }}</view>
             </view>
@@ -36,7 +31,7 @@
       </view>
     </view>
     <view slot="operate">
-      <view class="sure" data-idx="{{index}}" bindtap="toSure">绑定</view>
+      <view class="sure" data-idx="{{index}}" bindtap="toSure" id="{{index}}">绑定</view>
     </view>
   </ui-swipe-out>
 </view>

@@ -25,7 +25,7 @@
       <ui-check-list max="1" label-position="left" options="{{ countryList }}" type="plain" value="{{ checklist }}" bindchange='typechange'/>
     </view>
     <view class="flex-wrp-row">
-      <text class="textt">真实姓名：</text><input placeholder="请输入您的真实姓名" id="name" type="text" class='item-right flex-wrp-row' bindblur="getText"/>
+      <text class="textt">*真实姓名：</text><input placeholder="请输入您的真实姓名" id="name" type="text" class='item-right flex-wrp-row' bindblur="getText"/>
     </view>
     <view class="flex-wrp-row"><text class="textt">家庭地址：</text></view>
     <view style="padding-left:7%;padding-top:8px;padding-right:7%;">
@@ -160,37 +160,13 @@ export default {
         content: '真实姓名不能为空！'
       });
       return;
-    }else if(that.data.selectAddress == null || that.data.selectAddress == ""){
-      wx.showAlert({
-        title: '填写须知',
-        content: '家庭住址不能为空！'
-      });
-      return;
     }
     switch (that.data.userType) {
-      case 2:
-        if(that.data.tphone == null || that.data.tphone == ""){
-          wx.showAlert({
-            title: '填写须知',
-            content: '电话不能为空！'
-          });
-          return;
-        }
-        break;
       case 3:
         if(that.data.chooseClass == null || that.data.chooseClass == "" || that.data.chooseGrade == null || that.data.chooseGrade == ""){
           wx.showAlert({
             title: '填写须知',
             content: '班级不能为空！'
-          });
-          return;
-        }
-        break;
-      case 4:
-        if(that.data.pphone == null || that.data.pphone == ""){
-          wx.showAlert({
-            title: '填写须知',
-            content: '电话不能为空！'
           });
           return;
         }
@@ -478,5 +454,8 @@ export default {
   margin: 10px 25px;
   border-bottom:1px solid #c3c3c3;
   padding-bottom:10px
+}
+.item-right{
+  width: 300rpx;
 }
 </style>

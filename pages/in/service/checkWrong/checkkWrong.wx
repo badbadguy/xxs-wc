@@ -76,7 +76,7 @@
               </ui-row>
             </view>
             <view slot="content">
-              <ui-row height="80" class='content'>
+              <ui-row height="80" class='content' wx:if="{{item.question_image == null}}">
                 <image src="{{item.question_image}}" mode="aspectFit" lazy-load>
               </ui-row>
               <ui-row class='content'>
@@ -240,15 +240,17 @@ export default {
     },
     slide(res){
       var that = this;
-      if(that.data.current1 == '1'){
+      if(that.data.current1 == '0'){
         var tempheight = that.data.accordion.length * 330;
+      }else if(that.data.current1 == '1'){
+        var tempheight = that.data.accordion.length * 500;
       }else if(that.data.current1 == '2'){
-        var tempheight = that.data.accordion.length * 210;
+        var tempheight = that.data.accordion.length * 500;
       }else if(that.data.current1 == '3'){
-        var tempheight = that.data.accordion.length * 210;
-      }else if(that.data.current1 == '4'){
-        var tempheight = that.data.accordion.length * 330;
+        var tempheight = that.data.accordion.length * 830;
       }
+      console.log(res);
+      console.log(tempheight);
       that.setData({
         heightAuto: tempheight + 'rpx'
       })

@@ -58,37 +58,13 @@ exports.default = Page({
         content: '真实姓名不能为空！'
       });
       return;
-    } else if (that.data.selectAddress == null || that.data.selectAddress == "") {
-      wx.showAlert({
-        title: '填写须知',
-        content: '家庭住址不能为空！'
-      });
-      return;
     }
     switch (that.data.userType) {
-      case 2:
-        if (that.data.tphone == null || that.data.tphone == "") {
-          wx.showAlert({
-            title: '填写须知',
-            content: '电话不能为空！'
-          });
-          return;
-        }
-        break;
       case 3:
         if (that.data.chooseClass == null || that.data.chooseClass == "" || that.data.chooseGrade == null || that.data.chooseGrade == "") {
           wx.showAlert({
             title: '填写须知',
             content: '班级不能为空！'
-          });
-          return;
-        }
-        break;
-      case 4:
-        if (that.data.pphone == null || that.data.pphone == "") {
-          wx.showAlert({
-            title: '填写须知',
-            content: '电话不能为空！'
           });
           return;
         }

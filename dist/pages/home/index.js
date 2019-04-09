@@ -31,7 +31,7 @@ Page({
                   wx.getUserInfo({
                     success:function(e){
                       wx.redirectTo({
-                        url: '/pages/test/cascaderTest'
+                        url: '/pages/test/cascaderTest?openid=' + tempopenid + '&nickName=' + e.userInfo.nickName + '&avatarUrl=' + e.userInfo.avatarUrl
                       })
                     }
                   })

@@ -351,10 +351,6 @@ exports.default = Page({
         user_id: getApp().globalData.openid
       },
       success: function success(res) {
-        console.log(res);
-        console.log(that.data.class_id);
-        console.log(that.data.subject_id);
-        console.log(getApp().globalData.openid);
         var tempres = [res.data.q0_num, res.data.q1_num, res.data.q2_num, res.data.q3_num];
         var tempQ = null;
         for (var i = 0; i < tempres.length; i++) {
@@ -403,6 +399,7 @@ exports.default = Page({
         q: tempQ
       },
       success: function success(data) {
+        console.log(data);
         //单选题
         if (data.data.QType == "0") {
           that.setData({

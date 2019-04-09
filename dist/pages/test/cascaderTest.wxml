@@ -25,7 +25,7 @@
       </ui-check-list>
     </view>
     <view class="flex-wrp-row">
-      <text class="textt">真实姓名：</text><input placeholder="请输入您的真实姓名" id="name" type="text" class="item-right flex-wrp-row" bindblur="getText"></input>
+      <text class="textt">*真实姓名：</text><input placeholder="请输入您的真实姓名" id="name" type="text" class="item-right flex-wrp-row" bindblur="getText"></input>
     </view>
     <view class="flex-wrp-row"><text class="textt">家庭地址：</text></view>
     <view style="padding-left:7%;padding-top:8px;padding-right:7%;">

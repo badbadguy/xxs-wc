@@ -78,10 +78,21 @@ exports.default = Page({
         tempjson: res.detail.value,
         question_type: that.data.question_type,
         subject_id: that.data.subject_id,
-        question_image: that.data.images
+        question_image: that.data.tempimagesurl
       },
       header: {
         'content-type': 'application/json'
+      },
+      success: function success() {
+        wx.showToast({
+          title: "已上传！",
+          icon: 'success'
+        });
+        setTimeout(function () {
+          wx.switchTab({
+            url: '/pages/in/service/service'
+          });
+        }, 1500);
       }
     });
   },

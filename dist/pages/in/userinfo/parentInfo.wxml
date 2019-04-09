@@ -1,1 +1,59 @@
-<view></view>
+<view class="content">
+  <view class="nav">
+    <view class="top">
+      <view style="padding-top:25px;padding-left:15px;height:125px;width:115px;">
+        <image style="border-radius:50%;" src="{{user_image}}" />
+      </view>
+    </view>
+    <view class="nickname">
+      <text>{{user_nickname}}</text>
+    </view>
+  </view>
+  <view class="item" bindtap="resetname">
+    <text class="left">姓名：</text><text class="right">{{user_name}}</text>
+  </view>
+  <view style="{{name_is}};height:80px;">
+    <input placeholder="请输入您的真实姓名" type="text" bindblur="getText" style="padding-left:40px" id="name"></input>
+    <button plain="true" class="button-left" type="primary" bindtap="sure" id="names"> 确认 </button>
+    <button plain="true" class="button-right" type="primary" bindtap="cancle" id="namec"> 取消 </button>
+  </view>
+  <view class="item" bindtap="resetphone">
+    <text class="left">绑定手机号：</text><text class="right">{{parent_phone}}</text>
+  </view>
+  <view style="{{phone_is}};height:80px;">
+    <input placeholder="请输入您的手机号码" type="number" bindblur="getText" style="padding-left:40px" id="phone"></input>
+    <button plain="true" class="button-left" type="primary" bindtap="sure" id="phones"> 确认 </button>
+    <button plain="true" class="button-right" type="primary" bindtap="cancle" id="phonec"> 取消 </button>
+  </view>
+  <view class="item" bindtap="resetaddress">
+    <text class="left">地址：</text><text class="right">{{parent_address}}</text>
+  </view>
+  <view style="{{address_is}};height:{{tempheight}}px;">
+    <view style="padding-left:7%;padding-right:7%;">
+      <!--绑定输入事件-->
+      <input style="border:1px solid black;" bindinput="getsuggest" value="{{backfill}}" bindblur="setaddress"></input>
+    </view>
+    <!--关键词输入提示列表渲染-->
+    <view wx:for="{{suggestion}}" wx:key="index">
+      <!--绑定回填事件-->
+      <view>
+        <!--根据需求渲染相应数据-->
+        <!--渲染地址title-->
+        <view style="text-align:center;" bindtap="backfill" id="{{index}}">{{item.title}}</view>
+        <!--渲染详细地址-->
+        <view style="font-size:12px;color:#666;text-align:center;">{{item.addr}}</view>
+      </view>
+    </view>
+    <button plain="true" class="button-left" type="primary" bindtap="sure" id="addresss"> 确认 </button>
+    <button plain="true" class="button-right" type="primary" bindtap="cancle" id="addressc"> 取消 </button>
+  </view>
+  <view class="item">
+    <text class="left">创建用户时间：</text><text class="right">{{creattime}}</text>
+  </view>
+  <view class="item">
+    <text class="left">上次修改时间：</text><text class="right">{{updatetime}}</text>
+  </view>
+  <view class="item">
+    <text class="left">最后登录时间：</text><text class="right">{{lastLogintime}}</text>
+  </view>
+</view>

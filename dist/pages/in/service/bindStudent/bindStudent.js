@@ -26,31 +26,40 @@ exports.default = Page({
       }
     });
   },
-  toSure: function toSure() {
+  toSure: function toSure(e) {
+    var that = this;
+    console.log(e.currentTarget.id);
     wx.showConfirm({
       title: '提示',
-      content: '确认绑定吗',
+      content: '确认与 ' + that.data.list1[e.currentTarget.id].user_name + ' 同学绑定吗',
       cancelColor: 'red',
       confirmColor: '#3399ff',
       confirmText: '确定',
       cancelText: '返回',
       success: function success(res) {
-        console.log("确定绑定");
+        that.data.list1[e.currentTarget.id].switcher = 'off';
+        if (res.confirm) {
+          that.sure(e.currentTarget.id);
+        } else {
+          that.setData({
+            el: 'undefined',
+            list1: that.data.list1
+          });
+        }
       }
     });
   },
   sure: function sure(index) {
-    var index = index.target.dataset.idx;
     var that = this;
     console.log(that.data.list1[index].user_id);
     wx.request({
-      url: getApp().globalData.headurl + 'user/updates',
+      url: getApp().globalData.headurl + 'user/updatep',
       header: {
         'content-type': 'application/json'
       },
       data: {
-        user_id: that.data.list1[index].user_id,
-        student_status: 2
+        user_id: getApp().globalData.openid,
+        children_id: that.data.list1[index].user_id
       },
       success: function success() {
         wx.showToast({
@@ -58,11 +67,10 @@ exports.default = Page({
           icon: 'success',
           duration: 2000
         });
+        wx.switchTab({
+          url: '/pages/in/service/service'
+        });
       }
-    });
-    this.data.list1.splice(index, 1);
-    this.setData({
-      list1: this.data.list1
     });
     this.setData({
       el: 'undefined'

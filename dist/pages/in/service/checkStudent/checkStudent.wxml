@@ -1,1 +1,25 @@
-<view></view>
+<view class="font">
+  <view wx:if="{{chinese.num != 0 && english.num != 0 && math.num != 0}}">
+    <view>
+      <view class="h">语文：</view>
+      <view class="i">单选题：{{chinese.q0_num}} 题</view>
+      <view class="i">语音题：{{chinese.q1_num}} 题</view>
+      <view class="i">填空题：{{chinese.q2_num}} 题</view>
+    </view>
+    <view>
+      <view class="h">数学：</view>
+      <view class="i">单选题：{{math.q0_num}} 题</view>
+      <view class="i">填空题：{{math.q2_num}} 题</view>
+      <view class="i">应用题：{{math.q3_num}} 题</view>
+    </view>
+    <view>
+      <view class="h">英语：</view>
+      <view class="i">单选题：{{english.q0_num}} 题</view>
+      <view class="i">语音题：{{english.q1_num}} 题</view>
+      <view class="i">填空题：{{english.q2_num}} 题</view>
+    </view>
+  </view>
+  <view wx:else="">
+    全部完成
+  </view>
+</view>
