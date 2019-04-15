@@ -86,6 +86,7 @@ export default {
     images: "",
   },
   onLoad: function(res){
+    console.log("放过我吧",res)
     var that = this;
     that.setData({
       subject_id:res.id

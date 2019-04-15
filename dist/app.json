@@ -20,10 +20,8 @@
     "pages/in/service/exercises/chinese",
     "pages/in/service/exercises/math",
     "pages/in/service/exercises/english",
-    "pages/in/service/decorate/decorate",
     "pages/in/service/showexer/showexer",
     "pages/in/service/translate/translate",
-    "pages/in/service/messageB/messageB",
     "pages/in/service/checkStudent/checkStudent",
     "pages/in/service/service"
   ],
@@ -32,12 +30,6 @@
     "selectedColor": "#11cd6e",
     "borderStyle": "white",
     "list": [
-      {
-        "selectedIconPath": "imgs/index/indexon.png",
-        "iconPath": "imgs/index/index.png",
-        "pagePath": "pages/in/homepage/homepage",
-        "text": "首页"
-      },
       {
         "selectedIconPath": "imgs/index/serviceon.png",
         "iconPath": "imgs/index/service.png",

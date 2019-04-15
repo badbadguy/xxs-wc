@@ -25,7 +25,7 @@
             <view class="content ui-row" wx:if="{{item.question_image}}" style="height:80px;">
               <image src="{{item.question_image}}" mode="aspectFit" lazy-load />
             </view>
-            <view class="content ui-row" wx:if="{{item.question_answer1}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_answer1}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_answer1 }}</view>
               </view>
@@ -37,7 +37,7 @@
               </view>
               <view wx:else="" class="xixixi"></view>
             </view>
-            <view class="content ui-row" wx:if="{{item.question_answer2}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_answer2}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_answer2 }}</view>
               </view>
@@ -49,7 +49,7 @@
               </view>
               <view wx:else="" class="xixixi"></view>
             </view>
-            <view class="content ui-row" wx:if="{{item.question_answer3}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_answer3}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_answer3 }}</view>
               </view>
@@ -61,7 +61,7 @@
               </view>
               <view wx:else="" class="xixixi"></view>
             </view>
-            <view class="content ui-row" wx:if="{{item.question_answer4}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_answer4}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_answer4 }}</view>
               </view>
@@ -73,7 +73,7 @@
               </view>
               <view wx:else="" class="xixixi"></view>
             </view>
-            <view class="content ui-row" wx:if="{{item.question_remark}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_remark}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_remark }}</view>
               </view>
@@ -102,17 +102,20 @@
             <view class="content ui-row" wx:if="{{item.question_image}}" style="height:80px;">
               <image src="{{item.question_image}}" mode="aspectFit" lazy-load />
             </view>
-            <view class="content ui-row" wx:if="{{item.question_answers}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_answers}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_answers }}</view>
               </view>
               <text class="temp3">正确答案</text>
             </view>
-            <view class="content ui-row" wx:if="{{item.question_remark}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_remark}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_remark }}</view>
               </view>
               <text class="temp3">错题提示</text>
+            </view>
+            <view class="content ui-row" style="height:50px;">
+              <text class="temp3"></text>
             </view>
           </view>
         </ui-accordion>
@@ -137,17 +140,20 @@
             <view class="content ui-row" wx:if="{{item.question_image}}" style="height:80px;">
               <image src="{{item.question_image}}" mode="aspectFit" lazy-load />
             </view>
-            <view class="content ui-row" wx:if="{{item.question_answers}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_answers}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_answers }}</view>
               </view>
               <text class="temp3">正确答案</text>
             </view>
-            <view class="content ui-row" wx:if="{{item.question_remark}}" style="">
+            <view class="content ui-row" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_remark }}</view>
               </view>
               <text class="temp3">错题提示</text>
+            </view>
+            <view class="content ui-row" style="height:50px;">
+              <text class="temp3"></text>
             </view>
           </view>
         </ui-accordion>
@@ -172,7 +178,7 @@
             <view class="content ui-row" wx:if="{{item.question_image}}" style="height:80px;">
               <image src="{{item.question_image}}" mode="aspectFit" lazy-load />
             </view>
-            <view class="content ui-row" wx:if="{{item.question_answer1}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_answer1}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_answer1 }}</view>
               </view>
@@ -184,7 +190,7 @@
               </view>
               <view wx:else="" class="xixixi"></view>
             </view>
-            <view class="content ui-row" wx:if="{{item.question_answer2}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_answer2}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_answer2 }}</view>
               </view>
@@ -196,7 +202,7 @@
               </view>
               <view wx:else="" class="xixixi"></view>
             </view>
-            <view class="content ui-row" wx:if="{{item.question_answer3}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_answer3}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_answer3 }}</view>
               </view>
@@ -208,7 +214,7 @@
               </view>
               <view wx:else="" class="xixixi"></view>
             </view>
-            <view class="content ui-row" wx:if="{{item.question_answer4}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_answer4}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_answer4 }}</view>
               </view>
@@ -220,20 +226,20 @@
               </view>
               <view wx:else="" class="xixixi"></view>
             </view>
-            <view class="content ui-row" wx:if="{{item.question_remark}}" style="">
+            <view class="content ui-row" wx:if="{{item.question_remark}}" style="height:50px;">
               <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                 <view class="ui-col-content align-left valign-middle">{{ item.question_remark }}</view>
               </view>
               <text class="temp3">错题提示</text>
             </view>
-            <view wx:for="{{item.children}}" wx:for-item="children">
-              <view class="intitle ui-row" style="">
+            <block wx:for="{{item.children}}" wx:for-item="children">
+              <view class="intitle ui-row" style="height:50px;">
                 <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                   <view class="ui-col-content align-left valign-middle">{{ children.question_title }}</view>
                 </view>
                 <text class="temp3">嵌套题目</text>
               </view>
-              <view class="content ui-row" wx:if="{{children.question_answer1}}" style="">
+              <view class="content ui-row" style="height:50px;">
                 <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                   <view class="ui-col-content align-left valign-middle">{{ children.question_answer1 }}</view>
                 </view>
@@ -245,7 +251,7 @@
                 </view>
                 <view wx:else="" class="xixixi"></view>
               </view>
-              <view class="content ui-row" wx:if="{{children.question_answer2}}" style="">
+              <view class="content ui-row" style="height:50px;">
                 <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                   <view class="ui-col-content align-left valign-middle">{{ children.question_answer2 }}</view>
                 </view>
@@ -257,7 +263,7 @@
                 </view>
                 <view wx:else="" class="xixixi"></view>
               </view>
-              <view class="content ui-row" wx:if="{{children.question_answer3}}" style="">
+              <view class="content ui-row" style="height:50px;">
                 <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                   <view class="ui-col-content align-left valign-middle">{{ children.question_answer3 }}</view>
                 </view>
@@ -269,7 +275,7 @@
                 </view>
                 <view wx:else="" class="xixixi"></view>
               </view>
-              <view class="content ui-row" wx:if="{{children.question_answer4}}" style="">
+              <view class="content ui-row" style="height:50px;">
                 <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                   <view class="ui-col-content align-left valign-middle">{{ children.question_answer4 }}</view>
                 </view>
@@ -281,12 +287,15 @@
                 </view>
                 <view wx:else="" class="xixixi"></view>
               </view>
-              <view class="content ui-row" wx:if="{{children.question_remark}}" style="">
+              <view class="content ui-row" style="height:50px;">
                 <view class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;">
                   <view class="ui-col-content align-left valign-middle">{{ children.question_remark }}</view>
                 </view>
                 <text class="temp3">错题提示</text>
               </view>
+            </block>
+            <view class="content ui-row" wx:if="{{item.children == null}}" style="height:250px;">
+              <text class="temp3">错题提示</text>
             </view>
           </view>
         </ui-accordion>

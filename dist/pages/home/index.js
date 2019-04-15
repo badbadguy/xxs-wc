@@ -43,15 +43,25 @@ Page({
                     },
                     success:function(){
                       wx.switchTab({
-                        url: '/pages/in/homepage/homepage'
+                        url: '/pages/in/service/service'
                       })
                     }
                   })
                 }
               }
             })
+          }, fail(e){
+            wx.showToast({
+              title: 'error2',
+              content: e
+            })
           }
         });
+      }, fail(e) {
+        wx.showToast({
+          title: 'error1',
+          content: e
+        })
       }
     });
   }

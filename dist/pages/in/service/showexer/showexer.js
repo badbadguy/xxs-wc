@@ -30,7 +30,11 @@ exports.default = Page({
     });
   },
 
-  onLoad: function onLoad() {
+  onLoad: function onLoad(e) {
+    console.log(e);
+    this.setData({
+      subject_id: e.teacher_subject
+    });
     this.question(0);
   },
   question: function question(temp) {

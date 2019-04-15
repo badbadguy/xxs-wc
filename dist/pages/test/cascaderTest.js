@@ -72,37 +72,91 @@ exports.default = Page({
       default:
         break;
     }
-    wx.request({
-      url: getApp().globalData.headurl + 'user/add',
-      data: {
-        user_id: that.data.openid,
-        user_nickname: that.data.nickName,
-        user_name: that.data.name,
-        user_image: that.data.avatarUrl,
-        user_type: that.data.userType,
-        parent_phone: that.data.pphone,
-        parent_sex: that.data.parentType,
-        parent_remark: that.data.premark,
-        address: that.data.selectAddress,
-        choose_class: that.data.chooseClass,
-        choose_grade: that.data.chooseGrade,
-        student_remark: that.data.sremark,
-        teacher_phone: that.data.tphone,
-        teacher_remark: that.data.tremark
-      },
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function success(res) {
-        wx.switchTab({
-          url: '/pages/in/homepage/homepage'
-        });
-      },
-      fail: function fail(res) {
-        console.log("fail");
-        console.log(res.errMsg);
-      }
-    });
+    if (that.data.userType == 3) {
+      wx.request({
+        url: getApp().globalData.headurl + 'user/checkUserName',
+        data: {
+          user_nickname: that.data.tusername
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function success(res) {
+          if (res.data) {
+            wx.showAlert({
+              title: '填写须知',
+              content: '该用户名已被使用！'
+            });
+          } else {
+            wx.request({
+              url: getApp().globalData.headurl + 'user/add',
+              data: {
+                user_id: that.data.openid,
+                user_nickname: that.data.nickName,
+                tusername: that.data.tusername,
+                user_name: that.data.name,
+                user_image: that.data.avatarUrl,
+                user_type: that.data.userType,
+                parent_phone: that.data.pphone,
+                parent_sex: that.data.parentType,
+                parent_remark: that.data.premark,
+                address: that.data.selectAddress,
+                choose_class: that.data.chooseClass,
+                choose_grade: that.data.chooseGrade,
+                student_remark: that.data.sremark,
+                teacher_phone: that.data.tphone,
+                teacher_remark: that.data.tremark
+              },
+              header: {
+                'content-type': 'application/json'
+              },
+              success: function success(res) {
+                wx.switchTab({
+                  url: '/pages/in/homepage/homepage'
+                });
+              },
+              fail: function fail(res) {
+                console.log("fail");
+                console.log(res.errMsg);
+              }
+            });
+          }
+        }
+      });
+    } else {
+      wx.request({
+        url: getApp().globalData.headurl + 'user/add',
+        data: {
+          user_id: that.data.openid,
+          user_nickname: that.data.nickName,
+          tusername: that.data.tusername,
+          user_name: that.data.name,
+          user_image: that.data.avatarUrl,
+          user_type: that.data.userType,
+          parent_phone: that.data.pphone,
+          parent_sex: that.data.parentType,
+          parent_remark: that.data.premark,
+          address: that.data.selectAddress,
+          choose_class: that.data.chooseClass,
+          choose_grade: that.data.chooseGrade,
+          student_remark: that.data.sremark,
+          teacher_phone: that.data.tphone,
+          teacher_remark: that.data.tremark
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function success(res) {
+          wx.switchTab({
+            url: '/pages/in/homepage/homepage'
+          });
+        },
+        fail: function fail(res) {
+          console.log("fail");
+          console.log(res.errMsg);
+        }
+      });
+    }
   },
   //数据回填方法
   backfill: function backfill(e) {
@@ -152,6 +206,11 @@ exports.default = Page({
       case "name":
         that.setData({
           name: e.detail.value
+        });
+        break;
+      case "tusername":
+        that.setData({
+          tusername: e.detail.value
         });
         break;
       case "tphone":

@@ -67,12 +67,12 @@ export default {
               break;
           case "2":
               wx.navigateTo({
-                  url:'/pages/in/service/exercises/math?id=79bed2b0e57c4f7f8e71b9817f03e3b9'
+                  url:'/pages/in/service/exercises/math?id=cd84a79d6ee04e4d9630731b25b589d0'
                   });
               break;
           case "3":
               wx.navigateTo({
-                  url:'/pages/in/service/exercises/english?id=cd84a79d6ee04e4d9630731b25b589d0'
+                  url:'/pages/in/service/exercises/english?id=79bed2b0e57c4f7f8e71b9817f03e3b9'
                   });
               break;
           default:

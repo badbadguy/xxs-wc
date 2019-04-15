@@ -50,6 +50,9 @@
   <view style="{{showt}}" id="t">
     <view>
       <view class="flex-wrp-row">
+        <text class="textt">*用户名：</text><input placeholder="请输入您的用户名" id="tusername" type="text" class="item-right flex-wrp-row" bindblur="getText"></input>
+      </view>
+      <view class="flex-wrp-row">
         <text class="textt">电话：</text><input placeholder="请输入您的电话号码" id="tphone" type="number" class="item-right flex-wrp-row" bindblur="getText"></input>
       </view>
       <view class="flex-wrp-row">

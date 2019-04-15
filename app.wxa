@@ -46,12 +46,7 @@ export default {
       color: '#a9b7b7',
       selectedColor: '#11cd6e',
       borderStyle: 'white',
-      list: [{
-          selectedIconPath: 'imgs/index/indexon.png',
-          iconPath: 'imgs/index/index.png',
-          pagePath: 'pages/in/homepage/homepage',
-          text: '首页'
-        },
+      list: [
         {
           selectedIconPath: 'imgs/index/serviceon.png',
           iconPath: 'imgs/index/service.png',
@@ -93,9 +88,9 @@ export default {
   },
   globalData: {
     openid: '',
-    headurl: 'http://47.106.213.157:9999',
+    // headurl: 'http://47.106.213.157:9999',
     // headurl: 'http://10.50.34.86:9999/',
-    // headurl: 'http://192.168.191.1:9999/',
+    headurl: 'http://192.168.191.1:9999/',
     history: []
   },
   onLaunch() {

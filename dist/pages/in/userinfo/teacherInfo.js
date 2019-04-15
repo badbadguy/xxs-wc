@@ -87,8 +87,20 @@ exports.default = Page({
         });
         break;
       case "pwds":
-        that.setData({
-          pwd_is: "display:none"
+        wx.request({
+          url: getApp().globalData.headurl + 'user/changePws',
+          header: {
+            'content-type': 'application/json'
+          },
+          data: {
+            user_password: that.data.tempPwd,
+            user_id: getApp().globalData.openid
+          },
+          success: function success() {
+            that.setData({
+              pwd_is: "display:none"
+            });
+          }
         });
         break;
       case "addresss":
@@ -153,7 +165,12 @@ exports.default = Page({
       address_is: ""
     });
   },
-  resetpwd: function resetpwd(e) {},
+  resetpwd: function resetpwd(e) {
+    var that = this;
+    if (e.type == "tap") that.setData({
+      pwd_is: ""
+    });
+  },
   onLoad: function onLoad() {
     var that = this;
     wx.request({

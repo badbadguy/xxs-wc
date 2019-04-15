@@ -22,7 +22,7 @@
               <ui-row height="80" class='content' wx:if="{{item.question_image}}">
                 <image src="{{item.question_image}}" mode="aspectFit" lazy-load>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_answer1}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_answer1}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer1 }}</ui-col>
                 <text class="temp1">答案A</text>
                 <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 1}}">
@@ -30,7 +30,7 @@
                 </ui-col>
                 <view wx:else class="xixixi"></view>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_answer2}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_answer2}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer2 }}</ui-col>
                 <text class="temp1">答案B</text>
                 <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 2}}">
@@ -38,7 +38,7 @@
                 </ui-col>
                 <view wx:else class="xixixi"></view>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_answer3}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_answer3}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer3 }}</ui-col>
                 <text class="temp1">答案C</text>
                 <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 3}}">
@@ -46,7 +46,7 @@
                 </ui-col>
                 <view wx:else class="xixixi"></view>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_answer4}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_answer4}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer4 }}</ui-col>
                 <text class="temp1">答案D</text>
                 <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 4}}">
@@ -54,7 +54,7 @@
                 </ui-col>
                 <view wx:else class="xixixi"></view>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_remark}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_remark}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_remark }}</ui-col>
                 <text class="temp3">错题提示</text>
               </ui-row>
@@ -77,13 +77,16 @@
               <ui-row height="80" class='content' wx:if="{{item.question_image}}">
                 <image src="{{item.question_image}}" mode="aspectFit" lazy-load>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_answers}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_answers}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answers }}</ui-col>
                 <text class="temp3">正确答案</text>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_remark}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_remark}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_remark }}</ui-col>
                 <text class="temp3">错题提示</text>
+              </ui-row>
+              <ui-row height="50" class='content'>
+                <text class="temp3"></text>
               </ui-row>
             </view>
           </ui-accordion>
@@ -104,13 +107,16 @@
               <ui-row height="80" class='content' wx:if="{{item.question_image}}">
                 <image src="{{item.question_image}}" mode="aspectFit" lazy-load>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_answers}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_answers}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answers }}</ui-col>
                 <text class="temp3">正确答案</text>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_remark}}">
+              <ui-row height="50" class='content'>
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_remark }}</ui-col>
                 <text class="temp3">错题提示</text>
+              </ui-row>
+              <ui-row height="50" class='content'>
+                <text class="temp3"></text>
               </ui-row>
             </view>
           </ui-accordion>
@@ -131,7 +137,7 @@
               <ui-row height="80" class='content' wx:if="{{item.question_image}}">
                 <image src="{{item.question_image}}" mode="aspectFit" lazy-load>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_answer1}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_answer1}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer1 }}</ui-col>
                 <text class="temp1">答案A</text>
                 <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 1}}">
@@ -139,7 +145,7 @@
                 </ui-col>
                 <view wx:else class="xixixi"></view>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_answer2}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_answer2}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer2 }}</ui-col>
                 <text class="temp1">答案B</text>
                 <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 2}}">
@@ -147,7 +153,7 @@
                 </ui-col>
                 <view wx:else class="xixixi"></view>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_answer3}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_answer3}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer3 }}</ui-col>
                 <text class="temp1">答案C</text>
                 <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 3}}">
@@ -155,7 +161,7 @@
                 </ui-col>
                 <view wx:else class="xixixi"></view>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_answer4}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_answer4}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_answer4 }}</ui-col>
                 <text class="temp1">答案D</text>
                 <ui-col vertical-align="middle" align="center" width="50" wx:if="{{item.question_answerr === 4}}">
@@ -163,16 +169,16 @@
                 </ui-col>
                 <view wx:else class="xixixi"></view>
               </ui-row>
-              <ui-row class='content' wx:if="{{item.question_remark}}">
+              <ui-row height="50" class='content' wx:if="{{item.question_remark}}">
                 <ui-col vertical-align="middle" align="left" space-left="10">{{ item.question_remark }}</ui-col>
                 <text class="temp3">错题提示</text>
               </ui-row>
-              <view wx:for="{{item.children}}" wx:for-item="children">
-                <ui-row class='intitle'>
+              <block wx:for="{{item.children}}" wx:for-item="children">
+                <ui-row height="50" class='intitle'>
                   <ui-col vertical-align="middle" align="left" space-left="10">{{ children.question_title }}</ui-col>
                   <text class="temp3">嵌套题目</text>
                 </ui-row>
-                <ui-row class='content' wx:if="{{children.question_answer1}}">
+                <ui-row height="50" class='content'>
                   <ui-col vertical-align="middle" align="left" space-left="10">{{ children.question_answer1 }}</ui-col>
                   <text class="temp1">答案A</text>
                   <ui-col vertical-align="middle" align="center" width="50" wx:if="{{children.question_answerr === 1}}">
@@ -180,7 +186,7 @@
                   </ui-col>
                   <view wx:else class="xixixi"></view>
                 </ui-row>
-                <ui-row class='content' wx:if="{{children.question_answer2}}">
+                <ui-row height="50" class='content'>
                   <ui-col vertical-align="middle" align="left" space-left="10">{{ children.question_answer2 }}</ui-col>
                   <text class="temp1">答案B</text>
                   <ui-col vertical-align="middle" align="center" width="50" wx:if="{{children.question_answerr === 2}}">
@@ -188,7 +194,7 @@
                   </ui-col>
                   <view wx:else class="xixixi"></view>
                 </ui-row>
-                <ui-row class='content' wx:if="{{children.question_answer3}}">
+                <ui-row height="50" class='content'>
                   <ui-col vertical-align="middle" align="left" space-left="10">{{ children.question_answer3 }}</ui-col>
                   <text class="temp1">答案C</text>
                   <ui-col vertical-align="middle" align="center" width="50" wx:if="{{children.question_answerr === 3}}">
@@ -196,7 +202,7 @@
                   </ui-col>
                   <view wx:else class="xixixi"></view>
                 </ui-row>
-                <ui-row class='content' wx:if="{{children.question_answer4}}">
+                <ui-row height="50" class='content'>
                   <ui-col vertical-align="middle" align="left" space-left="10">{{ children.question_answer4 }}</ui-col>
                   <text class="temp1">答案D</text>
                   <ui-col vertical-align="middle" align="center" width="50" wx:if="{{children.question_answerr === 4}}">
@@ -204,11 +210,14 @@
                   </ui-col>
                   <view wx:else class="xixixi"></view>
                 </ui-row>
-                <ui-row class='content' wx:if="{{children.question_remark}}">
+                <ui-row height="50" class='content'>
                   <ui-col vertical-align="middle" align="left" space-left="10">{{ children.question_remark }}</ui-col>
                   <text class="temp3">错题提示</text>
                 </ui-row>
-              </view>
+              </block>
+              <ui-row height="250" class='content' wx:if="{{item.children == null}}">
+                <text class="temp3">错题提示</text>
+              </ui-row>
             </view>
           </ui-accordion>
         </view>
@@ -246,7 +255,11 @@ export default {
         heightAuto: tempheight + '%'
       })
     },
-    onLoad: function() {
+    onLoad: function(e) {
+      console.log(e)
+      this.setData({
+        subject_id:e.teacher_subject
+      })
       this.question(0);
     },
     question(temp){

@@ -172,14 +172,14 @@ export default {
         break;
       case "4":
         wx.navigateTo({
-          url:'/pages/in/service/showexer/showexer'
+          url:'/pages/in/service/showexer/showexer?teacher_subject='+that.data.teacher_subject
         })
         break;
       case "5":
         wx.navigateTo({
           url:'/pages/in/service/doexercises/select'
         })
-        break;
+        break;d
       case "6":
         wx.navigateTo({
           url:'/pages/in/service/checkWrong/checkkWrong'
