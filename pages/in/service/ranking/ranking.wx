@@ -1,37 +1,135 @@
 <template>
-    <ui-row height="50" border-top border-bottom space-bottom="20">
-      <ui-col span="3" border-right vertical-align="middle" align="center">
-        排名
-      </ui-col>
-      <ui-col>
-        <ui-row height="40">
-          <ui-col span="8" border-right vertical-align="middle" align="center">
-            名字
-          </ui-col>
-          <ui-col span="3" vertical-align="middle" align="center">
-            错题数量
-          </ui-col>
-        </ui-row>
-      </ui-col>
-    </ui-row>
-  <view wx:for="{{ranking}}">
-    <ui-row height="50" border-top border-bottom space-bottom="0">
-      <ui-col span="3" border-right vertical-align="middle" align="center">
-        <block wx:if="{{index<4}}">
-          <image src="{{imgurl[index].url}}" style="width:72.4rpx;height:72.4rpx;">
-        </block>
-      </ui-col>
-      <ui-col>
-        <ui-row height="40">
-          <ui-col span="8" border-right vertical-align="middle" align="center">
-            {{item.s}}
-          </ui-col>
-          <ui-col span="3" vertical-align="middle" align="center">
-            {{item.c}}
-          </ui-col>
-        </ui-row>
-      </ui-col>
-    </ui-row>
+  <view>
+    <ui-tabs index="{{ current1 }}" bindchange="handleChange1">
+      <ui-tab>语文</ui-tab>
+      <ui-tab>数学</ui-tab>
+      <ui-tab>英语</ui-tab>
+    </ui-tabs>
+    <swiper class="content" current="{{ current1 }}"  bindchange="handleContentChange1">
+        <swiper-item>
+            <view>
+              <ui-row height="50" border-top border-bottom space-bottom="20">
+                <ui-col span="3" border-right vertical-align="middle" align="center">
+                  语文排名
+                </ui-col>
+                <ui-col>
+                  <ui-row height="40">
+                    <ui-col span="8" border-right vertical-align="middle" align="center">
+                      名字
+                    </ui-col>
+                    <ui-col span="3" vertical-align="middle" align="center">
+                      错题数量
+                    </ui-col>
+                  </ui-row>
+                </ui-col>
+              </ui-row>
+              <view wx:for="{{ranking}}">
+                <ui-row height="50" border-top border-bottom space-bottom="0">
+                  <ui-col span="3" border-right vertical-align="middle" align="center">
+                    <block wx:if="{{index<3}}">
+                      <image src="{{imgurl[index].url}}" style="width:72.4rpx;height:72.4rpx;">
+                    </block>
+                    <block wx:else>
+                      {{index + 1}}
+                    </block>
+                  </ui-col>
+                  <ui-col>
+                    <ui-row height="40">
+                      <ui-col span="8" border-right vertical-align="middle" align="center">
+                        {{item.s}}
+                      </ui-col>
+                      <ui-col span="3" vertical-align="middle" align="center">
+                        {{item.c}}
+                      </ui-col>
+                    </ui-row>
+                  </ui-col>
+                </ui-row>
+              </view>
+            </view>
+        </swiper-item>
+        <swiper-item>
+            <view>
+              <ui-row height="50" border-top border-bottom space-bottom="20">
+                <ui-col span="3" border-right vertical-align="middle" align="center">
+                  数学排名
+                </ui-col>
+                <ui-col>
+                  <ui-row height="40">
+                    <ui-col span="8" border-right vertical-align="middle" align="center">
+                      名字
+                    </ui-col>
+                    <ui-col span="3" vertical-align="middle" align="center">
+                      错题数量
+                    </ui-col>
+                  </ui-row>
+                </ui-col>
+              </ui-row>
+              <view wx:for="{{ranking}}">
+                <ui-row height="50" border-top border-bottom space-bottom="0">
+                  <ui-col span="3" border-right vertical-align="middle" align="center">
+                    <block wx:if="{{index<3}}">
+                      <image src="{{imgurl[index].url}}" style="width:72.4rpx;height:72.4rpx;">
+                    </block>
+                    <block wx:else>
+                      {{index + 1}}
+                    </block>
+                  </ui-col>
+                  <ui-col>
+                    <ui-row height="40">
+                      <ui-col span="8" border-right vertical-align="middle" align="center">
+                        {{item.s}}
+                      </ui-col>
+                      <ui-col span="3" vertical-align="middle" align="center">
+                        {{item.c}}
+                      </ui-col>
+                    </ui-row>
+                  </ui-col>
+                </ui-row>
+              </view>
+            </view>
+        </swiper-item>
+        <swiper-item>
+            <view>
+              <ui-row height="50" border-top border-bottom space-bottom="20">
+                <ui-col span="3" border-right vertical-align="middle" align="center">
+                  英语排名
+                </ui-col>
+                <ui-col>
+                  <ui-row height="40">
+                    <ui-col span="8" border-right vertical-align="middle" align="center">
+                      名字
+                    </ui-col>
+                    <ui-col span="3" vertical-align="middle" align="center">
+                      错题数量
+                    </ui-col>
+                  </ui-row>
+                </ui-col>
+              </ui-row>
+              <view wx:for="{{ranking}}">
+                <ui-row height="50" border-top border-bottom space-bottom="0">
+                  <ui-col span="3" border-right vertical-align="middle" align="center">
+                    <block wx:if="{{index<3}}">
+                      <image src="{{imgurl[index].url}}" style="width:72.4rpx;height:72.4rpx;">
+                    </block>
+                    <block wx:else>
+                      {{index + 1}}
+                    </block>
+                  </ui-col>
+                  <ui-col>
+                    <ui-row height="40">
+                      <ui-col span="8" border-right vertical-align="middle" align="center">
+                        {{item.s}}
+                      </ui-col>
+                      <ui-col span="3" vertical-align="middle" align="center">
+                        {{item.c}}
+                      </ui-col>
+                    </ui-row>
+                  </ui-col>
+                </ui-row>
+              </view>
+            </view>
+        </swiper-item>
+    </swiper>
   </view>
 </template>
 
@@ -45,16 +143,48 @@ export default {
       {"url":'../../../../imgs/service/no1.png'},
       {"url":'../../../../imgs/service/no2.png'},
       {"url":'../../../../imgs/service/no3.png'}
-    ]
+    ],
+    current1: 0,
+  },
+  handleContentChange1 (e) {
+    var that = this;
+    let current = e.detail.current
+    this.setData({
+      current1:current
+    })
+    switch (current) {
+      case 0:
+        that.getRanking('33018ef1b3b74a18b6d9f94bff995d79');
+        break;
+      case 1:
+        that.getRanking('cd84a79d6ee04e4d9630731b25b589d0');
+        break;
+      case 2:
+        that.getRanking('79bed2b0e57c4f7f8e71b9817f03e3b9');
+        break;
+      default:
+        break;
+    }
+    },
+  handleChange1 (e) {
+      let index = e.detail.index
+      this.setData({
+        current1:index
+      })
   },
   onLoad(){
+    this.getRanking('33018ef1b3b74a18b6d9f94bff995d79');
+  },
+  getRanking(subject){
     var that = this;
     wx.request({
       url:getApp().globalData.headurl + 'answer/ranking',
       header:{
         'content-type': 'application/json'
       },
-      data:{},
+      data:{
+        subject_id:subject
+      },
       success: function(res){
         that.setData({
           ranking: res.data
@@ -66,4 +196,7 @@ export default {
 </script>
 
 <style lang="less">
+.content{
+  height: 2000rpx;
+}
 </style>

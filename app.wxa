@@ -9,6 +9,7 @@ export default {
   config: {
     usingComponents: {},
     pages: [
+      'pages/in/service/leave/leave',
       'pages/in/service/bindStudent/bindStudent',
       'pages/in/service/ranking/ranking',
       'pages/home/index',
@@ -46,8 +47,7 @@ export default {
       color: '#a9b7b7',
       selectedColor: '#11cd6e',
       borderStyle: 'white',
-      list: [
-        {
+      list: [{
           selectedIconPath: 'imgs/index/serviceon.png',
           iconPath: 'imgs/index/service.png',
           pagePath: 'pages/in/service/service',

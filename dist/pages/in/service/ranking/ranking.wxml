@@ -1,50 +1,180 @@
-<view class="ui-row ui-row-border-top ui-row-border-bottom" style="margin-bottom: 20px;height:50px;">
-  <view class="ui-col ui-col-3 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
-    <view class="ui-col-content align-center valign-middle">
-      排名
-    </view>
-  </view>
-  <view class="ui-col" style="">
-    <view class="ui-col-content">
-      <view class="ui-row" style="height:40px;">
-        <view class="ui-col ui-col-8 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 66.66666666666666%;">
-          <view class="ui-col-content align-center valign-middle">
-            名字
-          </view>
-        </view>
-        <view class="ui-col ui-col-3 ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
-          <view class="ui-col-content align-center valign-middle">
-            错题数量
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
-</view>
-<view wx:for="{{ranking}}">
-  <view class="ui-row ui-row-border-top ui-row-border-bottom" style="margin-bottom: 0px;height:50px;">
-    <view class="ui-col ui-col-3 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
-      <view class="ui-col-content align-center valign-middle">
-        <block wx:if="{{index<4}}">
-          <image src="{{imgurl[index].url}}" style="width:72.4rpx;height:72.4rpx;" />
-        </block>
-      </view>
-    </view>
-    <view class="ui-col" style="">
-      <view class="ui-col-content">
-        <view class="ui-row" style="height:40px;">
-          <view class="ui-col ui-col-8 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 66.66666666666666%;">
+<view>
+  <ui-tabs index="{{ current1 }}" bindchange="handleChange1" _pid="{{_pid}}">
+    <ui-tab _pid="{{_pid}}">语文</ui-tab>
+    <ui-tab _pid="{{_pid}}">数学</ui-tab>
+    <ui-tab _pid="{{_pid}}">英语</ui-tab>
+  </ui-tabs>
+  <swiper class="content" current="{{ current1 }}" bindchange="handleContentChange1">
+    <swiper-item>
+      <view>
+        <view class="ui-row ui-row-border-top ui-row-border-bottom" style="margin-bottom: 20px;height:50px;">
+          <view class="ui-col ui-col-3 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
             <view class="ui-col-content align-center valign-middle">
-              {{item.s}}
+              语文排名
             </view>
           </view>
-          <view class="ui-col ui-col-3 ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
-            <view class="ui-col-content align-center valign-middle">
-              {{item.c}}
+          <view class="ui-col" style="">
+            <view class="ui-col-content">
+              <view class="ui-row" style="height:40px;">
+                <view class="ui-col ui-col-8 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 66.66666666666666%;">
+                  <view class="ui-col-content align-center valign-middle">
+                    名字
+                  </view>
+                </view>
+                <view class="ui-col ui-col-3 ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
+                  <view class="ui-col-content align-center valign-middle">
+                    错题数量
+                  </view>
+                </view>
+              </view>
             </view>
           </view>
         </view>
+        <view wx:for="{{ranking}}">
+          <view class="ui-row ui-row-border-top ui-row-border-bottom" style="margin-bottom: 0px;height:50px;">
+            <view class="ui-col ui-col-3 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
+              <view class="ui-col-content align-center valign-middle">
+                <block wx:if="{{index<3}}">
+                  <image src="{{imgurl[index].url}}" style="width:72.4rpx;height:72.4rpx;" />
+                </block>
+                <block wx:else="">
+                  {{index + 1}}
+                </block>
+              </view>
+            </view>
+            <view class="ui-col" style="">
+              <view class="ui-col-content">
+                <view class="ui-row" style="height:40px;">
+                  <view class="ui-col ui-col-8 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 66.66666666666666%;">
+                    <view class="ui-col-content align-center valign-middle">
+                      {{item.s}}
+                    </view>
+                  </view>
+                  <view class="ui-col ui-col-3 ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
+                    <view class="ui-col-content align-center valign-middle">
+                      {{item.c}}
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
       </view>
-    </view>
-  </view>
+    </swiper-item>
+    <swiper-item>
+      <view>
+        <view class="ui-row ui-row-border-top ui-row-border-bottom" style="margin-bottom: 20px;height:50px;">
+          <view class="ui-col ui-col-3 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
+            <view class="ui-col-content align-center valign-middle">
+              数学排名
+            </view>
+          </view>
+          <view class="ui-col" style="">
+            <view class="ui-col-content">
+              <view class="ui-row" style="height:40px;">
+                <view class="ui-col ui-col-8 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 66.66666666666666%;">
+                  <view class="ui-col-content align-center valign-middle">
+                    名字
+                  </view>
+                </view>
+                <view class="ui-col ui-col-3 ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
+                  <view class="ui-col-content align-center valign-middle">
+                    错题数量
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view wx:for="{{ranking}}">
+          <view class="ui-row ui-row-border-top ui-row-border-bottom" style="margin-bottom: 0px;height:50px;">
+            <view class="ui-col ui-col-3 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
+              <view class="ui-col-content align-center valign-middle">
+                <block wx:if="{{index<3}}">
+                  <image src="{{imgurl[index].url}}" style="width:72.4rpx;height:72.4rpx;" />
+                </block>
+                <block wx:else="">
+                  {{index + 1}}
+                </block>
+              </view>
+            </view>
+            <view class="ui-col" style="">
+              <view class="ui-col-content">
+                <view class="ui-row" style="height:40px;">
+                  <view class="ui-col ui-col-8 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 66.66666666666666%;">
+                    <view class="ui-col-content align-center valign-middle">
+                      {{item.s}}
+                    </view>
+                  </view>
+                  <view class="ui-col ui-col-3 ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
+                    <view class="ui-col-content align-center valign-middle">
+                      {{item.c}}
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view>
+        <view class="ui-row ui-row-border-top ui-row-border-bottom" style="margin-bottom: 20px;height:50px;">
+          <view class="ui-col ui-col-3 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
+            <view class="ui-col-content align-center valign-middle">
+              英语排名
+            </view>
+          </view>
+          <view class="ui-col" style="">
+            <view class="ui-col-content">
+              <view class="ui-row" style="height:40px;">
+                <view class="ui-col ui-col-8 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 66.66666666666666%;">
+                  <view class="ui-col-content align-center valign-middle">
+                    名字
+                  </view>
+                </view>
+                <view class="ui-col ui-col-3 ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
+                  <view class="ui-col-content align-center valign-middle">
+                    错题数量
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view wx:for="{{ranking}}">
+          <view class="ui-row ui-row-border-top ui-row-border-bottom" style="margin-bottom: 0px;height:50px;">
+            <view class="ui-col ui-col-3 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
+              <view class="ui-col-content align-center valign-middle">
+                <block wx:if="{{index<3}}">
+                  <image src="{{imgurl[index].url}}" style="width:72.4rpx;height:72.4rpx;" />
+                </block>
+                <block wx:else="">
+                  {{index + 1}}
+                </block>
+              </view>
+            </view>
+            <view class="ui-col" style="">
+              <view class="ui-col-content">
+                <view class="ui-row" style="height:40px;">
+                  <view class="ui-col ui-col-8 ui-col-border-right ui-col-align-center align-center valign-middle" style="flex: 0 0 66.66666666666666%;">
+                    <view class="ui-col-content align-center valign-middle">
+                      {{item.s}}
+                    </view>
+                  </view>
+                  <view class="ui-col ui-col-3 ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
+                    <view class="ui-col-content align-center valign-middle">
+                      {{item.c}}
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
 </view>
