@@ -1,6 +1,12 @@
 <template>
 <view class="box">
   <ui-row border-top border-bottom class="row-height">
+    <ui-col vertical-align="middle" align="center" border-right bindtap="gotowhere" id="0">
+      <image src="../../../imgs/service/translate.png" class="imgin"/>
+      <text class="text-down">答疑版</text>
+    </ui-col>
+  </ui-row>
+  <ui-row border-top border-bottom class="row-height">
     <ui-col vertical-align="middle" align="center" border-right bindtap="gotowhere" id="1">
       <image src="../../../imgs/service/translate.png" class="imgin"/>
       <text class="text-down">语音翻译</text>
@@ -155,6 +161,11 @@ export default {
   gotowhere: function(res) {
     var that = this;
     switch (res.currentTarget.id) {
+      case "0":
+        wx.navigateTo({
+          url:'/pages/in/service/leave/leave?user_type='+that.data.user_type
+        })
+        break;
       case "1":
         wx.navigateTo({
           url:'/pages/in/service/translate/translate'

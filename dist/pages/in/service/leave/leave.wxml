@@ -1,4 +1,5 @@
 <view>
+  <button bindtap="addM" wx:if="{{user_type == 3 || user_type == 4}}">新增留言</button>
   <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="refresh">
     <view class="pro-con">
       <block wx:for="{{list}}" wx:key="{{index}}">
@@ -12,37 +13,72 @@
                 </view>
               </view>
             </view>
+            <view class="box1">
+              <view class="shead clear">
+                <view class="names fl">
+                  To：{{item.u1name}}
+                </view>
+              </view>
+            </view>
           </view>
           <view class="addr-info">
             <view class="addr-text">
-              {{item.message}}
+              <text>{{item.message}}</text>
+            </view>
+            <view class="text">
+              <text decode="true">{{item.updata_time}}</text>
+            </view>
+          </view>
+          <view class="addr-info" wx:for="{{item.children}}" wx:for-item="children">
+            <view class="addr-text">
+              <text>{{children.user_name}}回复：{{children.message}}</text>
+            </view>
+            <view class="text">
+              <text decode="true">{{children.updata_time}}</text>
             </view>
           </view>
           <view class="info">
             <view class="text">
-              <text decode="true">{{item.updata_time}}</text>
+              <button class="sharebtn" data-index="{{index}}" bindtap="bindReply">回复</button>
             </view>
-            <view class="text">
-              <button class="sharebtn" data-commentId="{{item.id}}" data-commentUserName="{{item.userName}}" bindtap="bindReply">回复</button>
-            </view>
-            <view wx:if="{{item.userId == userId}}" class="status text fr">
-              <text class="delete" decode="true" bindtap="deleteComment" data-CommentId="{{item.id}}">删除</text>
+            <view wx:if="{{item.user_id == openid}}" class="status text fr">
+              <text class="delete" decode="true" bindtap="deleteComment" data-leave_id="{{item.leave_id}}">删除</text>
             </view>
           </view>
         </view>
       </block>
     </view>
   </scroll-view>
-  <form bindsubmit="submitForm" report-submit="true">
-    <view class="release">
-      <view wx:if="{{reply}}" class="replyinfo1">
-        回复<text class="text">{{replyUserName}}</text>
-        <button class="cancel" bindtap="cancleReply">取消回复</button>
+  <ui-popup show="{{ show1 }}" height="100%" _pid="{{_pid}}">
+    <view class="popup1">
+      <button bindtap="cancleM" plain type="primary">取消</button>
+      <button bindtap="chooseT" plain type="primary">选择教师</button>
+      <view class="all-in" wx:if="{{accordionC}}">
+        <text class="select" style="margin-top: 20px;">已经选择了{{accordionValueC[selectAAA].value}}老师</text>
       </view>
-      <view class="replyinfo2">
-        <textarea placeholder-class="input_null" fixed="true" maxlength="-1" show-confirm-bar="false" cursor-spacing="15" auto-height="true" placeholder="请输入回复" name="comment"></textarea>
-        <button form-type="submit" class="submit">发送</button>
-      </view>
+      <text class="textt">*留言内容：</text>
+      <textarea placeholder-class="input_null" fixed="true" maxlength="-1" show-confirm-bar="false" cursor-spacing="15" auto-height="true" placeholder="请输入留言内容" bindblur="getText"></textarea>
+      <button bindtap="sureAddM" plain type="primary">留言</button>
     </view>
-  </form>
+    <ui-popup show="{{ show3 }}" height="100%" _pid="{{_pid}}">
+      <view class="popup1">
+        <button bindtap="cancleT" plain type="primary">取消</button>
+        <ui-check-list max="1" options="{{ accordionValueC }}" bindchange="selectT" type="circle" _pid="{{_pid}}"></ui-check-list>
+        <button bindtap="sureT" plain type="primary">确定</button>
+      </view>
+    </ui-popup>
+  </ui-popup>
+  <ui-popup show="{{ show2 }}" position="bottom" height="300" _pid="{{_pid}}">
+    <form bindsubmit="submitForm" report-submit="true">
+      <view class="release">
+        <view class="replyinfo1">
+          <text class="text">回复{{ruserName}}:</text>
+        </view>
+        <view class="replyinfo2">
+          <textarea placeholder-class="input_null" fixed="true" maxlength="-1" show-confirm-bar="false" cursor-spacing="15" auto-height="true" placeholder="请输入回复" name="comment"></textarea>
+          <button form-type="submit" class="submit">发送</button>
+        </view>
+      </view>
+    </form>
+  </ui-popup>
 </view>

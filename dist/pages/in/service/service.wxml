@@ -1,5 +1,13 @@
 <view class="box">
   <view class="row-height ui-row ui-row-border-top ui-row-border-bottom" style="">
+    <view bindtap="gotowhere" id="0" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
+      <view class="ui-col-content align-center valign-middle">
+        <image src="../../../imgs/service/translate.png" class="imgin" />
+        <text class="text-down">答疑版</text>
+      </view>
+    </view>
+  </view>
+  <view class="row-height ui-row ui-row-border-top ui-row-border-bottom" style="">
     <view bindtap="gotowhere" id="1" class="ui-col ui-col-border-right ui-col-align-center align-center valign-middle" style="">
       <view class="ui-col-content align-center valign-middle">
         <image src="../../../imgs/service/translate.png" class="imgin" />

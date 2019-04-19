@@ -102,6 +102,11 @@ exports.default = Page({
   gotowhere: function gotowhere(res) {
     var that = this;
     switch (res.currentTarget.id) {
+      case "0":
+        wx.navigateTo({
+          url: '/pages/in/service/leave/leave?user_type=' + that.data.user_type
+        });
+        break;
       case "1":
         wx.navigateTo({
           url: '/pages/in/service/translate/translate'

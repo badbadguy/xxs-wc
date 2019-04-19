@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/home/index",
     "pages/in/service/leave/leave",
     "pages/in/service/bindStudent/bindStudent",
     "pages/in/service/ranking/ranking",
