@@ -396,7 +396,8 @@ exports.default = Page({
       },
       data: {
         user_id: getApp().globalData.openid,
-        q: tempQ
+        q: tempQ,
+        subject_id : that.data.subject_id
       },
       success: function success(data) {
         console.log(data);
